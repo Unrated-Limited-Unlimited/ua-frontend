@@ -1,0 +1,21 @@
+body {
+    background-color: var(--bg-color);
+}
+ul {
+    background-color: var(--navbar);
+}
+a {
+    color: var(--accent);
+}
+
+html[data-theme="dracula"] {
+    --bg-color: #282a36;
+    --navbar: #44475a;
+    --accent: #ff5555;
+}
+
+html[data-theme="val"] {
+    --bg-color: #bfdf8e;
+    --navbar: #f1fec6;
+    --accent: #ffad4f;
+}
