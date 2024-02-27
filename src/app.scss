@@ -6,7 +6,11 @@ ul {
     background-color: var(--navbar);
 }
 a {
-    color: var(--accent);
+    color: black
+}
+
+button {
+    background-color: var(--accent);
 }
 
 html[data-theme="dracula"] {

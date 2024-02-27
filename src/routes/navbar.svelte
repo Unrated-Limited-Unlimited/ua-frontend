@@ -51,12 +51,17 @@
     <li><a href="/">Home</a></li>
     <li><a href="/profile">Profile</a></li>
     <li><a href="/friends">Friends</a></li>
-    <li><a href="/whiskey-view">whiskey-view (testing)</a></li>
-    <button on:click={toggle_theme}>random colour</button>
+    <li><a href="/whiskey-list">whiskey-list (testing)</a></li>
+    <button on:click={toggle_theme}>colour toggle</button>
 </ul>
 
 <style>
     ul {
         margin: 0;
+        display:flex;
+        justify-content: flex-start;
+        gap: 3rem;
+        list-style: none;
+        padding: .5rem;
     }
 </style>
