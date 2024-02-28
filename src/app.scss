@@ -1,12 +1,17 @@
 body {
     background-color: var(--bg-color);
     margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
 ul {
     background-color: var(--navbar);
 }
 a {
     color: black
+}
+
+a:hover{
+    color: var(--accent)
 }
 
 button {

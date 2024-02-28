@@ -6,7 +6,7 @@
 </script>
 
 <ul>
-    <li><a href="/">Home</a></li>
+    <li><a href="/"><img class="navbar-logo" alt="Unrated" src="/assets/VectorLogoUnratedText.svg"></a></li>
     <li><a href="/profile">Profile</a></li>
     <li><a href="/friends">Friends</a></li>
     <li><a href="/whiskey-list">whiskey-list (testing)</a></li>
@@ -19,8 +19,17 @@
         margin: 0;
         display:flex;
         justify-content: flex-start;
+        align-items: center;
         gap: 3rem;
         list-style: none;
         padding: .5rem;
+    }
+
+    .navbar-logo {
+        max-height: 3rem;
+    }
+
+    a{
+        text-decoration: none;
     }
 </style>
