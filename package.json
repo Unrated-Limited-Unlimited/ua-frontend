@@ -13,6 +13,7 @@
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"cypress": "^13.6.6",
 		"sass": "^1.70.0",
 		"scss": "^0.2.4",
 		"svelte": "^4.2.7",

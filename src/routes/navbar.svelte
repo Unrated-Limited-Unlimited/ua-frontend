@@ -1,7 +1,7 @@
 <script lang=ts>
     const setTheme = (theme: string) => {
         document.documentElement.dataset.theme = theme;
-        document.cookie = `siteTheme=${theme};max-age= 60*60*24*365;path="/"`;
+        document.cookie = `siteTheme=${theme};max-age=60*60*24*365;path="/"`;
     };
 </script>
 
