@@ -2,6 +2,11 @@ body {
     background-color: var(--bg-color);
     margin: 0;
     font-family: 'Roboto', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
 }
 ul {
     background-color: var(--navbar);
@@ -28,4 +33,11 @@ html[data-theme="val"] {
     --bg-color: #bfdf8e;
     --navbar: #f1fec6;
     --accent: #ffad4f;
+}
+
+.main-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

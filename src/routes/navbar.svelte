@@ -30,6 +30,8 @@
 
     .navbar-logo {
         max-height: 3rem;
+        width: auto;
+        font-family: 'Courier New', Courier, monospace;
     }
 
     .navbar-links {
