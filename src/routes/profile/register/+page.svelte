@@ -1,17 +1,34 @@
 <script lang="ts">
-    import { enhance } from '$app/forms';
+    import { goto } from '$app/navigation';
+
+    let username = "";
+    let email = "";
+    let password = "";
+
+    async function handleSubmit() {
+        
+
+        fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password
+            })
+        }).then(() => goto("/profile"));
+    }
 </script>
 
 
-<form method="post" use:enhance class="parent">
+<form on:submit={handleSubmit}>
     <h2>Create a user</h2>
-
     <div>
         <label for="username">Username</label>
         <input
             name="username"
             autocomplete="off"
             required
+            bind:value={username}
         />
     </div>
     <div>
@@ -19,6 +36,7 @@
         <input
             name="email"
             type="email"
+            bind:value={email}
         />
     </div>
     <div>
@@ -26,6 +44,7 @@
         <input
             name="password"
             type="password"
+            bind:value={password}
         />
     </div>
     <button>register</button>

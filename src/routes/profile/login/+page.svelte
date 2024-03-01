@@ -1,16 +1,19 @@
 <script lang="ts">
-import { goto } from '$app/navigation';
+    import { goto } from '$app/navigation';
 
     let username = "";
     let password = "";
 
     async function handleSubmit() {
-        try {
-            localStorage.setItem("isLoggedIn", "true")
-            goto("/")
-        } catch (error) {
+        fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
 
-        }
+        goto("/")
     }
 </script>
 

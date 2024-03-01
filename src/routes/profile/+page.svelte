@@ -4,13 +4,11 @@
 	export let data: PageData;
 
     async function logout() {
-        localStorage.removeItem("isLoggedIn");
-        isLoggedIn = false;
+        fetch("/api/auth/logout", {method: "POST"})
     }
-    export let isLoggedIn = !!localStorage.getItem("isLoggedIn");
 </script>
 
-{#if isLoggedIn} 
+{#if !!data.user} 
 <div class="profileInf">
     <img src='profile/image/{data.user.id}.svg' alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
     <div>

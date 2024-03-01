@@ -1,14 +1,11 @@
 import type { PageLoad } from './$types';
 
-export const ssr = false;
-//export const prerender = false;
-
-export const load: PageLoad = ({ params }) => {
+export const load: PageLoad = async ({ fetch }) => {
+	const res = await fetch("/api/user")
+	if (res.status == 403) {
+        return {}
+    }
     return {
-        user: {
-            id: 18021700,
-            username: 'Tor-Arne Larsen',
-            bio: 'Eg er Tor-Arne Larsen. Eg elskar viski.',
-        }
-    };
-};
+        user: await res.json()
+    }
+}
