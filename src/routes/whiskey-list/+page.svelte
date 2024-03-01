@@ -27,9 +27,7 @@
     ]
 </script>
 
-<html lang="en">
-    <title>Whiskeys - Unrated</title>
-</html>
+<title>Whiskeys - Unrated</title>
 
 <body>
     <div>
