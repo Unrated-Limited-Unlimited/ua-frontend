@@ -1,6 +1,8 @@
 import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
+export const prerender = true;
+
 export const GET: RequestHandler = ({ params }) => {
 	const id = Number(params.id);
     const response = new Response(createSvg(id));
