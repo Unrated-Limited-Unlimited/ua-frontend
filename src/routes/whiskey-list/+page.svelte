@@ -1,30 +1,33 @@
 <script>
-    const whiskey_list = [
-    {
-        "name": "Jura",
-        "price": "500",
-        "summary": "Jura is a good whiskey",
-        "percentage": "40%",
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
-        "volume": "70cl"
-    },
-    {
-        "name": "Tullamore Dew",
-        "price": "512",
-        "summary": "speaks for itself",
-        "percentage": "43%",
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
-        "volume": "70cl"
-    },
-    {
-        "name": "Jameson",
-        "price": "520",
-        "summary": "Safe ol' reliable",
-        "percentage": "41%",
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
-        "volume": "75cl"
+    import { onMount } from 'svelte';
+    import { writable } from 'svelte/store';
+
+    export const whiskeys = writable([]);
+
+    async function loadWhiskeys() {
+        try {
+            const response = await fetch("/api/whiskeys", {method: "GET"});
+            if (!response.ok) {
+                throw new Error("HTTP error! status: + ${resposne.status}");
+            }
+            const jsonData = await response.json();
+            console.log("Fetched data:", jsonData);
+
+            if (jsonData.whiskey_list && Array.isArray(jsonData.whiskey_list)) {
+                whiskeys.set(jsonData.whiskey_list);
+            } else {
+                console.error("whiskey_list is not an array:", jsonData.whiskey_list);
+                whiskeys.set([]);
+            }
+        }
+        catch (e) {
+            console.error("Failed to fetch whiskeys:", e);
+        }
     }
-    ]
+
+    onMount(() => {
+        loadWhiskeys();
+    });
 </script>
 
 <title>Whiskeys - Unrated</title>
@@ -32,11 +35,11 @@
 <body>
     <div>
         <h1>Whiskeys</h1>
-        {#each whiskey_list as whiskey}
-        <a href="/whiskey-view">
+        {#each $whiskeys as whiskey}
+        <a href="/whiskey-view/{whiskey.id}">
             <div class="whiskey-view-container">
                 <div class="whiskey-view-image-container">
-                    <img class="whiskey-view-image" src={whiskey.img}>
+                    <img class="whiskey-view-image" alt={whiskey.name} src={whiskey.img}>
                 </div>
                 <div class="whiskey-view-desc">
                     <h3>

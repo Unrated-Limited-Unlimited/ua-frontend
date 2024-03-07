@@ -1,16 +1,31 @@
-<script>
-    const whiskey_data = {
-        "name": "Jura",
-        "price": "500",
-        "summary": "Jura is a good whiskey",
-        "percentage": "40%",
-        "score": 4,
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
-        "volume": "70cl"
-    };
+<script lang="ts" context="module">
+    export async function load({ params }) {
+    const { id } = params;
+    // Fetch product data using the id
+    const response = await fetch(`/api/whiskey/${id}`);
+    const whiskey_data = await response.json();
+    return { props: { whiskey_data } };
+    }
+
 </script>
 
+<script lang="ts">
+        interface Whiskey {
+        id: number,
+        name: string,
+        price: Number,
+        summary: string,
+        percentage: Number,
+        img: string,
+        volume: Number,
+        score: Number
+    };
+
+    export let whiskey_data : Whiskey;
+</script>   
+
 <html lang="en">
+    <!-- svelte-ignore missing-declaration -->
     <title>{whiskey_data.name} - Unrated</title>
 </html>
 
