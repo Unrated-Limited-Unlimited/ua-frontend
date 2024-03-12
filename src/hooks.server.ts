@@ -10,7 +10,7 @@ export const handle = async({event, resolve}) => {
 
     return response;
 }
-
+/*
 import { dev } from '$app/environment';
 
 if (dev) {
@@ -18,3 +18,4 @@ if (dev) {
 
   server.listen();
 }
+*/

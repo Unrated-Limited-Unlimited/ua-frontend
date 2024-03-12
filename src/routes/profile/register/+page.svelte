@@ -8,7 +8,7 @@
     async function handleSubmit() {
         
 
-        fetch("/api/auth/register", {
+        fetch("/api/register", {
             method: "POST",
             body: JSON.stringify({
                 username: username,

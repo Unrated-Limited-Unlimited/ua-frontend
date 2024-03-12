@@ -1,3 +1,4 @@
+/*
 import { dev } from '$app/environment';
 
 if (dev) {
@@ -15,3 +16,4 @@ if (dev) {
     }
   });
 }
+*/

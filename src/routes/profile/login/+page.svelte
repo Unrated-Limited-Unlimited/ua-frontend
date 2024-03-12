@@ -5,7 +5,7 @@
     let password = "";
 
     async function handleSubmit() {
-        fetch("/api/auth/login", {
+        fetch("/api/login", {
             method: "POST",
             body: JSON.stringify({
                 username: username,
@@ -21,10 +21,10 @@
 
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <label for="email">Email</label>
+            <label for="username">Username</label>
             <input
-                name="email"
-                type="email" 
+                name="username"
+                type="username" 
                 bind:value={username}
             />
         </div>
