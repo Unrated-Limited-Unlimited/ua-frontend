@@ -1,27 +1,24 @@
 import { http, graphql, HttpResponse } from 'msw';
 
 export const handlers = [
-  http.get('*/api/user', ({ cookies }) => {
-    if (!cookies.authToken || cookies.authToken === "expired") {
-        return new HttpResponse(null, { status: 403 })
-    }
+  http.get('*/user', ({ cookies }) => {
     return HttpResponse.json({
         id: 18021700,
         username: 'Tor-Arne Larsen',
         bio: 'Eg er Tor-Arne Larsen. Eg elskar viski.',
     });
   }),
-  http.post('*/api/auth/login', ({ cookies }) => {
+  http.post('*/login', ({ cookies }) => {
     return new HttpResponse(null, {
         headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
-  http.post('*/api/auth/logout', ({ cookies }) => {
+  http.post('*/logout', ({ cookies }) => {
     return new HttpResponse(null, {
         headers: {'Set-Cookie': 'authToken=expired',}
     })
   }),
-  http.post('*/api/auth/register', ({ cookies }) => {
+  http.post('*/register', ({ cookies }) => {
     return new HttpResponse(null, {
         headers: {'Set-Cookie': 'authToken=abc-123',}
     })

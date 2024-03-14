@@ -3,8 +3,11 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "npm run dev:no_msw",
+		"dev:msw": "vite dev --mode msw",
+		"dev:no_msw": "vite dev",
 		"build": "vite build",
+		"build:static": "vite build --mode static",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -28,6 +31,7 @@
 	"dependencies": {
 		"@capacitor/android": "^5.7.2",
 		"@capacitor/cli": "^5.7.2",
-		"@capacitor/core": "^5.7.2"
+		"@capacitor/core": "^5.7.2",
+		"@sveltejs/adapter-node": "^5.0.1"
 	}
 }
