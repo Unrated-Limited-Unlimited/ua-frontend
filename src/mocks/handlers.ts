@@ -60,13 +60,13 @@ export const handlers = [
     })
   }),
 
-  http.get("/api/whiskeys", () => {
+  http.get("/api/whiskey", () => {
     return HttpResponse.json({
-      whiskey_list : whiskeys
+      whiskeys
     })
   }),
 
-  http.get(`/api/whiskeys/1`, () => {
+  http.get(`/api/whiskey/1`, () => {
     return HttpResponse.json({
       "id": "1",
       "name": "Jura",
@@ -78,7 +78,7 @@ export const handlers = [
       "score": "4"
     })
   }),
-  http.get(`/api/whiskeys/2`, () => {
+  http.get(`/api/whiskey/2`, () => {
     return HttpResponse.json({
       "id": "2",
       "name": "Tullamore Dew",
@@ -90,7 +90,7 @@ export const handlers = [
       "score": "4"
     })
   }),
-  http.get(`/api/whiskeys/3`, () => {
+  http.get(`/api/whiskey/3`, () => {
     return HttpResponse.json({
       "id": "3",
       "name": "Jameson",
