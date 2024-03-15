@@ -7,29 +7,58 @@
 <title>{data.whiskey.name} - Unrated</title>
 
 <div class="whiskey-site">
-    <div class="whiskey-image"><img alt={data.whiskey.name} src={data.whiskey.img}></div>
-    <div>{data.whiskey.name}</div>
-    <div class="score-container">
-        <p>{data.whiskey.score}/5</p>
-        <button>review</button>
+    <div class="main-box">
+        <div class="whiskey-image"><img alt={data.whiskey.name} src={data.whiskey.img}></div>
+        <div class="info">
+            <p>{data.whiskey.producer}</p>
+            <h2>{data.whiskey.name}</h2>
+            <div class="score-container">
+                <h1>{data.whiskey.score}</h1>
+                <div class="stars">
+                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                </div>
+            </div>
+            <button>Favourite</button>
+        </div>
     </div>
-    <div>{data.whiskey.summary}</div>
+    <div class="filler"></div>
 </div>
 
 
 <style lang="scss">
     .whiskey-site {
-        margin-top: 1rem;
-        padding: 2rem;
-        border: .2rem solid var(--navbar);
+        background-color: var(--navbar);
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        margin: 0;
     }
     .score-container {
         display: flex;
+        align-items: center;
         gap: 1rem;
+    }
+    .main-box {
+        background-color: var(--bg-color);
+        display: flex;
         justify-content: center;
+        width: 100%;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    .info {
+        width: 50rem;
+    }
+    .filler {
+        height: 40rem;
+    }
+    .stars {
+        display: flex;;
+    }
+    .rating-star {
+        width: 2rem;
     }
 </style>

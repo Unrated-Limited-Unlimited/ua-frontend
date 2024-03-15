@@ -24,10 +24,9 @@ a:hover{
 button {
     background-color: var(--accent);
 }
-
 html[data-theme="dracula"] {
-    --bg-color: #44475A;
-    --navbar: #282A36;
+    --bg-color: #282A36;
+    --navbar: #44475A;
     --accent: #ff5555;
     --text: #F8F8F2;
 }
