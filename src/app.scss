@@ -7,12 +7,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
+
+    color: var(--text)
 }
 ul {
     background-color: var(--navbar);
 }
 a {
-    color: black
+    color: var(--text)
 }
 
 a:hover{
@@ -22,17 +24,18 @@ a:hover{
 button {
     background-color: var(--accent);
 }
-
 html[data-theme="dracula"] {
-    --bg-color: #282a36;
-    --navbar: #44475a;
+    --bg-color: #282A36;
+    --navbar: #44475A;
     --accent: #ff5555;
+    --text: #F8F8F2;
 }
 
 html[data-theme="val"] {
     --bg-color: #bfdf8e;
     --navbar: #f1fec6;
     --accent: #ffad4f;
+    --text: rgb(20, 16, 6);
 }
 
 .main-window {

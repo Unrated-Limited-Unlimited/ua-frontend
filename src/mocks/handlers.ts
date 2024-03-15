@@ -57,25 +57,28 @@ export const handlers = [
     })
   }),
 
-  http.get("/api/whiskeys", () => {
+  http.get("/api/whiskey", () => {
     return HttpResponse.json({
-      whiskey_list : whiskeys
+      whiskeys
     })
   }),
 
-  http.get(`/api/whiskeys/1`, () => {
+  http.get(`/api/whiskey/1`, () => {
     return HttpResponse.json({
       "id": "1",
-      "name": "Jura",
+      "name": "Jura Single Malt 10 YO",
       "price": "500",
       "summary": "Jura is a good whiskey",
       "percentage": "40%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
       "volume": "70cl",
-      "score": "4"
+      "score": "4",
+      "producer": "Isle of Jura Dist.",
+      "product-type": "Brennevin - Whisky - Whisky, malt",
+      "country": "Skottland"
     })
   }),
-  http.get(`/api/whiskeys/2`, () => {
+  http.get(`/api/whiskey/2`, () => {
     return HttpResponse.json({
       "id": "2",
       "name": "Tullamore Dew",
@@ -84,10 +87,13 @@ export const handlers = [
       "percentage": "43%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
-      "score": "4"
+      "score": "4",
+      "producer": "Isle of Jura Dist.",
+      "product-type": "Brennevin - Whisky - Whisky, malt",
+      "country": "Skottland"
     })
   }),
-  http.get(`/api/whiskeys/3`, () => {
+  http.get(`/api/whiskey/3`, () => {
     return HttpResponse.json({
       "id": "3",
       "name": "Jameson",
@@ -96,7 +102,10 @@ export const handlers = [
       "percentage": "41%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
-      "score": "5"
+      "score": "5",
+      "producer": "Isle of Jura Dist.",
+      "product-type": "Brennevin - Whisky - Whisky, malt",
+      "country": "Skottland"
     })
   })
 ];
