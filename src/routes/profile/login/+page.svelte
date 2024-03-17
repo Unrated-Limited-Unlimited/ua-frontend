@@ -1,16 +1,20 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import { url } from '$lib/utils';
+    import { loggedIn } from '../../../store/userStore';
 
     let username = "";
     let password = "";
 
     async function handleSubmit() {
-        fetch("/api/auth/login", {
+        fetch(url("login"), {
             method: "POST",
             body: JSON.stringify({
                 username: username,
                 password: password
             })
+        }).then(() => {
+            loggedIn.set(true)
         })
 
         goto("/")
@@ -21,10 +25,10 @@
 
     <form on:submit|preventDefault={handleSubmit}>
         <div>
-            <label for="email">Email</label>
+            <label for="username">Username</label>
             <input
-                name="email"
-                type="email" 
+                name="username"
+                type="username" 
                 bind:value={username}
             />
         </div>

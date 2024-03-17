@@ -34,39 +34,36 @@ const whiskeys = [
   ];
 
 export const handlers = [
-  http.get('*/api/user', ({ cookies }) => {
-    if (!cookies.authToken || cookies.authToken === "expired") {
-        return new HttpResponse(null, { status: 403 })
-    }
+  http.get('*/user', ({ cookies }) => {
     return HttpResponse.json({
         id: 18021700,
         username: 'Tor-Arne Larsen',
         bio: 'Eg er Tor-Arne Larsen. Eg elskar viski.',
     });
   }),
-  http.post('*/api/auth/login', ({ cookies }) => {
+  http.post('*/login', ({ cookies }) => {
     return new HttpResponse(null, {
         headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
-  http.post('*/api/auth/logout', ({ cookies }) => {
+  http.post('*/logout', ({ cookies }) => {
     return new HttpResponse(null, {
         headers: {'Set-Cookie': 'authToken=expired',}
     })
   }),
-  http.post('*/api/auth/register', ({ cookies }) => {
+  http.post('*/register', ({ cookies }) => {
     return new HttpResponse(null, {
         headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
 
-  http.get("/api/whiskey", () => {
+  http.get("*/whiskey", () => {
     return HttpResponse.json({
       whiskeys
     })
   }),
 
-  http.get(`/api/whiskey/1`, () => {
+  http.get(`*/whiskey/1`, () => {
     return HttpResponse.json({
       "id": "1",
       "name": "Jura Single Malt 10 YO",
@@ -81,7 +78,7 @@ export const handlers = [
       "country": "Skottland"
     })
   }),
-  http.get(`/api/whiskey/2`, () => {
+  http.get(`*/whiskey/2`, () => {
     return HttpResponse.json({
       "id": "2",
       "name": "Tullamore Dew",
@@ -96,7 +93,7 @@ export const handlers = [
       "country": "Skottland"
     })
   }),
-  http.get(`/api/whiskey/3`, () => {
+  http.get(`*/whiskey/3`, () => {
     return HttpResponse.json({
       "id": "3",
       "name": "Jameson",

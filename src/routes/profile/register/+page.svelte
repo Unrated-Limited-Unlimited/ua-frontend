@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import { url } from '$lib/utils';
 
     let username = "";
     let email = "";
@@ -8,7 +9,7 @@
     async function handleSubmit() {
         
 
-        fetch("/api/auth/register", {
+        fetch(url("register"), {
             method: "POST",
             body: JSON.stringify({
                 username: username,

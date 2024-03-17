@@ -8,7 +8,7 @@
 <slot></slot>
 
 <style lang="scss" global>
-    ul {
+    :global(ul) {
         background-color: var(--navbar);
     }
 </style>

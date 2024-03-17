@@ -1,4 +1,5 @@
 /** @type {import('@sveltejs/kit/hooks')} */
+import { dec_msw } from '$lib/utils';
 
 export const handle = async({event, resolve}) => {
 
@@ -11,9 +12,8 @@ export const handle = async({event, resolve}) => {
     return response;
 }
 
-import { dev } from '$app/environment';
 
-if (dev) {
+if (dec_msw) {
   const { server } = await import('./mocks/node');
 
   server.listen();

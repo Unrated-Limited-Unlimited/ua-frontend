@@ -1,6 +1,6 @@
-import { dev } from '$app/environment';
+import { dec_msw } from "$lib/utils";
 
-if (dev) {
+if (dec_msw) {
   const { worker } = await import("./mocks/browser");
 
   await worker.start({
