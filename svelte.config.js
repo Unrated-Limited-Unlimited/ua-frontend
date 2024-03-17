@@ -1,11 +1,15 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import adapter_static from '@sveltejs/adapter-static';
 import adapter_node from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 function adapter() { 
-    if (process.env.PUBLIC_STAIC === "true") {
+    if (process.env.ADAPTER === "static") {
         return adapter_static({
-                            strict: false
+                            strict: false,
+                            fallback : '200.html'
                         });
     } else {
         return adapter_node();

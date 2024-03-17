@@ -1,11 +1,13 @@
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { dev } from '$app/environment';
 
+const base_url = PUBLIC_BASE_URL || "http://localhost:8000"
+
 export function url(...args: string[]) {
-    return PUBLIC_BASE_URL + "/" + args.join("/")
+    return base_url + "/" + args.join("/")
 }
 
-export const graphql = PUBLIC_BASE_URL + "/graphql"
+export const graphql = base_url + "/graphql"
 
 export enum MODE {
     MSW = "msw",

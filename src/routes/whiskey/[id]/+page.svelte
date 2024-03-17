@@ -15,11 +15,10 @@
             <div class="score-container">
                 <h1>{data.whiskey.score}</h1>
                 <div class="stars">
+                    {#each Array(5) as _}
+                        <!-- svelte-ignore a11y-missing-attribute -->
                     <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
-                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
-                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
-                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
-                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                    {/each}
                 </div>
             </div>
             <button>Favourite</button>

@@ -57,13 +57,13 @@ export const handlers = [
     })
   }),
 
-  http.get("/api/whiskey", () => {
+  http.get("*/whiskey", () => {
     return HttpResponse.json({
       whiskeys
     })
   }),
 
-  http.get(`/api/whiskey/1`, () => {
+  http.get(`*/whiskey/1`, () => {
     return HttpResponse.json({
       "id": "1",
       "name": "Jura Single Malt 10 YO",
@@ -78,7 +78,7 @@ export const handlers = [
       "country": "Skottland"
     })
   }),
-  http.get(`/api/whiskey/2`, () => {
+  http.get(`*/whiskey/2`, () => {
     return HttpResponse.json({
       "id": "2",
       "name": "Tullamore Dew",
@@ -93,7 +93,7 @@ export const handlers = [
       "country": "Skottland"
     })
   }),
-  http.get(`/api/whiskey/3`, () => {
+  http.get(`*/whiskey/3`, () => {
     return HttpResponse.json({
       "id": "3",
       "name": "Jameson",
