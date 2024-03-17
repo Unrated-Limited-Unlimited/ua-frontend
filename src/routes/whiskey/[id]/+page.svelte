@@ -4,16 +4,16 @@
         export let data: PageData;
 </script>
 
-<title>{data.whiskey.name} - Unrated</title>
+<title>{data.whiskey.title} - Unrated</title>
 
 <div class="whiskey-site">
     <div class="main-box">
         <div class="whiskey-image"><img alt={data.whiskey.name} src={data.whiskey.img}></div>
         <div class="info">
-            <p>{data.whiskey.producer}</p>
-            <h2>{data.whiskey.name}</h2>
+            <!--<p>{data.whiskey.producer}</p>-->
+            <h2>{data.whiskey.title}</h2>
             <div class="score-container">
-                <h1>{data.whiskey.score}</h1>
+                <h1>{data.whiskey.rating}</h1>
                 <div class="stars">
                     {#each Array(5) as _}
                         <!-- svelte-ignore a11y-missing-attribute -->

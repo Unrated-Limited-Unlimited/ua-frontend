@@ -3,47 +3,40 @@ import { http, graphql, HttpResponse } from 'msw';
 const whiskeys = [
   {
       "id": "1",
-      "name": "Jura",
+      "title": "Jura",
       "price": "500",
       "summary": "Jura is a good whiskey",
       "percentage": "40%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
       "volume": "70cl",
-      "score": "4"
+      "rating": "4"
   },
   {
       "id": "2",
-      "name": "Tullamore Dew",
+      "tile": "Tullamore Dew",
       "price": "512",
       "summary": "speaks for itself",
       "percentage": "43%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
-      "score": "4"
+      "rating": "4"
   },
   {
       "id": "3",
-      "name": "Jameson",
+      "title": "Jameson",
       "price": "520",
       "summary": "Safe ol' reliable",
       "percentage": "41%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
-      "score": "5"
+      "rating": "5"
   }
   ];
 
 export const handlers = [
-  http.get('*/user', ({ cookies }) => {
-    return HttpResponse.json({
-        id: 18021700,
-        username: 'Tor-Arne Larsen',
-        bio: 'Eg er Tor-Arne Larsen. Eg elskar viski.',
-    });
-  }),
   http.post('*/login', ({ cookies }) => {
     return new HttpResponse(null, {
-        headers: {'Set-Cookie': 'authToken=abc-123',}
+        headers: {'Set-Cookie': 'authToken=abc-123; httpOnly=true;',}
     })
   }),
   http.post('*/logout', ({ cookies }) => {
@@ -56,56 +49,31 @@ export const handlers = [
         headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
-
-  http.get("*/whiskey", () => {
+  graphql.query("LoggedInUser", () => {
     return HttpResponse.json({
-      whiskeys
+        data: {
+            getLoggedInUser: {
+                id: 18021700,
+                name: 'Tor-Arne Larsen',
+                img: null
+            }
+        }
     })
   }),
-
-  http.get(`*/whiskey/1`, () => {
+  graphql.query("Whiskeys", () => {
     return HttpResponse.json({
-      "id": "1",
-      "name": "Jura Single Malt 10 YO",
-      "price": "500",
-      "summary": "Jura is a good whiskey",
-      "percentage": "40%",
-      "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
-      "volume": "70cl",
-      "score": "4",
-      "producer": "Isle of Jura Dist.",
-      "product-type": "Brennevin - Whisky - Whisky, malt",
-      "country": "Skottland"
+      data: {
+        getWhiskeys: whiskeys
+    }
     })
   }),
-  http.get(`*/whiskey/2`, () => {
+  graphql.query("Whiskey", ({ variables }) => {
+    const { id } = variables;
+    console.log(id)
     return HttpResponse.json({
-      "id": "2",
-      "name": "Tullamore Dew",
-      "price": "512",
-      "summary": "speaks for itself",
-      "percentage": "43%",
-      "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
-      "volume": "70cl",
-      "score": "4",
-      "producer": "Isle of Jura Dist.",
-      "product-type": "Brennevin - Whisky - Whisky, malt",
-      "country": "Skottland"
+      data: {
+        getWhiskey: whiskeys.find(w => w.id === id)
+    }
     })
   }),
-  http.get(`*/whiskey/3`, () => {
-    return HttpResponse.json({
-      "id": "3",
-      "name": "Jameson",
-      "price": "520",
-      "summary": "Safe ol' reliable",
-      "percentage": "41%",
-      "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
-      "volume": "75cl",
-      "score": "5",
-      "producer": "Isle of Jura Dist.",
-      "product-type": "Brennevin - Whisky - Whisky, malt",
-      "country": "Skottland"
-    })
-  })
 ];

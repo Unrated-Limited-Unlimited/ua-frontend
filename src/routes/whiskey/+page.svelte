@@ -10,15 +10,15 @@
     {#if data.whiskey_list}
     <div>
         <h1>Whiskeys</h1>
-        {#each data.whiskey_list.whiskeys as whiskey}
+        {#each data.whiskey_list as whiskey}
         <a href="/whiskey/{whiskey.id}">
             <div class="whiskey-view-container">
                 <div class="whiskey-view-image-container">
-                    <img class="whiskey-view-image" alt={whiskey.name} src={whiskey.img}>
+                    <img class="whiskey-view-image" alt={whiskey.title} src={whiskey.img}>
                 </div>
                 <div class="whiskey-view-desc">
                     <h3>
-                        {whiskey.name}
+                        {whiskey.title}
                     </h3>
                     <p>X X X X O O</p>
                 </div>

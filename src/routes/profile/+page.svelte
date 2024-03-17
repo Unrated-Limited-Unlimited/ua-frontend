@@ -1,19 +1,23 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
+    import { url } from '$lib/utils';
+    import { loggedIn } from '../../store/userStore';
 	import type { PageData } from './$types';
 	
 	export let data: PageData;
 
     async function logout() {
-        fetch("/api/auth/logout", {method: "POST"})
+        fetch(url("logout"), {method: "POST"}).then(() => loggedIn.set(false));
+
+        goto("/");
     }
 </script>
 
 {#if !!data.user} 
 <div class="profileInf">
-    <img src='profile/image/{data.user.id}.svg' alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+    <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
     <div>
-        <h1>{data.user.username}</h1>
-        <p>{data.user.bio}</p>
+        <h1>{data.user.name}</h1>
     </div>
 </div>
 

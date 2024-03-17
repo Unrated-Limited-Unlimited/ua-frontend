@@ -1,13 +1,23 @@
+import { query } from "$lib/graphql";
 import { url } from "$lib/utils";
 import type { PageLoad } from "../../profile/$types"
 
-export const load: PageLoad = async ({ fetch, params }) => {
+const whiskey = `
+query Whiskey($id: ID!) {
+    getWhiskey(id: $id) {
+        id
+        title
+        rating
+        img
+    }
+}`;
 
-	const res = await fetch(url("whiskey", params.id ));
+export const load: PageLoad = async ({ fetch, params }) => {
+    const res = await query(fetch, whiskey, {id: params.id})
 	if (res.status !== 200) {
         return {}
     }
     return {
-        whiskey: await res.json()
+        whiskey: (await res.json()).data.getWhiskey
     }
 }

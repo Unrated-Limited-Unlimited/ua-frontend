@@ -7,7 +7,7 @@ export function url(...args: string[]) {
     return base_url + "/" + args.join("/")
 }
 
-export const graphql = base_url + "/graphql"
+export const graphql_url = base_url + "/graphql"
 
 export enum MODE {
     MSW = "msw",
