@@ -40,6 +40,7 @@
         <div>
             <label for="password">Password</label>
             <input
+                data-testid="action-password"
                 name="password"
                 type="password"
                 bind:value={password}

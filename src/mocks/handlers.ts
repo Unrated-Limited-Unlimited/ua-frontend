@@ -69,11 +69,20 @@ export const handlers = [
   }),
   graphql.query("Whiskey", ({ variables }) => {
     const { id } = variables;
-    console.log(id)
     return HttpResponse.json({
       data: {
         getWhiskey: whiskeys.find(w => w.id === id)
     }
     })
   }),
+  graphql.query("Ratings", ({variables}) => {
+    const { id } = variables;
+    return HttpResponse.json({
+      data: {
+        getRatings: {
+          
+        }
+      }
+    }) 
+  })
 ];
