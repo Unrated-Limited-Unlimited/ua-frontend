@@ -34,6 +34,7 @@
 		"@capacitor/core": "^5.7.2",
 		"@sveltejs/adapter-node": "^5.0.1",
 		"cross-env": "^7.0.3",
-		"dotenv": "^16.4.5"
+		"dotenv": "^16.4.5",
+		"svelte-persisted-store": "^0.9.1"
 	}
 }

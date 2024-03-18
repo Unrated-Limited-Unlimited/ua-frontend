@@ -17,7 +17,7 @@
                 password: password
             }),
             credentials: "include"
-        }).then(() => {
+        }).then((res) => {
             loggedIn.set(true)
         })
 

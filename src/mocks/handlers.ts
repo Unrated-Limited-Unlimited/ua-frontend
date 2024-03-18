@@ -13,7 +13,7 @@ const whiskeys = [
   },
   {
       "id": "2",
-      "tile": "Tullamore Dew",
+      "title": "Tullamore Dew",
       "price": "512",
       "summary": "speaks for itself",
       "percentage": "43%",
@@ -49,6 +49,17 @@ export const handlers = [
         headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
+  graphql.mutation("EditUser", () => {
+    return HttpResponse.json({
+        data: {
+            editUser: {
+                id: 18021700,
+                name: 'Anne Beate',
+                email: 'AB@mail.no'
+            }
+        }
+    })
+  }),
   graphql.query("LoggedInUser", () => {
     return HttpResponse.json({
         data: {
@@ -56,6 +67,18 @@ export const handlers = [
                 id: 18021700,
                 name: 'Tor-Arne Larsen',
                 img: null
+            }
+        }
+    })
+  }),
+  graphql.query("LoggedInUserInfo", () => {
+    return HttpResponse.json({
+        data: {
+            getLoggedInUser: {
+                id: 18021700,
+                name: 'Tor-Arne Larsen',
+                img: null,
+                email: 'tal@mail.no'
             }
         }
     })
