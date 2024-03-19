@@ -3,7 +3,7 @@ describe('Login Logout Test', () => {
   it('Logs into a user and logs out', () => {
     cy.clearCookies()
     cy.clearAllLocalStorage()
-    cy.visit('http://localhost:5173')
+    cy.visit('http://localhost:5173/profile')
     cy.contains('Profile').click()
     cy.contains('Login').click()
     cy.get('input[name="username"]').type('fake@email.com')
