@@ -7,6 +7,7 @@
 		"dev:msw": "vite dev --mode msw",
 		"dev:no_msw": "vite dev",
 		"build": "vite build",
+        "build:msw": "vite build --mode msw",
 		"build:static": "cross-env ADAPTER=static vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

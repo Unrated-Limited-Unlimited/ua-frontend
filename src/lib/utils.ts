@@ -19,7 +19,7 @@ export function mode(m: MODE) {
     return m === import.meta.env.MODE as MODE;
 }
 
-export const dec_msw = dev && mode(MODE.MSW);
+export const dec_msw = true; // dev && mode(MODE.MSW);
 
 
 

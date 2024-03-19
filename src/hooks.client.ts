@@ -4,7 +4,7 @@ import { worker } from "./mocks/browser";
 if (dec_msw) {
   //const { worker } import("./mocks/browser");
 
-  await worker.start({
+    worker.start({
     onUnhandledRequest(request, print) {
       // Do not warn on unhandled internal Svelte requests.
       // Those are not meant to be mocked.

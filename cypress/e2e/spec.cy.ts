@@ -2,14 +2,13 @@ import { handlers } from '../../src/mocks/handlers';
 
 describe('Login Logout Test', () => {
   it('Loading test', () => {
-    cy.visit('http://localhost:5173')
+    cy.visit('/')
     cy.contains('Friends').click()
-    cy.visit('http://localhost:5173')
-    cy.wait(30000)
+    cy.visit('/')
     cy.contains('Friends').click()
   }),
   it('Check whiskey pages', () => {
-    cy.visit('http://localhost:5173')
+    cy.visit('/')
     cy.contains('whiskey-list (testing)').click()
     cy.contains('Whiskeys')
     cy.contains('Tullamore Dew').click()
@@ -18,7 +17,7 @@ describe('Login Logout Test', () => {
   it('Logs into a user and logs out', () => {
     cy.clearCookies()
     cy.clearAllLocalStorage()
-    cy.visit('http://localhost:5173')
+    cy.visit('/')
     cy.contains('Profile').click()
     cy.contains('You are not logged in')
   })

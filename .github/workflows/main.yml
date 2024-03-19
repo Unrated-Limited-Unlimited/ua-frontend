@@ -13,7 +13,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev:msw
+          build: npm run build:msw
+          start: npm run preview
           browser: chrome
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
