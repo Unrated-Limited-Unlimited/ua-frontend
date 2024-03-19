@@ -7,4 +7,5 @@ The frontend is created using SvelteKit, and is planned to have tests written in
 
 ## Setup
 
-In order to run the application, you need a `.env` file in the root of the project. `.env.example` contains the needed variables.
+In order to set the backend URL to something other than localhost:8000, you can create a `.env` file in the root of the project. 
+`.env.example` contains examples of possible variables.
