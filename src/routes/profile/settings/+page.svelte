@@ -59,6 +59,6 @@
     </form>
 
     <h2>Log out</h2>
-    <button on:click={logout}>Log out</button>
+    <button name="logout" on:click={logout}>Log out</button>
 </div>
 
