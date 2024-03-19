@@ -5,6 +5,7 @@ describe('Login Logout Test', () => {
     cy.visit('http://localhost:5173')
     cy.contains('Friends').click()
     cy.visit('http://localhost:5173')
+    cy.wait(30000)
     cy.contains('Friends').click()
   }),
   it('Check whiskey pages', () => {
