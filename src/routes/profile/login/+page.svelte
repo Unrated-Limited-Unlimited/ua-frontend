@@ -19,9 +19,8 @@
             credentials: "include"
         }).then((res) => {
             loggedIn.set(true)
+            goto("/")
         })
-
-        goto("/")
     }
 </script>
 <div class="main-window">
