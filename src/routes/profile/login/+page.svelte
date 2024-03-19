@@ -46,7 +46,7 @@
             />
         </div>
         
-        <button>Log in</button>
+        <button name="login">Log in</button>
     </form>
 </div>
 
