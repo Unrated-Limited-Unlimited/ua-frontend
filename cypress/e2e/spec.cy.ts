@@ -6,6 +6,13 @@ describe('Login Logout Test', () => {
     cy.contains('Friends').click()
     cy.contains('Hi, you have no friends.')
   }),
+  it('Check whiskey pages', () => {
+    cy.visit('http://localhost:5173')
+    cy.contains('whiskey-list (testing)').click()
+    cy.contains('Whiskeys')
+    cy.contains('Tullamore Dew').click()
+    cy.contains('Favourite')
+  }),
   it('Logs into a user and logs out', () => {
     cy.clearCookies()
     cy.clearAllLocalStorage()
