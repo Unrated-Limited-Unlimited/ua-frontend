@@ -23,7 +23,7 @@
     <div class="empty">
         <h2>You are not logged in</h2>
         <div>
-            <a href="/profile/login">Login</a>
+            <a name=login href="/profile/login">Login</a>
             <a href="/profile/register">Register</a>
         </div>
     </div>
