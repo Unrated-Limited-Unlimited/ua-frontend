@@ -1,7 +1,8 @@
 import { dec_msw } from "$lib/utils";
+import { worker } from "./mocks/browser";
 
 if (dec_msw) {
-  const { worker } = await import("./mocks/browser");
+  //const { worker } import("./mocks/browser");
 
   await worker.start({
     onUnhandledRequest(request, print) {
