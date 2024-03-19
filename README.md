@@ -3,3 +3,8 @@ This is the frontend for Unrated, an application created in the context of the s
 
 
 The frontend is created using SvelteKit, and is planned to have tests written in Cypress in the future.
+
+
+## Setup
+
+In order to run the application, you need a `.env` file in the root of the project. `.env.example` contains the needed variables.

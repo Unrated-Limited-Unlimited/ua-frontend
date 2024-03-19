@@ -1,8 +1,8 @@
 /** @type {import('@sveltejs/kit/hooks')} */
-import { dec_msw } from '$lib/utils';
+import { MSW_ON } from '$lib/env';
+import type { Handle } from '@sveltejs/kit';
 
-export const handle = async({event, resolve}) => {
-
+export const handle: Handle = async({event, resolve}) => {
     const theme = event.cookies.get("siteTheme");
     const response = await resolve(event, {
         transformPageChunk: ({html}) =>
@@ -13,7 +13,7 @@ export const handle = async({event, resolve}) => {
 }
 
 
-if (dec_msw) {
+if (MSW_ON) {
   const { server } = await import('./mocks/node');
 
   server.listen();

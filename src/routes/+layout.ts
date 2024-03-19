@@ -1,3 +1,3 @@
-import { mode, MODE } from "$lib/utils";
+import { SSR_ON } from "$lib/env";
 
-export const ssr = !(mode(MODE.MSW) || mode(MODE.STATIC));
+export const ssr = SSR_ON;

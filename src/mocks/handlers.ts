@@ -9,7 +9,7 @@ const whiskeys = [
       "percentage": "40%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
       "volume": "70cl",
-      "rating": "4"
+      "avgScore": "4"
   },
   {
       "id": "2",
@@ -19,7 +19,7 @@ const whiskeys = [
       "percentage": "43%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
-      "rating": "4"
+      "avgScore": "4"
   },
   {
       "id": "3",
@@ -29,7 +29,7 @@ const whiskeys = [
       "percentage": "41%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
-      "rating": "5"
+      "avgScore": "5"
   }
   ];
 

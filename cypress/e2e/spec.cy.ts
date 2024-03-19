@@ -1,12 +1,6 @@
 import { handlers } from '../../src/mocks/handlers';
 
 describe('Login Logout Test', () => {
-  it('Loading test', () => {
-    cy.visit('/')
-    cy.contains('Friends').click()
-    cy.visit('/')
-    cy.contains('Friends').click()
-  }),
   it('Check whiskey pages', () => {
     cy.visit('/')
     cy.contains('whiskey-list (testing)').click()

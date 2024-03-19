@@ -8,7 +8,7 @@ query Whiskeys {
         id
         img
         title
-        rating
+        avgScore
     }
 }
 `

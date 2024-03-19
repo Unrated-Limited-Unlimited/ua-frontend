@@ -6,7 +6,7 @@ import adapter_node from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 function adapter() { 
-    if (process.env.ADAPTER === "static") {
+    if (process.env.VITE_ADAPTER === "static") {
         return adapter_static({
                             strict: false,
                             fallback : '200.html'

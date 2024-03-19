@@ -4,11 +4,11 @@
 	"private": true,
 	"scripts": {
 		"dev": "npm run dev:no_msw",
-		"dev:msw": "vite dev --mode msw",
+		"dev:msw": "cross-env VITE_MSW=true vite dev",
 		"dev:no_msw": "vite dev",
 		"build": "vite build",
-        "build:msw": "vite build --mode msw",
-		"build:static": "cross-env ADAPTER=static vite build",
+        "build:msw": "cross-env VITE_MSW=true vite build",
+		"build:static": "cross-env VITE_ADAPTER=static vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"

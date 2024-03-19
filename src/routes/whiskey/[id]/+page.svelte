@@ -13,7 +13,7 @@
             <!--<p>{data.whiskey.producer}</p>-->
             <h2>{data.whiskey.title}</h2>
             <div class="score-container">
-                <h1>{data.whiskey.rating}</h1>
+                <h1>{data.whiskey.avgScore}</h1>
                 <div class="stars">
                     {#each Array(5) as _}
                         <!-- svelte-ignore a11y-missing-attribute -->

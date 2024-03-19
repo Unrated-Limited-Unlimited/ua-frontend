@@ -1,7 +1,7 @@
-import { dec_msw } from "$lib/utils";
+import { MSW_ON } from "$lib/env";
 import { worker } from "./mocks/browser";
 
-if (dec_msw) {
+if (MSW_ON) {
   //const { worker } import("./mocks/browser");
 
     worker.start({
