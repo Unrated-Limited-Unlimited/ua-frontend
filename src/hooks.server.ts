@@ -1,22 +1,20 @@
-import type { Handle } from "@sveltejs/kit";
+/** @type {import('@sveltejs/kit/hooks')} */
+import { MSW_ON } from '$lib/env';
+import type { Handle } from '@sveltejs/kit';
 
-export const handle = (async ({ event, resolve}) => {
-    let theme: string | null = null
+export const handle: Handle = async({event, resolve}) => {
+    const theme = event.cookies.get("siteTheme");
+    const response = await resolve(event, {
+        transformPageChunk: ({html}) =>
+         html.replace('data-theme=""', `data-theme="${theme}"`),
+    });
 
-    const newTheme = event.url.searchParams.get("theme")
-    const cookieTheme = event.cookies.get("colortheme")
+    return response;
+}
 
-    if (newTheme) {
-        theme = newTheme
-    } else if (cookieTheme) {
-        theme = cookieTheme
-    }
 
-    if (theme) {
-        return await resolve(event, {
-            transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
-        })
-    }
+if (MSW_ON) {
+  const { server } = await import('./mocks/node');
 
-    return await resolve(event);
-}) satisfies Handle;
+  server.listen();
+}

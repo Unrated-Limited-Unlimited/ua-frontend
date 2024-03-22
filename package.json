@@ -3,16 +3,23 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "npm run dev:no_msw",
+		"dev:msw": "cross-env VITE_MSW=true vite dev",
+		"dev:no_msw": "vite dev",
 		"build": "vite build",
+        "build:msw": "cross-env VITE_MSW=true vite build",
+		"build:static": "cross-env VITE_ADAPTER=static vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-static": "^3.0.1",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"cypress": "^13.6.6",
+		"msw": "^2.2.2",
 		"sass": "^1.70.0",
 		"scss": "^0.2.4",
 		"svelte": "^4.2.7",
@@ -23,6 +30,12 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-node": "^5.0.1"
+		"@capacitor/android": "^5.7.2",
+		"@capacitor/cli": "^5.7.2",
+		"@capacitor/core": "^5.7.2",
+		"@sveltejs/adapter-node": "^5.0.1",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.4.5",
+		"svelte-persisted-store": "^0.9.1"
 	}
 }

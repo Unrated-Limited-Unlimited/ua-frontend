@@ -1,44 +1,24 @@
-<script>
-    const whiskey_list = [
-    {
-        "name": "Jura",
-        "price": "500",
-        "summary": "Jura is a good whiskey",
-        "percentage": "40%",
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
-        "volume": "70cl"
-    },
-    {
-        "name": "Tullamore Dew",
-        "price": "512",
-        "summary": "speaks for itself",
-        "percentage": "43%",
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
-        "volume": "70cl"
-    },
-    {
-        "name": "Jameson",
-        "price": "520",
-        "summary": "Safe ol' reliable",
-        "percentage": "41%",
-        "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
-        "volume": "75cl"
-    }
-    ]
+<script lang="ts">
+    import type { PageData } from "./$types";
+
+	export let data: PageData;
 </script>
 
+<title>Whiskeys - Unrated</title>
+
 <body>
+    {#if data.whiskey_list}
     <div>
         <h1>Whiskeys</h1>
-        {#each whiskey_list as whiskey}
-        <a href="/whiskey-view">
+        {#each data.whiskey_list as whiskey}
+        <a href="/whiskey/{whiskey.id}">
             <div class="whiskey-view-container">
                 <div class="whiskey-view-image-container">
-                    <img class="whiskey-view-image" src={whiskey.img}>
+                    <img class="whiskey-view-image" alt={whiskey.title} src={whiskey.img}>
                 </div>
                 <div class="whiskey-view-desc">
                     <h3>
-                        {whiskey.name}
+                        {whiskey.title}
                     </h3>
                     <p>X X X X O O</p>
                 </div>
@@ -46,9 +26,13 @@
         </a>
         {/each}
     </div>
+    {/if}
 </body>
 
 <style>
+    body {
+        margin: 2rem;
+    }
     .whiskey-view-desc {
         display: flex;
         flex-direction: column;
@@ -58,13 +42,14 @@
         height: auto;
     }
     .whiskey-view-container {
-        color: black;
         background-color: var(--navbar);
         display: flex;
         justify-content:flex-start;
         gap: 1rem;
         flex-direction:row;
         margin: .5rem;
+        border-radius: 2rem;
+        padding: .5rem;
     }
     h3{
         margin: 0;
@@ -79,6 +64,7 @@
         padding: .5rem;
         display: flex;
         justify-content: center;
+        border-radius: 2rem;
     }
     .whiskey-view-image {
         max-height: 7rem;
