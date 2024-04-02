@@ -1,4 +1,3 @@
-import { url } from "$lib/utils"
 import type { PageLoad } from "./$types"
 import { query } from "$lib/graphql"
 

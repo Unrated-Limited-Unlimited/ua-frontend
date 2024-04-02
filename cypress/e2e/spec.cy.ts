@@ -1,5 +1,3 @@
-import { handlers } from '../../src/mocks/handlers';
-
 describe('Login Logout Test', () => {
   it('Check whiskey pages', () => {
     cy.visit('/')
