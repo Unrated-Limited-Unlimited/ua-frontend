@@ -12,7 +12,7 @@
     <div>
         <h1>Whiskeys</h1>
         {#each data.whiskey_list as whiskey}
-        <a href="/whiskey/{whiskey.id}">
+        <a id="whiskey-link" href="/whiskey/{whiskey.id}">
             <div class="whiskey-view-container">
                 <div class="whiskey-view-image-container">
                     <img class="whiskey-view-image" alt={whiskey.title} src={whiskey.img}>

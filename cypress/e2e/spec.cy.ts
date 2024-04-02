@@ -1,7 +1,7 @@
 describe('Login Logout Test', () => {
   it('Check whiskey pages', () => {
     cy.visit('/')
-    cy.contains('whiskey-list (testing)').click()
+    cy.get('whiskey-list').click()
     cy.contains('Whiskeys')
     cy.contains('Tullamore Dew').click()
     cy.contains('Favourite')

@@ -5,7 +5,7 @@
 </script>
 
 <div class="main-window">
-    <h1>Creating review</h1>
+    <h1>Creating rating</h1>
     <div class="whiskey-desc">
         <h2>{data.whiskey.title}</h2>
     </div>
