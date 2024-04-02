@@ -2,6 +2,7 @@
 <script lang="ts">
         import type { PageData } from "./$types";
         export let data: PageData;
+        let roundScore = Math.round(data.whiskey.avgScore)
 </script>
 
 <title>{data.whiskey.title} - Unrated</title>
@@ -13,11 +14,15 @@
             <!--<p>{data.whiskey.producer}</p>-->
             <h2>{data.whiskey.title}</h2>
             <div class="score-container">
-                <h1>{data.whiskey.avgScore}</h1>
+                <h1>{roundScore}</h1>
                 <div class="stars">
-                    {#each Array(5) as _}
-                        <!-- svelte-ignore a11y-missing-attribute -->
-                    <div><img class="rating-star" src=https://st.depositphotos.com/1795881/1619/i/450/depositphotos_16199827-stock-photo-3d-symbol.jpg></div>
+                    {#each Array(roundScore) as _}
+                        <div>
+                            <svg class="rating-star" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="currentcolor" d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
+                            </svg>
+                            <!--<img class="rating-star" src="/assets/reshot-icon-stars-SKPW9CD3X8.svg">-->
+                        </div>
                     {/each}
                 </div>
             </div>
@@ -59,5 +64,8 @@
     }
     .rating-star {
         width: 2rem;
+    }
+    svg{
+        color: var(--accent);
     }
 </style>

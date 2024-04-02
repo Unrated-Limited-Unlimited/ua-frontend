@@ -4,8 +4,7 @@
     </div>
     <div class="navbar-links">
         <li><a href="/profile">Profile</a></li>
-        <li><a href="/friends">Friends</a></li>
-        <li><a href="/whiskey">whiskey-list (testing)</a></li>
+        <li><a href="/whiskey">Whiskey</a></li>
         </div>
 </ul>
 
@@ -17,6 +16,8 @@
         align-items: center;
         list-style: none;
         padding: .5rem;
+        padding-right: 2rem;
+        font-size: larger;
     }
 
     .navbar-logo {

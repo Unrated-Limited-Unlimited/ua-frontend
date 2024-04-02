@@ -7,6 +7,7 @@
 <title>Whiskeys - Unrated</title>
 
 <body>
+    
     {#if data.whiskey_list}
     <div>
         <h1>Whiskeys</h1>
@@ -20,7 +21,16 @@
                     <h3>
                         {whiskey.title}
                     </h3>
-                    <p>X X X X O O</p>
+                    <div class="stars">
+                        {#each Array(Math.round(whiskey.avgScore)) as _}
+                            <div>
+                                <svg class="rating-star" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentcolor" d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
+                                </svg>
+                                <!--<img class="rating-star" src="/assets/reshot-icon-stars-SKPW9CD3X8.svg">-->
+                            </div>
+                        {/each}
+                    </div>
                 </div>
             </div>
         </a>
@@ -71,6 +81,16 @@
         max-width: 7rem;
         min-width: 2rem;
         height: auto;
+    }
+
+    .stars {
+        display: flex;
+        padding-top: 1rem;
+        height: auto;
+    }
+    .rating-star {
+        width: 2rem;
+        height: 2rem;
     }
 
 </style>
