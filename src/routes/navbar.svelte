@@ -1,10 +1,3 @@
-<script lang=ts>
-    const setTheme = (theme: string) => {
-        document.documentElement.dataset.theme = theme;
-        document.cookie = `siteTheme=${theme};Max-Age=2592000;path="/";SameSite=None;Secure;`;
-    };
-</script>
-
 <ul>
     <div>
         <li><a href="/"><img class="navbar-logo" alt="Unrated" src="/assets/VectorLogoUnratedText.svg"></a></li>
@@ -13,8 +6,6 @@
         <li><a href="/profile">Profile</a></li>
         <li><a href="/friends">Friends</a></li>
         <li><a href="/whiskey">whiskey-list (testing)</a></li>
-        <button on:click="{() => setTheme('val')}">val Theme</button>
-        <button on:click="{() => setTheme('dracula')}">dracula Theme</button>
         </div>
 </ul>
 

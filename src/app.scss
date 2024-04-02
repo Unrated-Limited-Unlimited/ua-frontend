@@ -38,6 +38,13 @@ html[data-theme="val"] {
     --text: rgb(20, 16, 6);
 }
 
+html[data-theme="standard"] {
+    --bg-color: #F5F5F5;
+    --navbar: #4E515A;
+    --accent: #ffad4f;
+    --text: rgb(20, 16, 6);
+}
+
 .main-window {
     display: flex;
     flex-direction: column;
