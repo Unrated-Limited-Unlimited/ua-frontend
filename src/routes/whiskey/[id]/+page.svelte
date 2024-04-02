@@ -2,6 +2,7 @@
 <script lang="ts">
         import type { PageData } from "./$types";
         export let data: PageData;
+        export let id = data.id;
         let roundScore = Math.round(data.whiskey.avgScore)
 </script>
 
@@ -27,6 +28,7 @@
                 </div>
             </div>
             <button>Favourite</button>
+            <a href="/whiskey/{id}/rate">Hello</a>
         </div>
     </div>
     <div class="filler"></div>
