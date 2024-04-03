@@ -62,10 +62,13 @@
         height: 40rem;
     }
     .stars {
-        display: flex;;
+        display: flex;
     }
     .rating-star {
         width: 2rem;
+        height: 2rem;
+        padding: 0;
+        margin: 0;
     }
     svg{
         color: var(--accent);

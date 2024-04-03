@@ -91,6 +91,8 @@
     .rating-star {
         width: 2rem;
         height: 2rem;
+        padding: 0;
+        margin: 0;
     }
 
 </style>
