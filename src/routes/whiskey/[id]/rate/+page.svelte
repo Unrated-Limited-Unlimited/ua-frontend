@@ -52,13 +52,13 @@
         </div>
         <h3>Other rating areas {$rating}</h3>
         Smooth - Fiery
-        <input type="range" min="0" max="10" value="5" class="slider">
+        <input type="range" min="0" max="4" value="2" class="slider">
         Mellow - Peaty
-        <input type="range" min="0" max="10" value="5" class="slider">
+        <input type="range" min="0" max="4" value="2" class="slider">
         Dry - Sweet
-        <input type="range" min="0" max="10" value="5" class="slider">
+        <input type="range" min="0" max="4" value="2" class="slider">
         Simple - Complex
-        <input type="range" min="0" max="10" value="5" class="slider">
+        <input type="range" min="0" max="4" value="2" class="slider">
 
         <button>Create Review</button>
     </div>
@@ -101,17 +101,16 @@
         -webkit-appearance: none;
         width: 100%;
         height: 1rem;
-        border-radius: 5px;
+        border-radius: 1rem;
         background: var(--navbar);
         outline: none;
-        opacity: 0.7;
         -webkit-transition: .2s;
         transition: opacity .2s;
     }
     .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 1rem;
+        width: 25%;
         height: 1rem;
         border-radius: 100%;
         border: none;
@@ -119,9 +118,9 @@
         background-color: var(--accent);
     }
     .slider::-moz-range-thumb {
-        width: 1rem;
+        width: 25%;
         height: 1rem;
-        border-radius: 100%;
+        border-radius: 1rem;
         border: none;
         cursor: pointer;
         background-color: var(--accent);
