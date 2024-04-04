@@ -10,7 +10,7 @@ function adapter() {
     if (process.env.VITE_ADAPTER === "static") {
         return adapter_static({
                             strict: false,
-                            fallback : '200.html'
+                            fallback : 'index.html'
                         });
     } else {
         return adapter_node();
