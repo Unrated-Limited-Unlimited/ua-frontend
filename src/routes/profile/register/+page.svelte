@@ -24,7 +24,7 @@
 </script>
 
 <div class="main-window">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
         <h2>Create a user</h2>
         <div>
             <label for="username">Username</label>
