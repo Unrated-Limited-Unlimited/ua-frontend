@@ -12,13 +12,6 @@ type FeatureFlags = {
 export const featureFlagStore: Writable<FeatureFlags | null> = writable(null);
 
 function setFeatures(flagsmith: IFlagsmith) {
-    console.log("this is something")
-    console.log(flagsmith)
-    console.log({ 
-        fancyLogo: flagsmith.hasFeature("logo_change"),
-        wiskeySpelling: flagsmith.getValue("whiskey_spelling") || "whiskey"
-    })
-
     featureFlagStore.set({ 
         fancyLogo: flagsmith.hasFeature("logo_change"),
         wiskeySpelling: flagsmith.getValue("whiskey_spelling")
