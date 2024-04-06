@@ -1,11 +1,19 @@
 <script lang="ts">
     import type { PageData } from "./$types";    
     import { writable } from 'svelte/store';
+    import { url } from '$lib/utils';
+    import { goto } from '$app/navigation';
 
     export let data : PageData
+    export let id = data.id;
 
     let rating = writable(0); // stores the rating
     let hoveredRating = writable(0); // stores the hover state rating
+    let comment = '';
+    let smoothFiery = 2;
+    let mellowPeaty = 2;
+    let drySweet = 2;
+    let simpleComplex = 2;
 
     // Function to set the rating
     function setRating(index: number): void {
@@ -21,6 +29,13 @@
     function resetHoverState(): void {
         hoveredRating.set(0);
     }
+
+    // Posts the rating to the backend.
+    async function createRating(){
+        // TODO: Create post request.
+
+        goto('/whiskey/'+id)
+    }
 </script>
 
 <div class="main-window">
@@ -30,7 +45,7 @@
     </div>
     <div class=rating-details>
         <label for="comment">Comment</label>
-        <textarea id="comment"></textarea>
+        <textarea id="comment" bind:value={comment}></textarea>
         <label for="score">Rating</label>
         <div class="star-buttons">
             {#each Array(5) as _, index}
@@ -52,15 +67,15 @@
         </div>
         <h3>Other rating areas {$rating}</h3>
         Smooth - Fiery
-        <input type="range" min="0" max="4" value="2" class="slider">
+        <input type="range" min="0" max="4" bind:value={smoothFiery} class="slider">
         Mellow - Peaty
-        <input type="range" min="0" max="4" value="2" class="slider">
+        <input type="range" min="0" max="4" bind:value={mellowPeaty} class="slider">
         Dry - Sweet
-        <input type="range" min="0" max="4" value="2" class="slider">
+        <input type="range" min="0" max="4" bind:value={drySweet} class="slider">
         Simple - Complex
-        <input type="range" min="0" max="4" value="2" class="slider">
+        <input type="range" min="0" max="4" bind:value={simpleComplex} class="slider">
 
-        <button>Create Review</button>
+        <button on:click={createRating}>Create Review</button>
     </div>
 </div>
 
