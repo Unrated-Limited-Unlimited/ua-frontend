@@ -5,13 +5,9 @@
         export let id = data.id;
         let roundScore = Math.round(data.whiskey.avgScore)
 
-        let smoothFiery = 2;
-        let mellowPeaty = 2;
-        let drySweet = 2;
-        let simpleComplex = 2;
+        let categories = data.whiskey.categories;
 
         let reviews= data.whiskey.ratings
-        //[{name: "Kaspar",comment: "Nice whiskey!", "score": 5},{name: "Filip",comment: "Quite good! Would buy again", "score": 4}]
 </script>
 
 <title>{data.whiskey.title} - Unrated</title>
@@ -51,23 +47,12 @@
     <div class="main-window taste-profile">
         <h3>Taste profile</h3>
         <div class = "sliders">
-
-            <div class="slider-box">
-                <p>Smooth - Fiery</p>
-                <input type="range" min="0" max="4" bind:value={smoothFiery} class="slider" disabled>
-            </div>
-            <div class="slider-box">
-                <p>Mellow - Peaty</p>
-                <input type="range" min="0" max="4" bind:value={mellowPeaty} class="slider" disabled>
-            </div>
-            <div class="slider-box">
-                <p>Dry - Sweet</p>
-                <input type="range" min="0" max="4" bind:value={drySweet} class="slider" disabled>
-            </div>
-            <div class="slider-box">
-                <p>Simple - Complex</p>
-                <input type="range" min="0" max="4" bind:value={simpleComplex} class="slider" disabled>
-            </div>
+            {#each categories as category}
+                <div class="slider-box">
+                    <p>{category.name}</p>
+                    <input type="range" min="0" max="4" bind:value={category.avgScore} class="slider" disabled>
+                </div>
+            {/each}
         </div>
     </div>
 

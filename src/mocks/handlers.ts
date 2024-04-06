@@ -15,13 +15,23 @@ const whiskeys = [
           "title": "Execellent whiskey",
           "score": "5",
           "body": "Nice whiskey! Absolutely lovely",
-          "user": "Kaspar"
+          "user": {"name": "Kaspar"}
         },
         {
           "title": "Among the better ones i've tasted",
           "score": "4",
           "body": "Quite good! Would buy again",
-          "user": "Filip"
+          "user": {"name":"Filip"}
+        }
+      ],
+      "categories": [
+        {
+          "name": "Time Travel Capability",
+          "avgScore": 2
+        },
+        {
+          "name": "Conversation Starter Level",
+          "avgScore": 2.5700000000000003
         }
       ]
   },
@@ -34,6 +44,30 @@ const whiskeys = [
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
       "avgScore": "4",
+      "ratings": [
+        {
+          "title": "Execellent whiskey",
+          "score": "5",
+          "body": "Nice whiskey! Absolutely lovely",
+          "user": "Kaspar"
+        },
+        {
+          "title": "Among the better ones i've tasted",
+          "score": "4",
+          "body": "Quite good! Would buy again",
+          "user": "Filip"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Time Travel Capability",
+          "avgScore": 2
+        },
+        {
+          "name": "Conversation Starter Level",
+          "avgScore": 2.5700000000000003
+        }
+      ]
   },
   {
       "id": "3",
@@ -44,6 +78,30 @@ const whiskeys = [
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
       "avgScore": "5",
+      "ratings": [
+        {
+          "title": "Execellent whiskey",
+          "score": "5",
+          "body": "Nice whiskey! Absolutely lovely",
+          "user": "Kaspar"
+        },
+        {
+          "title": "Among the better ones i've tasted",
+          "score": "4",
+          "body": "Quite good! Would buy again",
+          "user": "Filip"
+        }
+      ],
+      "categories": [
+        {
+          "name": "Time Travel Capability",
+          "avgScore": 2
+        },
+        {
+          "name": "Conversation Starter Level",
+          "avgScore": 2.5700000000000003
+        }
+      ]
   }
   ];
 
