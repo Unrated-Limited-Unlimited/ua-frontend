@@ -1,11 +1,23 @@
+<script lang="ts">
+    import { featureFlagStore, capitalize } from "../store/featureFlagStore";
+</script>
+
 <ul>
     <div>
-        <li><a href="/"><img class="navbar-logo" alt="Unrated" src="/assets/VectorLogoUnratedText.svg"></a></li>
+        <li>
+            <a href="/">
+            {#if $featureFlagStore?.fancyLogo}
+                <img class="navbar-logo" alt="Unrated" src="/assets/Logo_4k.png">
+            {:else}
+                <img class="navbar-logo" alt="Unrated" src="/assets/VectorLogoUnratedText.svg">
+            {/if}
+            </a>
+        </li>
     </div>
     <div class="navbar-links">
         <li><a href="/profile">Profile</a></li>
-        <li><a href="/whiskey">Whiskey</a></li>
-        </div>
+        <li><a href="/whiskey">{ capitalize($featureFlagStore?.wiskeySpelling) }</a></li>
+    </div>
 </ul>
 
 <style>

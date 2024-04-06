@@ -9,7 +9,7 @@
 		"build": "vite build",
 		"build:msw": "cross-env VITE_MSW=true vite build",
 		"build:static": "cross-env VITE_ADAPTER=static vite build",
-        "build:staticmsw": "cross-env VITE_MSW=true VITE_ADAPTER=static vite build",
+		"build:staticmsw": "cross-env VITE_MSW=true VITE_ADAPTER=static vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -38,6 +38,7 @@
 		"@sveltejs/adapter-node": "^5.0.1",
 		"cross-env": "^7.0.3",
 		"dotenv": "^16.4.5",
+		"flagsmith": "^3.24.0",
 		"svelte-persisted-store": "^0.9.1"
 	}
 }
