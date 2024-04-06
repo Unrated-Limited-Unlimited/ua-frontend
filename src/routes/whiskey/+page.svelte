@@ -1,16 +1,19 @@
 <script lang="ts">
+    import { capitalize, featureFlagStore } from "../../store/featureFlagStore";
     import type { PageData } from "./$types";
 
 	export let data: PageData;
 </script>
 
-<title>Whiskeys - Unrated</title>
+<svelte:head>	
+    <title>{ capitalize($featureFlagStore?.wiskeySpelling) + "s" } - Unrated</title>
+</svelte:head>	
 
 <body>
     
     {#if data.whiskey_list}
     <div>
-        <h1>Whiskeys</h1>
+        <h1>{ capitalize($featureFlagStore?.wiskeySpelling) + "s" }</h1>
         {#each data.whiskey_list as whiskey}
         <a id="whiskey-link" href="/whiskey/{whiskey.id}">
             <div class="whiskey-view-container">
