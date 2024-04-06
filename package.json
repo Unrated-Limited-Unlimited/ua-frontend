@@ -9,6 +9,7 @@
 		"build": "vite build",
 		"build:msw": "cross-env VITE_MSW=true vite build",
 		"build:static": "cross-env VITE_ADAPTER=static vite build",
+        "build:staticmsw": "cross-env VITE_MSW=true VITE_ADAPTER=static vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
