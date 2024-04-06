@@ -20,31 +20,34 @@
         <button>
             <a href="/profile/settings">Settings</a>
         </button>
-     
-        {#each reviews as review}
-            <div class="rating-box">
-                <div class="review-display-name">
-                <h4>{review.name}</h4>
-                    <div>            
-                        {#each Array(review.score) as _, index}
-                            <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+        <div class="myRatings">
+            <h2>My Ratings</h2>
+            {#each reviews as review}
+                <div class="rating-box">
+                    <div class="review-display-name">
+                    <h4>{review.name}</h4>
+                        <div>            
+                            {#each Array(review.score) as _, index}
+                                <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path 
+                                        fill="currentColor" 
+                                        d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
+                                </svg>
+                            {/each}
+                            {#each Array(5-review.score) as _, index}
+                            <svg class="unfill-rating-star rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path 
                                     fill="currentColor" 
                                     d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
                             </svg>
-                        {/each}
-                        {#each Array(5-review.score) as _, index}
-                        <svg class="unfill-rating-star rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path 
-                                fill="currentColor" 
-                                d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
-                        </svg>
-                        {/each}
+                            {/each}
+                        </div>
                     </div>
+                    <p>{review.comment}</p>
                 </div>
-                <p>{review.comment}</p>
-            </div>
-        {/each}
+            {/each}
+        </div>
     </div>
 {:else}
     <div class="empty">
@@ -76,5 +79,13 @@
     }
     .unfill-rating-star {
         color: var(--bg-color)
+    }
+    .myRatings {
+        padding-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%
     }
 </style>
