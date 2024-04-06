@@ -26,7 +26,7 @@
             {#each reviews as review}
                 <div class="rating-box">
                     <div class="review-display-name">
-                    <h4>{review.name}</h4>
+                    <h3>{review.name}</h3>
                         <div>            
                             {#each Array(review.score) as _, index}
                                 <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

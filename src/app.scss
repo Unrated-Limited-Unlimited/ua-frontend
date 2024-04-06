@@ -38,11 +38,16 @@ a:hover{
     border-radius: 2rem;
     padding: .2rem;
     width: 75%;
+    padding-bottom: 1.5rem;
 
     p {
         margin:0;
         margin-left: 2rem;
-        padding-bottom: 1.5rem;
+        padding-bottom: .5rem;
+    }
+    h4 {
+        margin:0;
+        margin-left: 2rem;
     }
 }
 
@@ -72,6 +77,7 @@ html[data-theme="standard"] {
     --text: rgb(20, 16, 6);
     --contrast-text: #F5F5F5;
 }
+
 
 .main-window {
     display: flex;

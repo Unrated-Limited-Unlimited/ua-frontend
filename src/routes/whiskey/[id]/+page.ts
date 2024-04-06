@@ -8,6 +8,8 @@ query Whiskey($id: ID!) {
         title
         avgScore
         img
+        summary
+        ratings
     }
 }`;
 
