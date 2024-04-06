@@ -21,6 +21,32 @@ a:hover{
     color: var(--accent)
 }
 
+.review-display-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.rating-box {
+    background-color: var(--navbar);
+    color: var(--contrast-text);
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 1rem;
+    flex-direction:column;
+    margin: .5rem;
+    border-radius: 2rem;
+    padding: .5rem;
+    width: 75%;
+
+    p {
+        margin: 0;
+        padding: .5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+
 button {
     background-color: var(--accent);
 }
@@ -29,6 +55,7 @@ html[data-theme="dracula"] {
     --navbar: #44475A;
     --accent: #ff5555;
     --text: #F8F8F2;
+    --contrast-text: #F8F8F2;
 }
 
 html[data-theme="val"] {
@@ -36,6 +63,7 @@ html[data-theme="val"] {
     --navbar: #f1fec6;
     --accent: #ffad4f;
     --text: rgb(20, 16, 6);
+    --contrast-text: rgb(0, 0, 0);
 }
 
 html[data-theme="standard"] {
@@ -43,6 +71,7 @@ html[data-theme="standard"] {
     --navbar: #4E515A;
     --accent: #ffad4f;
     --text: rgb(20, 16, 6);
+    --contrast-text: #F5F5F5;
 }
 
 .main-window {
