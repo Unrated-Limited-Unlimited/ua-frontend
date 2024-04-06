@@ -17,5 +17,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
     }
     return {
         whiskey: (await res.json()).data.getWhiskey,
+        id: params.id
     }
 }
