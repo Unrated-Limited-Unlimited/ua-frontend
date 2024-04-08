@@ -20,6 +20,6 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: deploy
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /var/www/unrated && rm -f package-lock && git checkout master && git pull && /home/ulu/.nvm/versions/node/v20.11.1/bin/node i && !! build && systemctl restart ua-frontend && exit"
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /var/www/unrated && rm -f package-lock && git checkout master && git pull && /home/ulu/.nvm/versions/node/v20.11.1/bin/npm i && /home/ulu/.nvm/versions/node/v20.11.1/bin/npm build && systemctl restart ua-frontend && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
