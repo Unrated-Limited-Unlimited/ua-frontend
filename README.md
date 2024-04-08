@@ -8,5 +8,14 @@ The frontend is created using SvelteKit, and has partial test coverage using Cyp
 
 ## Setup
 
-In order to set the backend URL to something other than localhost:8000, you can create a `.env` file in the root of the project. 
-`.env.example` contains examples of possible variables.
+Enviroment variables:
+```
+PUBLIC_BACKEND_BASE_URL: The URL that the backend is running on
+VITE_FLAGSMITH: The SDK enviroment varible to flagsmith
+        Flagsmith flags:
+                logo_change: When enabled, a different logo is used
+                whiskey_spelling: Changes the spelling of the whiksey to the set value
+
+VITE_ADAPTER: Tells what adapter to use. Possible "node" and "static". Defaults to "node".
+VITE_MSW: "true" if it should build with a mocked backend.
+```

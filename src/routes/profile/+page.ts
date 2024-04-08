@@ -9,6 +9,15 @@ query LoggedInUser {
         id
         name
         img
+        ratings {
+            whiskey {
+                id
+                title
+            }
+            title
+            score
+            body
+        }
     }
 }`
 

@@ -1,21 +1,23 @@
-<script lang=ts>
-    const setTheme = (theme: string) => {
-        document.documentElement.dataset.theme = theme;
-        document.cookie = `siteTheme=${theme};Max-Age=2592000;path="/";SameSite=None;Secure;`;
-    };
+<script lang="ts">
+    import { featureFlagStore, capitalize } from "../store/featureFlagStore";
 </script>
 
 <ul>
     <div>
-        <li><a href="/"><img class="navbar-logo" alt="Unrated" src="/assets/VectorLogoUnratedText.svg"></a></li>
+        <li>
+            <a href="/">
+            {#if $featureFlagStore?.fancyLogo}
+                <img class="navbar-logo" alt="Unrated" src="/assets/Logo_4k.png">
+            {:else}
+                <img class="navbar-logo" alt="Unrated" src="/assets/VectorLogoUnratedText.svg">
+            {/if}
+            </a>
+        </li>
     </div>
     <div class="navbar-links">
         <li><a href="/profile">Profile</a></li>
-        <li><a href="/friends">Friends</a></li>
-        <li><a href="/whiskey">whiskey-list (testing)</a></li>
-        <button on:click="{() => setTheme('val')}">val Theme</button>
-        <button on:click="{() => setTheme('dracula')}">dracula Theme</button>
-        </div>
+        <li><a href="/whiskey">{ capitalize($featureFlagStore?.wiskeySpelling) }</a></li>
+    </div>
 </ul>
 
 <style>
@@ -26,6 +28,8 @@
         align-items: center;
         list-style: none;
         padding: .5rem;
+        padding-right: 2rem;
+        font-size: larger;
     }
 
     .navbar-logo {

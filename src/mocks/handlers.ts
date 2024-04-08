@@ -9,7 +9,33 @@ const whiskeys = [
       "percentage": "40%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
       "volume": "70cl",
-      "avgScore": "4"
+      "avgScore": "4",
+      "ratings": [
+        {
+          "title": "Execellent whiskey",
+          "score": "5",
+          "body": "Nice whiskey! Absolutely lovely",
+          "user": {"name": "Kaspar"}
+        },
+        {
+          "title": "Among the better ones i've tasted",
+          "score": "4",
+          "body": "Quite good! Would buy again",
+          "user": {"name":"Filip"}
+        }
+      ],
+      "categories": [
+        {
+          "id": 1,
+          "name": "Time Travel Capability",
+          "avgScore": 2
+        },
+        {
+          "id": 2,
+          "name": "Conversation Starter Level",
+          "avgScore": 2.5700000000000003
+        }
+      ]
   },
   {
       "id": "2",
@@ -19,7 +45,31 @@ const whiskeys = [
       "percentage": "43%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
-      "avgScore": "4"
+      "avgScore": "4",
+      "ratings": [
+        {
+          "title": "Execellent whiskey",
+          "score": "5",
+          "body": "Nice whiskey! Absolutely lovely",
+          "user": {"name": "Kaspar"}
+        },
+        {
+          "title": "Among the better ones i've tasted",
+          "score": "4",
+          "body": "Quite good! Would buy again",
+          "user": {"name":"Filip"}
+        }
+      ],
+      "categories": [
+        {
+          "name": "Time Travel Capability",
+          "avgScore": 2
+        },
+        {
+          "name": "Conversation Starter Level",
+          "avgScore": 2.5700000000000003
+        }
+      ]
   },
   {
       "id": "3",
@@ -29,9 +79,44 @@ const whiskeys = [
       "percentage": "41%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
-      "avgScore": "5"
+      "avgScore": "5",
+      "ratings": [
+        {
+          "title": "Execellent whiskey",
+          "score": "5",
+          "body": "Nice whiskey! Absolutely lovely",
+          "user": {"name": "Kaspar"}
+        },
+        {
+          "title": "Among the better ones i've tasted",
+          "score": "4",
+          "body": "Quite good! Would buy again",
+          "user": {"name":"Filip"}
+        }
+      ],
+      "categories": [
+        {
+          "name": "Time Travel Capability",
+          "avgScore": 2
+        },
+        {
+          "name": "Conversation Starter Level",
+          "avgScore": 2.5700000000000003
+        }
+      ]
   }
   ];
+
+const attributes = [
+  {
+    "id": "1",
+    "name": "Time Travel Capability"
+  },
+  {
+    "id": "2",
+    "name": "Conversation Starter Level"
+  },
+]
 
 export const handlers = [
   http.post('*/login', ({ cookies }) => {
@@ -66,7 +151,18 @@ export const handlers = [
             getLoggedInUser: {
                 id: 18021700,
                 name: 'Tor-Arne Larsen',
-                img: null
+                img: null,
+                ratings: [
+                    {
+                        title: "Verdens beste",
+                        body: "Jeg elsker denne",
+                        score: 1,
+                        whiskey: {
+                          id:"1",
+                          title: "Jura"
+                        }
+                    }
+                ]
             }
         }
     })
@@ -107,5 +203,13 @@ export const handlers = [
         }
       }
     }) 
+  }),
+  // This is to get the attributes, shown in the rating section.
+  graphql.query("Attributes", () => {
+    return HttpResponse.json({
+      data: {
+        getAttributeCategories: attributes
+      }
+    })
   })
 ];
