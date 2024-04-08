@@ -3,7 +3,10 @@ describe('Login Logout Test', () => {
     cy.visit('/')
     cy.get('a[href*="/whiskey"]').should('be.visible').click()
     cy.contains('Tullamore Dew').click()
-    cy.contains('Favourite')
+    cy.contains('written by Kaspar')
+    cy.contains('User Reviews')
+    cy.contains('Rate this whiskey!')
+    cy.contains('Time Travel Capability')
   }),
   it('Logs into a user and logs out', () => {
     cy.visit('/')

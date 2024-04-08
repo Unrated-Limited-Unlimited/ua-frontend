@@ -65,7 +65,7 @@
                 </button>
             {/each}
         </div>
-        <h3>Other rating areas {$rating}</h3>
+        <h3>Other rating areas</h3>
         Smooth - Fiery
         <input type="range" min="0" max="4" bind:value={smoothFiery} class="slider">
         Mellow - Peaty
@@ -80,6 +80,12 @@
 </div>
 
 <style>
+    textarea {
+        resize: none;
+        width: 20vw;
+        height: 5vh;
+    }
+
     .whiskey-desc {
         display: flex;
         flex-direction: column;
