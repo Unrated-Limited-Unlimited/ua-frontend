@@ -7,7 +7,7 @@ const whiskeys = [
       "price": "500",
       "summary": "Jura is a good whiskey",
       "percentage": "40%",
-      "img": "https://bilder.vinmonopolet.no/cache/515x515-0/14676201-1.jpg",
+      "img": "https://bilder.vinmonopolet.no/cache/1200x1200-0/187201-1.jpg",
       "volume": "70cl",
       "avgScore": "4",
       "ratings": [
@@ -110,7 +110,7 @@ const whiskeys = [
 const attributes = [
   {
     "id": "1",
-    "name": "Time Travel Capability"
+    "name": "Time Travel Capabilitysdsdsd"
   },
   {
     "id": "2",

@@ -14,7 +14,7 @@
 
 <div class="whiskey-site">
     <div class="main-box">
-        <div class="whiskey-image"><img alt={data.whiskey.name} src={data.whiskey.img}></div>
+        <div class="whiskey-image"><img class="whiskey-image" alt={data.whiskey.name} src={(data.whiskey.img).slice(1,-1)}></div>
         <div class="info">
             <!--<p>{data.whiskey.producer}</p>-->
             <h2>{data.whiskey.title}</h2>
@@ -141,6 +141,11 @@
     }
     .unfill-rating-star {
         color: var(--bg-color)
+    }
+
+    .whiskey-image {
+        max-height: 35rem;
+        max-width: auto;
     }
 
     .slider {
