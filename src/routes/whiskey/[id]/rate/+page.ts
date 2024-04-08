@@ -12,12 +12,24 @@ query Whiskey($id: ID!) {
     }
 }`;
 
-export const load: PageLoad = async ({ fetch, params }) => {
-    const res = await query(fetch, whiskey, {id: params.id })
-	if (res.status !== 200) {
+const attributes = `
+query Attributes {
+    getAttributeCategories: {
+        id
+        name
     }
+}
+`
+
+export const load: PageLoad = async ({ fetch, params }) => {
+    const res = await query(fetch, whiskey, {id: params.id });
+    const rating = await query(fetch, attributes);
+    if (rating.status !== 200 || rating.status !== 200) {
+    }
+
     return {
         whiskey: (await res.json()).data.getWhiskey,
+        attributes: (await rating.json()).data.getAttributeCategories,
         id: params.id
     }
 }
