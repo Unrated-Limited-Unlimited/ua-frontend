@@ -17,7 +17,11 @@ query Whiskey($id: ID!) {
                 name
             }
         }
-        categories 
+        categories {
+            id
+            name
+            avgScore
+        }
     }
 }`;
 

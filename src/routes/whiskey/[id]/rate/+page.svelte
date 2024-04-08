@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { PageData } from "./$types";    
-    import { writable } from 'svelte/store';
-    import { url } from '$lib/utils';
+    import { get, writable } from 'svelte/store';
     import { goto } from '$app/navigation';
+    import { query } from "$lib/graphql";
 
     export let data : PageData
     export let id = data.id;
@@ -31,18 +31,27 @@
         hoveredRating.set(0);
     }
 
+    const createRatingQL = `
+    mutation CreateRating(
+        $whiskeyId: ID!,
+        $ratingInput : RatingInput!, 
+        $attributeInputs: [AttributeInput]
+    ) {
+    createRating(
+        whiskeyId: $whiskeyId, 
+        ratingInput: $ratingInput,
+        attributeInputs: $attributeInputs
+    ) {
+        id
+      }
+    }`
+
     // Posts the rating to the backend.
     async function createRating(){
-        fetch(url("createRating"), {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                whiskeyId: id,
-                ratingInput: {body: comment, score: rating, title: title},
-                attributeInputs: [{}]
-            })
+        query(fetch, createRatingQL, {
+            whiskeyId: id,
+            ratingInput: {body: comment, score: get(rating), title: title},
+            attributeInputs: []
         }).then(() => goto('/whiskey/'+id));
     }
 </script>

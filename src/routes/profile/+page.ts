@@ -9,6 +9,11 @@ query LoggedInUser {
         id
         name
         img
+        ratings {
+            title
+            score
+            body
+        }
     }
 }`
 

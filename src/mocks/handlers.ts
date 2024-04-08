@@ -140,7 +140,14 @@ export const handlers = [
             getLoggedInUser: {
                 id: 18021700,
                 name: 'Tor-Arne Larsen',
-                img: null
+                img: null,
+                ratings: [
+                    {
+                        title: "Verdens beste",
+                        body: "Jeg elsker denne",
+                        score: 1
+                    }
+                ]
             }
         }
     })

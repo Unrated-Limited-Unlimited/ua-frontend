@@ -6,7 +6,7 @@
 	
 	export let data: PageData;
 
-    let reviews = [{name:"Jura", score:3,"comment": "I hate it!"}]
+    let reviews = data.user.ratings
 </script>
 
 {#if !!data.user} 
@@ -26,7 +26,7 @@
             {#each reviews as review}
                 <div class="rating-box">
                     <div class="review-display-name">
-                    <h3>{review.name}</h3>
+                    <h3>{review.title}</h3>
                         <div>            
                             {#each Array(review.score) as _, index}
                                 <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -44,7 +44,7 @@
                             {/each}
                         </div>
                     </div>
-                    <p>{review.comment}</p>
+                    <p>{review.body}</p>
                 </div>
             {/each}
         </div>
