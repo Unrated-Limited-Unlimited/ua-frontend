@@ -9,7 +9,7 @@
     
     {#if data.whiskey_list}
     <div>
-        <h1>{ capitalize($featureFlagStore?.wiskeySpelling) + "s" }</h1>
+        <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
         {#each data.whiskey_list as whiskey}
         <a id="whiskey-link" href="/whiskey/{whiskey.id}">
             <div class="whiskey-view-container">
