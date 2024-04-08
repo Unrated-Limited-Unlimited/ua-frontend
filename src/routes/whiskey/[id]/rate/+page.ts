@@ -28,7 +28,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
 
     return {
         whiskey: (await res.json()).data.getWhiskey,
-        attributes: (await rating.json()).data.getAttributeCategories,
         id: params.id
     }
 }
