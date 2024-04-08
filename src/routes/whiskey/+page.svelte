@@ -14,7 +14,7 @@
         <a id="whiskey-link" href="/whiskey/{whiskey.id}">
             <div class="whiskey-view-container">
                 <div class="whiskey-view-image-container">
-                    <img class="whiskey-view-image" alt={whiskey.title} src={(whiskey.img).slice(1,-1}>
+                    <img class="whiskey-view-image" alt={whiskey.title} src={(whiskey.img).slice(1,-1)}>
                 </div>
                 <div class="whiskey-view-desc">
                     <h3>
