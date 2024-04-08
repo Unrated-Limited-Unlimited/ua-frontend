@@ -19,19 +19,6 @@
         id: string;
         name: string;
     }
-    
-    const attributes : {data: Attribute[]} = {      
-    "data": [
-        {
-            "id": "1",
-            "name": "Time Travel Capability"
-        },
-        {
-            "id": "2",
-            "name": "Conversation Starter Level"
-        }
-    ]
-    }
 
     // Function to set the rating
     function setRating(index: number): void {
@@ -107,10 +94,9 @@
             {/each}
         </div>
         <h3>Other rating areas</h3>
-        {#each attributes.data as attribute}
+        {#each data.attributes as attribute}
         {attribute.name}
         <input type="range" min="0" max="4" bind:value={sliderValues[parseInt(attribute.id)]} class="slider">
-        {sliderValues}
         {/each}
 
         <button on:click={createRating}>Create Review</button>
