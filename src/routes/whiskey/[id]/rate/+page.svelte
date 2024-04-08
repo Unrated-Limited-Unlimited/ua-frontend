@@ -3,6 +3,7 @@
     import { get, writable } from 'svelte/store';
     import { goto } from '$app/navigation';
     import { query } from "$lib/graphql";
+    import { onMount } from 'svelte';
 
     export let data : PageData
     export let id = data.id;
@@ -10,11 +11,27 @@
     let rating = writable(0); // stores the rating
     let hoveredRating = writable(0); // stores the hover state rating
     let comment = '';
-    let smoothFiery = 2;
-    let mellowPeaty = 2;
-    let drySweet = 2;
-    let simpleComplex = 2;
     let title = ""
+    
+    let sliderValues: Record<number, number> = {};
+
+    interface Attribute {
+        id: string;
+        name: string;
+    }
+    
+    const attributes : {data: Attribute[]} = {      
+    "data": [
+        {
+            "id": "1",
+            "name": "Time Travel Capability"
+        },
+        {
+            "id": "2",
+            "name": "Conversation Starter Level"
+        }
+    ]
+    }
 
     // Function to set the rating
     function setRating(index: number): void {
@@ -48,10 +65,14 @@
 
     // Posts the rating to the backend.
     async function createRating(){
+        const transformedAttributes = Object.entries(sliderValues).map(([id, score]) => {
+            return {id: id.toString(), score: score.toString()}
+        });
+
         query(fetch, createRatingQL, {
             whiskeyId: id,
             ratingInput: {body: comment, score: get(rating), title: title},
-            attributeInputs: []
+            attributeInputs: transformedAttributes
         }).then(() => goto('/whiskey/'+id));
     }
 </script>
@@ -86,14 +107,11 @@
             {/each}
         </div>
         <h3>Other rating areas</h3>
-        Smooth - Fiery
-        <input type="range" min="0" max="4" bind:value={smoothFiery} class="slider">
-        Mellow - Peaty
-        <input type="range" min="0" max="4" bind:value={mellowPeaty} class="slider">
-        Dry - Sweet
-        <input type="range" min="0" max="4" bind:value={drySweet} class="slider">
-        Simple - Complex
-        <input type="range" min="0" max="4" bind:value={simpleComplex} class="slider">
+        {#each attributes.data as attribute}
+        {attribute.name}
+        <input type="range" min="0" max="4" bind:value={sliderValues[parseInt(attribute.id)]} class="slider">
+        {sliderValues}
+        {/each}
 
         <button on:click={createRating}>Create Review</button>
     </div>

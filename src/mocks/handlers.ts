@@ -115,7 +115,7 @@ const attributes = [
   {
     "id": "2",
     "name": "Conversation Starter Level"
-  }
+  },
 ]
 
 export const handlers = [
