@@ -14,6 +14,7 @@
     let mellowPeaty = 2;
     let drySweet = 2;
     let simpleComplex = 2;
+    let title = ""
 
     // Function to set the rating
     function setRating(index: number): void {
@@ -32,9 +33,17 @@
 
     // Posts the rating to the backend.
     async function createRating(){
-        // TODO: Create post request.
-
-        goto('/whiskey/'+id)
+        fetch(url("createRating"), {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                whiskeyId: id,
+                ratingInput: {body: comment, score: rating, title: title},
+                attributeInputs: [{}]
+            })
+        }).then(() => goto('/whiskey/'+id));
     }
 </script>
 
@@ -44,6 +53,8 @@
         <h2>{data.whiskey.title}</h2>
     </div>
     <div class=rating-details>
+        <label for="comment-title">Title</label>
+        <input id="comment-title">
         <label for="comment">Comment</label>
         <textarea id="comment" bind:value={comment}></textarea>
         <label for="score">Rating</label>

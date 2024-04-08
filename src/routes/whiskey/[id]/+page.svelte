@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <p>{review.body}</p>
-                <h4>written by {review.user}</h4>
+                <h4>written by {review.user.name}</h4>
             </div>
         {/each}
     </div>
