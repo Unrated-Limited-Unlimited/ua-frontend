@@ -5,7 +5,9 @@
         export let id = data.id;
         let roundScore = Math.round(data.whiskey.avgScore)
 
-        let reviews=[{name: "Kaspar",comment: "Nice whiskey!", "score": 5},{name: "Filip",comment: "Quite good! Would buy again", "score": 4}]
+        let categories = data.whiskey.categories;
+
+        let reviews= data.whiskey.ratings
 </script>
 
 <title>{data.whiskey.title} - Unrated</title>
@@ -35,6 +37,7 @@
                 </div>
                 <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
             </div>
+            <p>{data.whiskey.summary}</p>
             <!--
                 currently no favourite system implemented
                 <button>Favourite</button>
@@ -44,22 +47,12 @@
     <div class="main-window taste-profile">
         <h3>Taste profile</h3>
         <div class = "sliders">
-            <div class="slider-box">
-                <p>Smooth - Fiery</p>
-                <input type="range" min="0" max="4" class="slider">
-            </div>
-            <div class="slider-box">
-                <p>Mellow - Peaty</p>
-                <input type="range" min="0" max="4" class="slider">
-            </div>
-            <div class="slider-box">
-                <p>Dry - Sweet</p>
-                <input type="range" min="0" max="4" class="slider">
-            </div>
-            <div class="slider-box">
-                <p>Simple - Complex</p>
-                <input type="range" min="0" max="4" class="slider">
-            </div>
+            {#each categories as category}
+                <div class="slider-box">
+                    <p>{category.name}</p>
+                    <input type="range" min="0" max="4" bind:value={category.avgScore} class="slider" disabled>
+                </div>
+            {/each}
         </div>
     </div>
 
@@ -68,16 +61,16 @@
         {#each reviews as review}
             <div class="rating-box">
                 <div class="review-display-name">
-                <h4>{review.name}</h4>
+                <h2>{review.title}</h2>
                     <div>            
-                        {#each Array(review.score) as _, index}
+                        {#each Array(parseFloat(review.score)) as _, index}
                             <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path 
                                     fill="currentColor" 
                                     d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
                             </svg>
                         {/each}
-                        {#each Array(5-review.score) as _, index}
+                        {#each Array(5-parseFloat(review.score)) as _, index}
                         <svg class="unfill-rating-star rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path 
                                 fill="currentColor" 
@@ -86,7 +79,8 @@
                         {/each}
                     </div>
                 </div>
-                <p>{review.comment}</p>
+                <p>{review.body}</p>
+                <h4>written by {review.user}</h4>
             </div>
         {/each}
     </div>
