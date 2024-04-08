@@ -5,8 +5,6 @@
 	import type { PageData } from './$types';
 	
 	export let data: PageData;
-
-    let reviews = data.user.ratings
 </script>
 
 {#if !!data.user} 
@@ -23,7 +21,7 @@
 
         <div class="myRatings">
             <h2>My Ratings</h2>
-            {#each reviews as review}
+            {#each data.user.ratings as review}
                 <div class="rating-box">
                     <div class="review-display-name">
                     <h3>{review.title}</h3>
