@@ -7,6 +7,8 @@
     export let data : PageData
     export let id = data.id;
 
+    export let attributes = data.attributes;
+
     let rating = writable(0); // stores the rating
     let hoveredRating = writable(0); // stores the hover state rating
     let comment = '';
@@ -60,6 +62,7 @@
     <h1>Creating rating</h1>
     <div class="whiskey-desc">
         <h2>{data.whiskey.title}</h2>
+        {attributes}
     </div>
     <div class=rating-details>
         <label for="comment-title">Title</label>

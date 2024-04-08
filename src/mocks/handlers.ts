@@ -107,6 +107,17 @@ const whiskeys = [
   }
   ];
 
+const attributes = [
+  {
+    "id": "1",
+    "name": "Time Travel Capability"
+  },
+  {
+    "id": "2",
+    "name": "Conversation Starter Level"
+  }
+]
+
 export const handlers = [
   http.post('*/login', ({ cookies }) => {
     return new HttpResponse(null, {
@@ -188,5 +199,13 @@ export const handlers = [
         }
       }
     }) 
+  }),
+  // This is to get the attributes, shown in the rating section.
+  graphql.query("Attributes", () => {
+    return HttpResponse.json({
+      data: {
+        getAttributeCategories: attributes
+      }
+    })
   })
 ];
