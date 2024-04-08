@@ -156,7 +156,11 @@ export const handlers = [
                     {
                         title: "Verdens beste",
                         body: "Jeg elsker denne",
-                        score: 1
+                        score: 1,
+                        whiskey: {
+                          id:"1",
+                          title: "Jura"
+                        }
                     }
                 ]
             }

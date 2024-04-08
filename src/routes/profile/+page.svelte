@@ -24,6 +24,7 @@
             {#each data.user.ratings as review}
                 <div class="rating-box">
                     <div class="review-display-name">
+                    <h4><a href="/whiskey/{review.whiskey.id}">{review.whiskey.title}</a></h4>
                     <h3>{review.title}</h3>
                         <div>            
                             {#each Array(review.score) as _, index}
@@ -58,6 +59,18 @@
 {/if}
 
 <style lang="scss">
+    h4{
+        a{
+            text-decoration: none;
+            color: var(--contrast-text);
+            opacity: 0.6;
+        }
+        a:hover{
+            color: var(--accent);
+            opacity: 1;
+        }
+        margin: 0;
+    }
     .profileInf {
         display: flex;
         flex-wrap: wrap;

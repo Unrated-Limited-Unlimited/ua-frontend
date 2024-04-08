@@ -10,6 +10,10 @@ query LoggedInUser {
         name
         img
         ratings {
+            whiskey {
+                id
+                title
+            }
             title
             score
             body
