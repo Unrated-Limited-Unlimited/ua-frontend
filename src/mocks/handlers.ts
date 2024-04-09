@@ -155,7 +155,6 @@ export const handlers = [
     })
   }),
   graphql.query("Ratings", ({variables}) => {
-    const { id } = variables;
     return HttpResponse.json({
       data: {
         getRatings: {
