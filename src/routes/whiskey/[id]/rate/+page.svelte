@@ -11,7 +11,7 @@
     let rating = writable(0); // stores the rating
     let hoveredRating = writable(0); // stores the hover state rating
     let comment = '';
-    let title = ""
+    let title = "";
     
     let sliderValues: Record<number, number> = {};
 
@@ -55,7 +55,7 @@
         const transformedAttributes = Object.entries(sliderValues).map(([id, score]) => {
             return {id: id.toString(), score: score.toString()}
         });
-
+        console.log(transformedAttributes);
         query(fetch, createRatingQL, {
             whiskeyId: id,
             ratingInput: {body: comment, score: get(rating), title: title},
@@ -71,7 +71,7 @@
     </div>
     <div class=rating-details>
         <label for="comment-title">Title</label>
-        <input id="comment-title">
+        <input bind:value={title} id="comment-title">
         <label for="comment">Comment</label>
         <textarea id="comment" bind:value={comment}></textarea>
         <label for="score">Rating</label>
@@ -96,7 +96,7 @@
         <h3>Other rating areas</h3>
         {#each data.attributes as attribute}
         {attribute.name}
-        <input type="range" min="0" max="4" bind:value={sliderValues[parseInt(attribute.id)]} class="slider">
+        <input type="range" min="0" max="1" step=0.25 bind:value={sliderValues[parseInt(attribute.id)]} class="slider">
         {/each}
 
         <button on:click={createRating}>Create Review</button>
