@@ -1,6 +1,6 @@
 /** @type {import('@sveltejs/kit/hooks')} */
-import { MSW_ON } from '$lib/env';
-import type { Handle } from '@sveltejs/kit';
+import { BACKEND_BASE_URL, MSW_ON } from '$lib/env';
+import type { Handle, HandleFetch } from '@sveltejs/kit';
 
 export const handle: Handle = async({event, resolve}) => {
     let theme = event.cookies.get("siteTheme");

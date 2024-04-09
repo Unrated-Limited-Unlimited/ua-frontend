@@ -4,11 +4,8 @@
 
 	export let data: PageData;
 </script>
-
-<body>
     
     {#if data.whiskey_list}
-    <div>
         <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
         {#each data.whiskey_list as whiskey}
         <a id="whiskey-link" href="/whiskey/{whiskey.id}">
@@ -39,14 +36,10 @@
             </div>
         </a>
         {/each}
-    </div>
     {/if}
-</body>
+
 
 <style>
-    body {
-        margin: 2rem;
-    }
     a {
         text-decoration: none;
     }
