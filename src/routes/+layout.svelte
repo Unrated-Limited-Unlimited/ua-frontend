@@ -3,6 +3,10 @@
     import '../app.scss';
 </script>
 
+<svelte:head>
+    <title>Unrated</title>
+</svelte:head>
+
 <Navbar></Navbar>
 
 <slot></slot>
