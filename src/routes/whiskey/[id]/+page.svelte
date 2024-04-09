@@ -10,8 +10,6 @@
         let reviews= data.whiskey.ratings
 </script>
 
-<title>{data.whiskey.title} - Unrated</title>
-
 <div class="whiskey-site">
     <div class="main-box">
         <div class="whiskey-image"><img class="whiskey-image" alt={data.whiskey.name} src={(data.whiskey.img)}></div>
