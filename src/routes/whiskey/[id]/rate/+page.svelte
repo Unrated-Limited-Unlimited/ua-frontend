@@ -96,7 +96,7 @@
         <h3>Other rating areas</h3>
         {#each data.attributes as attribute}
         {attribute.name}
-        <input type="range" min="0" max="4" bind:value={sliderValues[parseInt(attribute.id)]} class="slider">
+        <input type="range" min="0" max="1" step=0.25 bind:value={sliderValues[parseInt(attribute.id)]} class="slider">
         {/each}
 
         <button on:click={createRating}>Create Review</button>
