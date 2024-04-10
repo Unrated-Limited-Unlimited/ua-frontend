@@ -1,5 +1,33 @@
 import { http, graphql, HttpResponse } from 'msw';
 
+const ratings = [
+    {
+      "title": "Execellent whiskey",
+      "score": "1",
+      "body": "Nice whiskey! Absolutely lovely",
+      "user": {"name": "Kaspar"}
+    },
+    {
+      "title": "Among the better ones i've tasted",
+      "score": "0.8",
+      "body": "Quite good! Would buy again",
+      "user": {"name":"Filip"}
+    }
+];
+
+const categories = [
+    {
+        "id": 1,
+        "name": "Time Travel Capability",
+        "avgScore": 0.4
+    },
+    {
+        "id": 2,
+        "name": "Conversation Starter Level",
+        "avgScore": 0.4
+    }
+];
+
 const whiskeys = [
   {
       "id": "1",
@@ -10,32 +38,8 @@ const whiskeys = [
       "img": "https://bilder.vinmonopolet.no/cache/1200x1200-0/187201-1.jpg",
       "volume": "70cl",
       "avgScore": "0.8",
-      "ratings": [
-        {
-          "title": "Execellent whiskey",
-          "score": "1",
-          "body": "Nice whiskey! Absolutely lovely",
-          "user": {"name": "Kaspar"}
-        },
-        {
-          "title": "Among the better ones i've tasted",
-          "score": "0.8",
-          "body": "Quite good! Would buy again",
-          "user": {"name":"Filip"}
-        }
-      ],
-      "categories": [
-        {
-          "id": 1,
-          "name": "Time Travel Capability",
-          "avgScore": 0.4
-        },
-        {
-          "id": 2,
-          "name": "Conversation Starter Level",
-          "avgScore": 0.4
-        }
-      ]
+      "ratings": ratings,
+      "categories": categories
   },
   {
       "id": "2",
@@ -46,30 +50,8 @@ const whiskeys = [
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
       "avgScore": "0.8",
-      "ratings": [
-        {
-          "title": "Execellent whiskey",
-          "score": "1",
-          "body": "Nice whiskey! Absolutely lovely",
-          "user": {"name": "Kaspar"}
-        },
-        {
-          "title": "Among the better ones i've tasted",
-          "score": "0.8",
-          "body": "Quite good! Would buy again",
-          "user": {"name":"Filip"}
-        }
-      ],
-      "categories": [
-        {
-          "name": "Time Travel Capability",
-          "avgScore": 0.4
-        },
-        {
-          "name": "Conversation Starter Level",
-          "avgScore": 0.2
-        }
-      ]
+      "ratings": ratings,
+      "categories": categories
   },
   {
       "id": "3",
@@ -80,32 +62,10 @@ const whiskeys = [
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
       "avgScore": "1",
-      "ratings": [
-        {
-          "title": "Execellent whiskey",
-          "score": "1",
-          "body": "Nice whiskey! Absolutely lovely",
-          "user": {"name": "Kaspar"}
-        },
-        {
-          "title": "Among the better ones i've tasted",
-          "score": "0.2",
-          "body": "Quite good! Would buy again",
-          "user": {"name":"Filip"}
-        }
-      ],
-      "categories": [
-        {
-          "name": "Time Travel Capability",
-          "avgScore": 0.4
-        },
-        {
-          "name": "Conversation Starter Level",
-          "avgScore": 0.4
-        }
-      ]
+      "ratings": ratings,
+      "categories": categories
   }
-  ];
+];
 
 const attributes = [
   {
@@ -116,7 +76,7 @@ const attributes = [
     "id": "2",
     "name": "Conversation Starter Level"
   },
-]
+];
 
 export const handlers = [
   http.post('*/login', ({ cookies }) => {
@@ -195,7 +155,6 @@ export const handlers = [
     })
   }),
   graphql.query("Ratings", ({variables}) => {
-    const { id } = variables;
     return HttpResponse.json({
       data: {
         getRatings: {

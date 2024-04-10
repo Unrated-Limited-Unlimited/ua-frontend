@@ -25,6 +25,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
     const res = await query(fetch, whiskey, {id: params.id });
     const rating = await query(fetch, attributes);
     if (res.status !== 200) {
+        return null;
     }
 
     return {

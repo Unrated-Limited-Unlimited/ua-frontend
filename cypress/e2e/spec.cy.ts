@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Login Logout Test', () => {
   it('Check whiskey pages', () => {
     cy.visit('/')
@@ -7,7 +9,7 @@ describe('Login Logout Test', () => {
     cy.contains('User Reviews')
     cy.contains('Rate this whiskey!')
     cy.contains('Time Travel Capability')
-  }),
+  });
   it('Logs into a user and logs out', () => {
     cy.visit('/')
     cy.contains('Profile')
@@ -23,5 +25,5 @@ describe('Login Logout Test', () => {
     cy.get('button[name="logout"]').should('be.visible').click()
     cy.get('a[href*="/profile"]').should('be.visible').click()
     cy.contains('You are not logged in')
-  })
+  });
 })
