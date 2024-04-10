@@ -2,7 +2,7 @@
   import type { PageData } from "./$types";
   export let data: PageData;
   export let id = data.id;
-  let roundScore = Math.round(data.whiskey.avgScore);
+  let roundScore = Math.round(data.whiskey.avgScore*5);
 
   let categories = data.whiskey.categories;
 
@@ -26,7 +26,7 @@
       <div class="score-container">
         <h1>{roundScore}</h1>
         <div class="stars">
-          {#each Array(roundScore * 5) as _}
+          {#each Array(roundScore) as _}
             <svg
               class="rating-star"
               xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@
               />
             </svg>
           {/each}
-          {#each Array(5 - roundScore * 5) as _}
+          {#each Array(5 - roundScore) as _}
             <svg
               class="unfill-rating-star2 rating-star"
               xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,8 @@
           <input
             type="range"
             min="0"
-            max="4"
+            max="1"
+            step="0.25"
             bind:value={category.avgScore}
             class="slider"
             disabled
