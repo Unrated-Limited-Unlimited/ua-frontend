@@ -110,7 +110,7 @@ const whiskeys = [
 const attributes = [
   {
     "id": "1",
-    "name": "Time Travel Capabilitysdsdsd"
+    "name": "Time Travel Capability"
   },
   {
     "id": "2",

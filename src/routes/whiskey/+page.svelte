@@ -62,7 +62,7 @@
             margin: 2vw;
         }
     }
-    @media only screen and (min-width: 981px) {
+    @media only screen and (min-width: 1200px) {
         .grid-container{
             display: grid;
             grid-template-columns: 22.5vw 22.5vw 22.5vw 22.5vw;
