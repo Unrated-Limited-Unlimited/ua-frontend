@@ -69,7 +69,7 @@
         margin: 0;
         background-color: var(--navbar);
         display: flex;
-        justify-content:flex-start;
+        justify-content:flex-start; 
         gap: 1rem;
         flex-direction:row;
         border-radius: 2rem;
