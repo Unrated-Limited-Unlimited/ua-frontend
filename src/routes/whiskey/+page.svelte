@@ -21,14 +21,14 @@
                         {whiskey.title}
                     </h3>
                     <div class="stars">
-                        {#each Array(Math.round(whiskey.avgScore)) as _, index}
+                        {#each Array(Math.round(whiskey.avgScore*5)) as _, index}
                         <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path 
                                     fill="currentColor" 
                                     d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
                             </svg>
                         {/each}
-                        {#each Array(5-Math.round(whiskey.avgScore)) as _, index}
+                        {#each Array(5-Math.round(whiskey.avgScore*5)) as _, index}
                         <svg class="unfill-rating-star rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path
                                 d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
