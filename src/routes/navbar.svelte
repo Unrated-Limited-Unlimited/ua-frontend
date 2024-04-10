@@ -83,6 +83,7 @@
             grid-template-areas: "whiskeys home profile";
             grid-template-columns: 1fr 1fr 1fr;
             justify-items: center;
+            border-top: 3px solid var(--bg-color);
         }
         .whiskey {
             grid-area: whiskeys;

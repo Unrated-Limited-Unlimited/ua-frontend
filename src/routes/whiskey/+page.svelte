@@ -8,7 +8,7 @@
 <body>
     
     {#if data.whiskey_list}
-    <div>
+    <div class="main-container">
         <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
         <div class="grid-container">
             {#each Array(10) as _}
@@ -22,6 +22,7 @@
                         <h2>
                             {whiskey.title}
                         </h2>
+                        <p>{whiskey.summary}</p>
                         <div class="stars">
                             {#each Array(Math.round(whiskey.avgScore*5)) as _, index}
                             <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -54,6 +55,14 @@
         gap: 2vw;
         margin: 2vw;
     }
+    @media only screen and (max-width: 639px) {
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
     @media only screen and (min-width: 640px) {
         .grid-container{
             display: grid;
@@ -62,7 +71,7 @@
             margin: 2vw;
         }
     }
-    @media only screen and (min-width: 1200px) {
+    @media only screen and (min-width: 1350px) {
         .grid-container{
             display: grid;
             grid-template-columns: 22.5vw 22.5vw 22.5vw 22.5vw;
@@ -76,20 +85,21 @@
     .whiskey-view-container {
         margin: 0;
         background-color: var(--navbar);
-        display: flex;
-        justify-content:flex-start; 
+        display: grid;
+        grid-template-columns: 30% 70%;
         gap: .5rem;
         flex-direction:row;
         border-radius: 2rem;
         padding: .5rem;
+        padding-left: 11.25px;
         height: 15rem;
         width: auto;
         color: var(--contrast-text)
     }
     .whiskey-view-image-container{
         background-color: white;
-        max-width: 7rem;
-        max-height: 15rem;
+        max-width: 14rem;
+        max-height: 14rem;
         min-width: 4rem;
         padding: .5rem;
         display: flex;
@@ -97,10 +107,11 @@
         border-radius: 2rem;
     }
     .whiskey-view-image {
-        max-width: 7rem;
-        min-width: 5rem;
+        max-width: 14rem;
+        max-height: 14rem;
         width: auto;
         height: auto;
+        border-radius: 2rem;
     }
 
     .stars {
