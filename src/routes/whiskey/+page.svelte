@@ -14,11 +14,11 @@
             {#each Array(10) as _}
             {#each data.whiskey_list as whiskey}
             <a id="whiskey-link" href="/whiskey/{whiskey.id}">
-                <div class="whiskey-view-container">
+                <div class="whiskey-view-container hover-shadow">
                     <div class="whiskey-view-image-container">
                         <img class="whiskey-view-image" alt={whiskey.title} src={(whiskey.img)}>
                     </div>
-                    <div class="whiskey-view-desc">
+                    <div class="flex-column centered">
                         <h2>
                             {whiskey.title}
                         </h2>
@@ -50,24 +50,28 @@
 <style>
     .grid-container {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-columns: 96vw;
         gap: 2vw;
-        width: 90vw;
         margin: 2vw;
     }
-    body {
-        margin: 2rem;
+    @media only screen and (min-width: 640px) {
+        .grid-container{
+            display: grid;
+            grid-template-columns: 47vw 47vw;
+            gap: 2vw;
+            margin: 2vw;
+        }
+    }
+    @media only screen and (min-width: 981px) {
+        .grid-container{
+            display: grid;
+            grid-template-columns: 22.5vw 22.5vw 22.5vw 22.5vw;
+            gap: 2vw;
+            margin: 2vw;
+        }
     }
     a {
         text-decoration: none;
-    }
-    .whiskey-view-desc {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width:auto;
-        height: auto;
     }
     .whiskey-view-container {
         margin: 0;
@@ -82,19 +86,11 @@
         width: auto;
         color: var(--contrast-text)
     }
-    .whiskey-view-container:hover{
-        box-shadow: .02rem .02rem .5rem;
-    }
-    h3{
-        margin: 0;
-    }
     .whiskey-view-image-container{
         background-color: white;
         max-width: 7rem;
         max-height: 15rem;
         min-width: 4rem;
-        width: auto;
-        height: auto;
         padding: .5rem;
         display: flex;
         justify-content: center;

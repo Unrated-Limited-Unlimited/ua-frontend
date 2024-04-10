@@ -21,19 +21,24 @@ a:hover{
     color: var(--accent)
 }
 
-.review-display-name {
+.flex-column {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin:0;
-    margin-left: 2rem;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
+.flex-inline {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+}
+.centered {
+    justify-content: center;
+    align-items: center;
+}
+
 .rating-box {
-    background-color: var(--navbar);
-    color: var(--contrast-text);
-    display: flex;
     gap: .3rem;
-    flex-direction:column;
     margin: .5rem;
     border-radius: 2rem;
     padding: .2rem;
@@ -49,6 +54,27 @@ a:hover{
         margin:0;
         margin-left: 2rem;
     }
+}
+.hover-shadow:hover{
+    box-shadow: .02rem .02rem .5rem var(--text);
+}
+
+.rating-star {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+.active-star {
+    color: var(--accent);
+  }
+
+.contrast-box {
+    background-color: var(--navbar);
+    color: var(--contrast-text);
+}
+.standard-box {
+    background-color: var(--bg-color);
+    color: var(--text);
 }
 
 button {
@@ -76,11 +102,4 @@ html[data-theme="standard"] {
     --accent: #ffad4f;
     --text: rgb(20, 16, 6);
     --contrast-text: #F5F5F5;
-}
-
-.main-window {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }

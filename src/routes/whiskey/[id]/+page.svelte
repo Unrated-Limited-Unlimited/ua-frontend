@@ -11,7 +11,7 @@
 
 <title>{data.whiskey.title} - Unrated</title>
 
-<div class="whiskey-site">
+<div class="flex-column whiskey-site">
   <div class="main-box">
     <div class="whiskey-image">
       <img
@@ -20,10 +20,10 @@
         src={data.whiskey.img}
       />
     </div>
-    <div class="info">
+    <div>
       <!--<p>{data.whiskey.producer}</p>-->
       <h2>{data.whiskey.title}</h2>
-      <div class="score-container">
+      <div class="centered flex-inline">
         <h1>{roundScore}</h1>
         <div class="stars">
           {#each Array(roundScore) as _}
@@ -59,7 +59,7 @@
                 -->
     </div>
   </div>
-  <div class="main-window taste-profile">
+  <div class="centered flex-column contrast-box">
     <h3>Taste profile</h3>
     <div class="sliders">
       {#each categories as category}
@@ -79,11 +79,11 @@
     </div>
   </div>
 
-  <div class="main-window review-box">
+  <div class="centered flex-column standard-box">
     <h3>User Reviews</h3>
     {#each reviews as review}
-      <div class="rating-box">
-        <div class="review-display-name">
+      <div class="centered flex-column contrast-box">
+        <div class="centered flex-inline">
           <h2>{review.title}</h2>
           <div>
             {#each Array(parseFloat(review.score) * 5) as _}
@@ -122,22 +122,10 @@
 <style lang="scss">
   .whiskey-site {
     background-color: var(--navbar);
-    display: flex;
-    flex-direction: column;
     margin: 0;
-  }
-  .score-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
   .unfill-rating-star2 {
     fill: var(--navbar);
-  }
-  .review-box {
-    background-color: var(--bg-color);
-    color: var(--text);
-    padding-bottom: 2rem;
   }
   .taste-profile {
     color: var(--contrast-text);
@@ -152,9 +140,6 @@
     gap: 2rem;
     padding: 2rem;
     margin: 0;
-  }
-  .info {
-    width: 50rem;
   }
   .stars {
     display: flex;

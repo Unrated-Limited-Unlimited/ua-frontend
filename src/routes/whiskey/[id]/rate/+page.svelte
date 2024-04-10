@@ -76,10 +76,10 @@
 
 <div class="main-window">
   <h1>Creating rating</h1>
-  <div class="whiskey-desc">
+  <div class="flex-column centered">
     <h2>{data.whiskey.title}</h2>
   </div>
-  <div class="rating-details">
+  <div class="flex-column centered">
     <label for="comment-title">Title</label>
     <input bind:value={title} id="comment-title" />
     <label for="comment">Comment</label>
@@ -133,14 +133,6 @@
     height: 5vh;
   }
 
-  .whiskey-desc {
-    display: flex;
-    flex-direction: column;
-  }
-  .rating-details {
-    display: flex;
-    flex-direction: column;
-  }
   .star-buttons {
     display: flex;
     justify-content: center;
@@ -157,17 +149,9 @@
     border: none;
     background-color: inherit;
   }
-  .rating-star {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-  }
-  .active-star {
-    color: var(--accent); /* Red or any color you define */
-  }
   .slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: 30%;
     height: 1rem;
     border-radius: 1rem;
     background: var(--navbar);
