@@ -8,10 +8,14 @@
 </svelte:head>
 
 <Navbar></Navbar>
-
-<slot></slot>
+<section>
+    <slot></slot>
+</section>
 
 <style lang="scss" global>
+    section {
+        margin: 2rem;
+    }
     :global(ul) {
         background-color: var(--navbar);
     }
