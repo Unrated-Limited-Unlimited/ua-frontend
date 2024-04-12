@@ -1,18 +1,70 @@
 <script lang="ts">
+    import { query } from "$lib/graphql";
     import { capitalize, featureFlagStore } from "../../store/featureFlagStore";
     import type { PageData } from "./$types";
+    import { onMount } from "svelte";
 
 	export let data: PageData;
+
+    const WHISKEYS_QUERY = `
+    query Whiskeys($page: Int!, $pageSize: Int!) {
+        getWhiskeys(page: $page, size: $pageSize) {
+            id
+            img
+            title
+            avgScore
+        }
+    }`;
+
+    let whiskeys: any[] = data.whiskey_list;
+    let currentPage: number = 1;
+    let isLoading: boolean = false;
+    let pageSize = 10;
+
+    const variables = {
+      page: currentPage,
+      pageSize: pageSize
+    };
+
+    async function fetchMoreWhiskeys() {
+        isLoading = true;
+
+        const res = await query(fetch, WHISKEYS_QUERY, variables);
+        if (res.status === 200) {
+        const jsonData = await res.json();
+        if (jsonData.data && jsonData.data.getWhiskeys.length > 0) {
+            whiskeys = [...whiskeys, ...jsonData.data.getWhiskeys];
+            currentPage += 1; // Prepare the page number for the next request
+        }
+        } else {
+        console.error("Failed to fetch data:", await res.json());
+        }
+        isLoading = false;
+    }
+
+    function checkScroll() {
+        const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+        if (nearBottom && !isLoading) {
+            fetchMoreWhiskeys();
+        }
+    }
+
+    onMount(() => {
+        window.addEventListener('scroll', checkScroll);
+        return () => {
+            window.removeEventListener('scroll', checkScroll);
+        };
+    });
 </script>
 
 <body>
     
-    {#if data.whiskey_list}
+    {#if whiskeys}
     <div class="main-container">
         <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
         <div class="grid-container">
             {#each Array(10) as _}
-            {#each data.whiskey_list as whiskey}
+            {#each whiskeys as whiskey}
             <a id="whiskey-link" href="/whiskey/{whiskey.id}">
                 <div class="whiskey-view-container hover-shadow">
                     <div class="whiskey-view-image-container">
