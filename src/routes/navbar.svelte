@@ -60,6 +60,7 @@
 
     a{
         text-decoration: none;
+        color: var(--contrast-text)
     }
 
     ul {

@@ -49,6 +49,13 @@
         }
     }
 
+    function truncateString(str: string, maxLength: number, useEllipsis: boolean = true): string {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength) + (useEllipsis ? '...' : '');
+    }
+    return str;
+    }
+
     onMount(() => {
         window.addEventListener('scroll', checkScroll);
         return () => {
@@ -74,7 +81,7 @@
                         <h2>
                             {whiskey.title}
                         </h2>
-                        <p>{whiskey.summary}</p>
+                        <p>{truncateString(whiskey.summary, 30)}</p>
                         <div class="stars">
                             {#each Array(Math.round(whiskey.avgScore*5)) as _, index}
                             <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -121,14 +128,23 @@
             grid-template-columns: 47vw 47vw;
             gap: 2vw;
             margin: 2vw;
+            margin-top: 0;
         }
     }
     @media only screen and (min-width: 1350px) {
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
         .grid-container{
             display: grid;
             grid-template-columns: 22.5vw 22.5vw 22.5vw 22.5vw;
             gap: 2vw;
-            margin: 2vw;
+            margin-left: 2vw;
+            margin-right: 2vw;
         }
     }
     a {

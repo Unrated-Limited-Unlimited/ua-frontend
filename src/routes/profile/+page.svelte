@@ -59,6 +59,19 @@
 {/if}
 
 <style lang="scss">
+    .main-window {
+            margin: 2rem;
+
+            .rating-box {
+                background-color: var(--navbar);
+                color: var(--contrast-text);
+                padding: 2rem;
+            }
+        }
+    img {
+        border-radius: 100%;
+        border: .15rem solid var(--contrast-text);
+    }
     h4{
         a{
             text-decoration: none;
@@ -74,6 +87,10 @@
     .profileInf {
         display: flex;
         flex-wrap: wrap;
+        background-color: var(--navbar);
+        color: var(--contrast-text);
+        border-radius: 2rem;
+        border: 2rem solid var(--navbar);
     }
     .empty {
         text-align: center;
