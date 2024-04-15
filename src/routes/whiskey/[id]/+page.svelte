@@ -6,6 +6,7 @@
   export let id = data.id;
   let roundScore = Math.round(data.whiskey.avgScore*5);
   let shortenedSummary: boolean = true;
+  let moreButtonNeeded: boolean = (data.whiskey.summary).length > 100;
   let categories = data.whiskey.categories;
 
   let reviews = data.whiskey.ratings;
@@ -87,7 +88,7 @@
       </div>
     </div>
       {#if shortenedSummary}
-        <p>{truncateString(data.whiskey.summary, 100, false)}  <a href="" on:click={summarySwap}> [more]</a></p>
+        <p>{truncateString(data.whiskey.summary, 100, false)}  {#if moreButtonNeeded}<a href="" on:click={summarySwap}> [more]</a>{/if}</p>
       {:else}
         <p>{data.whiskey.summary}  <a href="" on:click={summarySwap}> [less]</a></p>
       {/if}
@@ -155,11 +156,11 @@
     </div>
   </div>
 
-  <div class="centered flex-column standard-box">
+  <div class="centered flex-column standard-box reviews">
     <h3>User Reviews</h3>
     {#each reviews as review}
-      <div class="centered flex-column contrast-box">
-        <div class="centered flex-inline">
+      <div class="flex-column contrast-box review-box">
+        <div class="review-title">
           <h2>{review.title}</h2>
           <div>
             {#each Array(parseFloat(review.score) * 5) as _}
@@ -190,6 +191,19 @@
         </div>
         <p>{review.body}</p>
         <h4>written by {review.user.name}</h4>
+        <div class="review-buttons">
+          <button class="hover-shadow">
+            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
+            </svg>
+          </button>          
+          
+          <button class="hover-shadow">
+            <svg class="flipped" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
+            </svg>
+          </button>  
+        </div>
       </div>
     {/each}
   </div>
@@ -206,6 +220,7 @@
   .taste-profile {
     padding-bottom: 2rem;
   }
+
   .main-box {
     background-color: var(--bg-color);
     display: flex;
@@ -214,7 +229,8 @@
     align-items: center;
     width: 100%;
     gap: 2rem;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     margin: 0;
     text-wrap: wrap;
 
@@ -293,6 +309,43 @@
     width: 30%;
   }
 
+  .reviews {
+    gap: 2vh;
+  }
+  .review-box {
+    display: flex;
+    justify-content: flex-start;
+    width: 80vw;
+    border: 2rem solid var(--navbar);
+    border-radius: 2rem;
+  }
+
+  .review-buttons {
+    display: inline-flex;
+    gap: 1vw;
+    
+    button {
+      border-radius: 100%;
+      justify-content: center;
+      align-items: center;
+
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+
+      
+      svg {
+        width: 100%;
+        height: 100%;
+        color: var(--bg-color);
+      }
+
+      .flipped {
+        transform: scale(-1, -1);
+      }
+    }
+  }
+
   @media only screen and (max-width: 639px) {
     .main-box {
       display: flex;
@@ -302,8 +355,16 @@
       padding: 0;
       padding-top: 2vh;
       p{
+        text-align: center;
         width:100%;
         max-width: 20rem;
+      }
+
+      .review-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1vw;
       }
 
       .small-window{
@@ -326,14 +387,32 @@
         justify-content: center;
       }
     }
+    .reviews {
+        gap: 1.5vh;
+        padding-bottom: 12vh;
+    }
+
+    .review-box {
+      border: 1.8rem solid var(--navbar);
+      border-radius: 1.8rem;
+    }
+
     .whiskey-image {
       max-height: 20rem;
     }
   }
   @media only screen and (min-width: 640px) {
-
+    .review-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 1vw;
+    }
   }
   @media only screen and (min-width: 1200px) {
-
+    .review-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 1vw;
+    }
   }
 </style>
