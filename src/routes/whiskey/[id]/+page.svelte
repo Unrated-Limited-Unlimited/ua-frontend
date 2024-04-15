@@ -144,6 +144,7 @@
           <p>{category.name}</p>
           <div class="slider">
             <div class="slider-fill" style="width:{category.avgScore*100}%">
+              <p>{category.avgScore*10}<p>
             </div>
           </div>
         </div>
@@ -279,9 +280,16 @@
   }
   }
   .slider-fill {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     height: inherit;
     border-radius: 2rem;
     background-color: var(--accent);
+    p {
+      padding: 0;
+      margin: 0;
+    }
   }
 
   .reviews {
@@ -374,6 +382,11 @@
     .whiskey-image {
       max-height: 20rem;
     }
+    .slider-fill {
+      p {
+        padding-left: 2vw;
+      }
+    }
   }
   @media only screen and (min-width: 640px) {
     .review-title {
@@ -381,12 +394,22 @@
       align-items: center;
       gap: 1vw;
     }
+    .slider-fill {
+      p {
+        padding-left: 1vw;
+      }
+    }
   }
   @media only screen and (min-width: 1200px) {
     .review-title {
       display: inline-flex;
       align-items: center;
       gap: 1vw;
+    }
+    .slider-fill {
+      p {
+        padding-left: 1vw;
+      }
     }
   }
 </style>
