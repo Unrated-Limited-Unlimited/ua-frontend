@@ -56,9 +56,9 @@
 {:else}
     <div class="empty">
         <h2>You are not logged in</h2>
-        <div>
-            <a href="/profile/login">Login</a>
-            <a href="/profile/register">Register</a>
+        <div class="a-buttons">
+            <a class="hover-shadow" href="/profile/login">Login</a>
+            <a class="hover-shadow" href="/profile/register">Register</a>
         </div>
     </div>
 {/if}
@@ -68,9 +68,18 @@
             margin: 2rem;
 
             .rating-box {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 1vh;
                 background-color: var(--navbar);
                 color: var(--contrast-text);
                 padding: 2rem;
+
+                p{
+                    padding: 0;
+                    margin: 0;
+                }
             }
         }
     img {
@@ -126,19 +135,53 @@
         width: 100%
     }
     @media only screen and (max-width: 639px) {
-        .main-window {
-            margin: 1rem;
-        }
-        .userHeader {
+            .main-window {
+                margin: 1rem;
+            }
+            .userHeader {
+                display: flex;
+                flex-direction: column;
+            }
+            .profileInf {
+                justify-content: center;
+            }
+            .a-buttons {
+            text-align: center;
             display: flex;
-            flex-direction: column;
-        }
-        .profileInf {
+            gap: 1rem;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            a {
+                width: 80vw;
+                height: 1rem;
+                background-color: var(--accent);
+                text-decoration: none;
+                border-radius: 2rem;
+                border: 1rem solid var(--accent);
+            }
+            a:hover{
+                color: var(--contrast-text);
+            }
         }
     }
-    @media only screen and (min-width: 640px) { }
-    @media only screen and (min-width: 1200px) {
-
+    @media only screen and (min-width: 640px) {
+        .a-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            a {
+                width: 20vw;
+                height: 1rem;
+                background-color: var(--accent);
+                text-decoration: none;
+                border-radius: 2rem;
+                border: 1rem solid var(--accent);
+            }
+        }
+        a:hover{
+                color: var(--contrast-text);
+        }
     }
 </style>
