@@ -5,19 +5,24 @@
 	import type { PageData } from './$types';
 	
 	export let data: PageData;
+
 </script>
 
 {#if !!data.user} 
     <div class="main-window">
-        <div class="profileInf">
-            <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+        <div class="userHeader">
+            <div class="profileInf">
+                <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+                <div>
+                    <h1>{data.user.name}</h1>
+                </div>
+            </div>
             <div>
-                <h1>{data.user.name}</h1>
+                <button>
+                    <a href="/profile/settings">User Settings</a>
+                </button>
             </div>
         </div>
-        <button>
-            <a href="/profile/settings">Settings</a>
-        </button>
 
         <div class="myRatings">
             <h2>My Ratings</h2>
@@ -67,6 +72,22 @@
                 color: var(--contrast-text);
                 padding: 2rem;
             }
+
+            button {
+                a {
+                    text-decoration: none;
+                }
+
+                border-radius: 1rem;
+                border: .3rem solid var(--accent);
+            }
+            button:hover {
+                //background-color: var(--navbar);
+                //border: .3rem solid var(--navbar);
+                a {
+                    color: var(--contrast-text);
+                }
+            }
         }
     img {
         border-radius: 100%;
@@ -87,6 +108,10 @@
     .profileInf {
         display: flex;
         flex-wrap: wrap;
+    }
+    .userHeader {
+        display: flex;
+        justify-content: space-between;
         background-color: var(--navbar);
         color: var(--contrast-text);
         border-radius: 2rem;
@@ -115,5 +140,21 @@
         justify-content: center;
         align-items: center;
         width: 100%
+    }
+    @media only screen and (max-width: 639px) {
+        .main-window {
+            margin: 1rem;
+        }
+        .userHeader {
+            display: flex;
+            flex-direction: column;
+        }
+        .profileInf {
+            justify-content: center;
+        }
+    }
+    @media only screen and (min-width: 640px) { }
+    @media only screen and (min-width: 1200px) {
+
     }
 </style>
