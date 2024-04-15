@@ -142,15 +142,10 @@
       {#each categories as category}
         <div class="slider-box">
           <p>{category.name}</p>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.25"
-            bind:value={category.avgScore}
-            class="slider"
-            disabled
-          />
+          <div class="slider">
+            <div class="slider-fill" style="width:{category.avgScore*100}%">
+            </div>
+          </div>
         </div>
       {/each}
     </div>
@@ -199,8 +194,8 @@
           </button>          
           
           <button class="hover-shadow">
-            <svg class="flipped" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-              <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
+            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <path  transform="scale(-1, -1) translate(-20, -20)" d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
           </button>  
         </div>
@@ -266,35 +261,6 @@
     border-radius: 2rem;
     border: 2rem solid var(--white);
   }
-
-  .slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 1rem;
-    border-radius: 1rem;
-    background: var(--bg-color);
-    outline: none;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
-  }
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25%;
-    height: 1rem;
-    border-radius: 100%;
-    border: none;
-    cursor: pointer;
-    background-color: var(--accent);
-  }
-  .slider::-moz-range-thumb {
-    width: 25%;
-    height: 1rem;
-    border-radius: 1rem;
-    border: none;
-    cursor: pointer;
-    background-color: var(--accent);
-  }
   .slider-box {
     display: flex;
     flex-direction: column;
@@ -304,9 +270,18 @@
       padding: 0;
       margin: 0.2rem;
     }
+
+  .slider {
+    background-color: var(--bg-color);
+    height: 3vh;
+    width: 70vw;
+    border-radius: 2rem;
   }
-  .sliders {
-    width: 30%;
+  }
+  .slider-fill {
+    height: inherit;
+    border-radius: 2rem;
+    background-color: var(--accent);
   }
 
   .reviews {
@@ -338,10 +313,6 @@
         width: 100%;
         height: 100%;
         color: var(--bg-color);
-      }
-
-      .flipped {
-        transform: scale(-1, -1);
       }
     }
   }
@@ -387,6 +358,9 @@
         justify-content: center;
       }
     }
+    .review-buttons {
+        gap: 3vw;
+      }
     .reviews {
         gap: 1.5vh;
         padding-bottom: 12vh;
