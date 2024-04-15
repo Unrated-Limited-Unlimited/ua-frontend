@@ -72,22 +72,6 @@
                 color: var(--contrast-text);
                 padding: 2rem;
             }
-
-            button {
-                a {
-                    text-decoration: none;
-                }
-
-                border-radius: 1rem;
-                border: .3rem solid var(--accent);
-            }
-            button:hover {
-                //background-color: var(--navbar);
-                //border: .3rem solid var(--navbar);
-                a {
-                    color: var(--contrast-text);
-                }
-            }
         }
     img {
         border-radius: 100%;

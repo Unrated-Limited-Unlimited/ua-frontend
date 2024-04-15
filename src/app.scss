@@ -79,7 +79,22 @@ a:hover{
 
 button {
     background-color: var(--accent);
+    border-radius: 1rem;
+    border: .3rem solid var(--accent);
+
+    a {
+        text-decoration: none;
+    }
 }
+button:hover {
+    //background-color: var(--navbar);
+    //border: .3rem solid var(--navbar);
+    color: var(--contrast-text);
+    a {
+        color: var(--contrast-text);
+    }
+}
+
 html[data-theme="dracula"] {
     --bg-color: #282A36;
     --navbar: #44475A;
