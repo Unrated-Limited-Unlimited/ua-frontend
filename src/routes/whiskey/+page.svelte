@@ -23,7 +23,7 @@
     let whiskeys: any[] = data.whiskey_list;
     let currentPage: number = 1;
     let isLoading: boolean = false;
-    let pageSize = 10;
+    let pageSize = 20;
 
     async function fetchMoreWhiskeys() {
         isLoading = true;
