@@ -74,7 +74,6 @@
     <div class="main-container">
         <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
         <div class="grid-container">
-            {#each Array(10) as _}
             {#each whiskeys as whiskey}
             <a id="whiskey-link" href="/whiskey/{whiskey.id}">
                 <div class="whiskey-view-container hover-shadow">
@@ -104,7 +103,6 @@
                     </div>
                 </div>
             </a>
-            {/each}
             {/each}
         </div>
     </div>
