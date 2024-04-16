@@ -7,3 +7,12 @@ export function url(...args: string[]) {
 
 export const graphql_url = BACKEND_BASE_URL + "/graphql"
 
+export function limitNumber(number: number): number {
+    if(number > 1) {
+        return 1;
+    }
+    if(number < 0){
+        return 0
+    }
+    return number
+  }

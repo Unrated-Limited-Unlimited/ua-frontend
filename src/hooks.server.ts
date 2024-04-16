@@ -3,16 +3,19 @@ import { MSW_ON } from '$lib/env';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async({event, resolve}) => {
-    let theme = event.cookies.get("siteTheme");
-    theme = theme || "standard";
+  let theme = event.cookies.get("siteTheme");
+  theme = theme || "standard";
 
-    const response = await resolve(event, {
-      transformPageChunk: ({ html }) =>
-        html.replace('data-theme=""', `data-theme="${theme}"`),
-    });
+  const response : Response = await resolve(event);
 
-    return response;
-}
+  if (response.headers.get('content-type')?.includes('text/html')) {
+      let body = await response.text();
+      body = body.replaceAll('<html ', `<html data-theme="${theme}" `);
+      return new Response(body, response);
+  }
+
+  return response;
+};
 
 
 if (MSW_ON) {

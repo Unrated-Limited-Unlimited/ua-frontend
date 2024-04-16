@@ -33,7 +33,7 @@ const whiskeys = [
       "id": "1",
       "title": "Jura",
       "price": "500",
-      "summary": "Jura is a good whiskey",
+      "summary": "Jura is a distinguished single malt Scotch whisky, named after the Isle of Jura in the Inner Hebrides of Scotland, where it has been distilled since 1810. The distillery itself, located in the small, remote community of Craighouse, is one of the oldest in Scotland, embodying centuries of tradition and whisky-making expertise. Jura whisky is renowned for its unique character, which is as mysterious and wild as the island itself.",
       "percentage": "40%",
       "img": "https://bilder.vinmonopolet.no/cache/1200x1200-0/187201-1.jpg",
       "volume": "70cl",
@@ -70,7 +70,7 @@ const whiskeys = [
 const attributes = [
   {
     "id": "1",
-    "name": "Time Travel Capabilitysdsdsd"
+    "name": "Time Travel Capability"
   },
   {
     "id": "2",
