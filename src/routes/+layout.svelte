@@ -3,11 +3,19 @@
     import '../app.scss';
 </script>
 
-<Navbar></Navbar>
+<svelte:head>
+    <title>Unrated</title>
+</svelte:head>
 
-<slot></slot>
+<Navbar></Navbar>
+<section>
+    <slot></slot>
+</section>
 
 <style lang="scss" global>
+    section {
+        margin: 2rem;
+    }
     :global(ul) {
         background-color: var(--navbar);
     }

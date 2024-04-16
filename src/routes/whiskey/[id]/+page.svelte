@@ -1,192 +1,347 @@
-
 <script lang="ts">
-        import type { PageData } from "./$types";
-        export let data: PageData;
-        export let id = data.id;
-        let roundScore = Math.round(data.whiskey.avgScore)
+    import { limitNumber } from "$lib/utils";
+  import type { PageData } from "./$types";
 
-        let categories = data.whiskey.categories;
+  export let data: PageData;
+  export let id = data.id;
+  let roundScore = Math.round(limitNumber(data.whiskey.avgScore)*5);
+  let shortenedSummary: boolean = true;
+  let moreButtonNeeded: boolean = (data.whiskey.summary).length > 100;
+  let categories = data.whiskey.categories;
 
-        let reviews= data.whiskey.ratings
+  let reviews = data.whiskey.ratings;
+
+  function summarySwap() {
+    shortenedSummary = !shortenedSummary;
+  }
+
+  function truncateString(str: string, maxLength: number, useEllipsis: boolean = true): string {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength) + (useEllipsis ? '...' : '');
+    }
+    return str;
+    }
 </script>
 
-<title>{data.whiskey.title} - Unrated</title>
-
-<div class="whiskey-site">
-    <div class="main-box">
-        <div class="whiskey-image"><img class="whiskey-image" alt={data.whiskey.name} src={(data.whiskey.img)}></div>
-        <div class="info">
-            <!--<p>{data.whiskey.producer}</p>-->
-            <h2>{data.whiskey.title}</h2>
-            <div class="score-container">
-                <h1>{roundScore}</h1>
-                <div class="stars">
-                    {#each Array(roundScore) as _, index}
-                    <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path 
-                                fill="currentColor" 
-                                d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
-                        </svg>
-                    {/each}
-                    {#each Array(5-roundScore) as _, index}
-                    <svg class="unfill-rating-star2 rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
-                    </svg>
-                    {/each}
-                </div>
-                <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
-            </div>
-            <p>{data.whiskey.summary}</p>
-            <!--
-                currently no favourite system implemented
-                <button>Favourite</button>
-                -->
-        </div>
-    </div>
-    <div class="main-window taste-profile">
-        <h3>Taste profile</h3>
-        <div class = "sliders">
-            {#each categories as category}
-                <div class="slider-box">
-                    <p>{category.name}</p>
-                    <input type="range" min="0" max="4" bind:value={category.avgScore} class="slider" disabled>
-                </div>
+<div class="flex-column whiskey-site">
+  <div class="main-box">
+      <div class="whiskey-image">
+        <img
+          class="whiskey-image"
+          alt={data.whiskey.name}
+          src={data.whiskey.img}
+        />
+      </div>
+      <div>
+        <!--<p>{data.whiskey.producer}</p>-->
+        <h2>{data.whiskey.title}</h2>
+        <div class="centered flex-inline">
+          <h1>{roundScore}</h1>
+          <div class="stars">
+            {#each Array(roundScore) as _}
+              <svg
+                class="rating-star"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"
+                />
+              </svg>
             {/each}
+            {#each Array(5 - roundScore) as _}
+              <svg
+                class="unfill-rating-star2 rating-star"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"
+                />
+              </svg>
+            {/each}
+          </div>
+          <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
         </div>
+        <p>{data.whiskey.summary}</p>
     </div>
-
-    <div class="main-window review-box">
-        <h3>User Reviews</h3>
-        {#each reviews as review}
-            <div class="rating-box">
-                <div class="review-display-name">
-                <h2>{review.title}</h2>
-                    <div>            
-                        {#each Array(parseFloat(review.score)) as _, index}
-                            <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path 
-                                    fill="currentColor" 
-                                    d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
-                            </svg>
-                        {/each}
-                        {#each Array(5-parseFloat(review.score)) as _, index}
-                        <svg class="unfill-rating-star rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path 
-                                fill="currentColor" 
-                                d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"/>
-                        </svg>
-                        {/each}
-                    </div>
-                </div>
-                <p>{review.body}</p>
-                <h4>written by {review.user.name}</h4>
+  </div>
+  <div class="centered flex-column contrast-box taste-profile">
+    <h3>Taste profile</h3>
+    <div class="sliders">
+      {#each categories as category}
+        <div class="slider-box">
+          <p>{category.name}</p>
+          <div class="slider">
+            <div class="slider-fill" style="width:{category.avgScore*100}%">
+              <p>{category.avgScore*10}<p>
             </div>
-        {/each}
+          </div>
+        </div>
+      {/each}
     </div>
+  </div>
+
+  <div class="centered flex-column standard-box reviews">
+    <h3>User Reviews</h3>
+    {#each reviews as review}
+      <div class="flex-column contrast-box review-box">
+        <div class="review-title">
+          <h2>{review.title}</h2>
+          <div>
+            {#each Array(parseFloat(review.score) * 5) as _}
+              <svg
+                class="rating-star"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"
+                />
+              </svg>
+            {/each}
+            {#each Array(5 - parseFloat(review.score) * 5) as _}
+              <svg
+                class="unfill-rating-star rating-star"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"
+                />
+              </svg>
+            {/each}
+          </div>
+        </div>
+        <p>{review.body}</p>
+        <h4>written by {review.user.name}</h4>
+        <div class="review-buttons">
+          <button class="hover-shadow">
+            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
+            </svg>
+          </button>          
+          
+          <button class="hover-shadow">
+            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <path  transform="scale(-1, -1) translate(-20, -20)" d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
+            </svg>
+          </button>  
+        </div>
+      </div>
+    {/each}
+  </div>
 </div>
 
-
 <style lang="scss">
-    .whiskey-site {
-        background-color: var(--navbar);
+  .whiskey-site {
+    background-color: var(--navbar);
+    margin: 0;
+  }
+  .unfill-rating-star2 {
+    fill: var(--navbar);
+  }
+  .taste-profile {
+    padding-bottom: 2rem;
+  }
+
+  .main-box {
+    text-align: center;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin: 0;
+    text-wrap: wrap;
+
+    p {
+      width: 30rem;
+      max-width: 30rem;
+
+      a {
+        text-decoration: none;
+        opacity: 0.7;
+      }
+    }
+  }
+  .stars {
+    display: flex;
+  }
+  .rating-star {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    margin: 0;
+  }
+  svg {
+    color: var(--accent);
+  }
+  .unfill-rating-star {
+    color: var(--bg-color);
+  }
+
+  .whiskey-image {
+    max-height: 35rem;
+    max-width: auto;
+    border-radius: 2rem;
+    border: 2rem solid var(--white);
+  }
+  .slider-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      padding: 0;
+      margin: 0.2rem;
+    }
+
+  .slider {
+    background-color: var(--bg-color);
+    height: 3vh;
+    width: 70vw;
+    border-radius: 2rem;
+  }
+  }
+  .slider-fill {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: inherit;
+    border-radius: 2rem;
+    background-color: var(--accent);
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .reviews {
+    gap: 2vh;
+  }
+  .review-box {
+    display: flex;
+    justify-content: flex-start;
+    width: 80vw;
+    border: 2rem solid var(--navbar);
+    border-radius: 2rem;
+  }
+
+  .review-buttons {
+    display: inline-flex;
+    gap: 1vw;
+    
+    button {
+      border-radius: 100%;
+      justify-content: center;
+      align-items: center;
+
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+
+      
+      svg {
+        width: 100%;
+        height: 100%;
+        color: var(--bg-color);
+      }
+    }
+  }
+
+  @media only screen and (max-width: 639px) {
+    .main-box {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      gap: 0rem;
+      padding: 0;
+      padding-top: 2vh;
+      p{
+        text-align: center;
+        width:100%;
+        max-width: 20rem;
+      }
+
+      .review-title {
         display: flex;
         flex-direction: column;
-        margin: 0;
-    }
-    .score-container {
-        display: flex;
         align-items: center;
-        gap: 1rem;
-    }
-    .unfill-rating-star2{
-        fill: var(--navbar);
-    }
-    .review-box {
-        background-color: var(--bg-color);
-        color: var(--text);
-        padding-bottom: 2rem;
-    }
-    .taste-profile {
-        color: var(--contrast-text);
-        padding-bottom: 1.5rem;
-    }
-    .main-box {
-        background-color: var(--bg-color);
+        gap: 1vw;
+      }
+
+      .small-window{
         display: flex;
+      }
+
+      .score-box {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        gap: 2rem;
-        padding: 2rem;
-        margin: 0;
+        margin: 3vw;
+      }
+
+      .whiskey-details {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
-    .info {
-        width: 50rem;
+    .review-buttons {
+        gap: 3vw;
+      }
+    .reviews {
+        gap: 1.5vh;
+        padding-bottom: 12vh;
     }
-    .filler {
-        height: 40rem;
-    }
-    .stars {
-        display: flex;
-    }
-    .rating-star {
-        width: 1.5rem;
-        height: 1.5rem;
-        padding: 0;
-        margin: 0;
-    }
-    svg{
-        color: var(--accent);
-    }
-    .unfill-rating-star {
-        color: var(--bg-color)
+
+    .review-box {
+      border: 1.8rem solid var(--navbar);
+      border-radius: 1.8rem;
     }
 
     .whiskey-image {
-        max-height: 35rem;
-        max-width: auto;
+      max-height: 20rem;
     }
-
-    .slider {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 1rem;
-        border-radius: 1rem;
-        background: var(--bg-color);
-        outline: none;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
+    .slider-fill {
+      p {
+        padding-left: 2vw;
+      }
     }
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25%;
-        height: 1rem;
-        border-radius: 100%;
-        border: none;
-        cursor: pointer;
-        background-color: var(--accent);
+  }
+  @media only screen and (min-width: 640px) {
+    .review-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 1vw;
     }
-    .slider::-moz-range-thumb {
-        width: 25%;
-        height: 1rem;
-        border-radius: 1rem;
-        border: none;
-        cursor: pointer;
-        background-color: var(--accent);
+    .slider-fill {
+      p {
+        padding-left: 1vw;
+      }
     }
-    .slider-box{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        p {
-            padding: 0;
-            margin: .2rem;
-        }
+  }
+  @media only screen and (min-width: 1200px) {
+    .review-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 1vw;
     }
-    .sliders{
-        width: 30%;
+    .slider-fill {
+      p {
+        padding-left: 1vw;
+      }
     }
+  }
 </style>

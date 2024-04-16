@@ -1,41 +1,45 @@
 import { http, graphql, HttpResponse } from 'msw';
 
+const ratings = [
+    {
+      "title": "Execellent whiskey",
+      "score": "1",
+      "body": "Nice whiskey! Absolutely lovely",
+      "user": {"name": "Kaspar"}
+    },
+    {
+      "title": "Among the better ones i've tasted",
+      "score": "0.8",
+      "body": "Quite good! Would buy again",
+      "user": {"name":"Filip"}
+    }
+];
+
+const categories = [
+    {
+        "id": 1,
+        "name": "Time Travel Capability",
+        "avgScore": 0.4
+    },
+    {
+        "id": 2,
+        "name": "Conversation Starter Level",
+        "avgScore": 0.4
+    }
+];
+
 const whiskeys = [
   {
       "id": "1",
       "title": "Jura",
       "price": "500",
-      "summary": "Jura is a good whiskey",
+      "summary": "Jura is a distinguished single malt Scotch whisky, named after the Isle of Jura in the Inner Hebrides of Scotland, where it has been distilled since 1810. The distillery itself, located in the small, remote community of Craighouse, is one of the oldest in Scotland, embodying centuries of tradition and whisky-making expertise. Jura whisky is renowned for its unique character, which is as mysterious and wild as the island itself.",
       "percentage": "40%",
       "img": "https://bilder.vinmonopolet.no/cache/1200x1200-0/187201-1.jpg",
       "volume": "70cl",
-      "avgScore": "4",
-      "ratings": [
-        {
-          "title": "Execellent whiskey",
-          "score": "5",
-          "body": "Nice whiskey! Absolutely lovely",
-          "user": {"name": "Kaspar"}
-        },
-        {
-          "title": "Among the better ones i've tasted",
-          "score": "4",
-          "body": "Quite good! Would buy again",
-          "user": {"name":"Filip"}
-        }
-      ],
-      "categories": [
-        {
-          "id": 1,
-          "name": "Time Travel Capability",
-          "avgScore": 2
-        },
-        {
-          "id": 2,
-          "name": "Conversation Starter Level",
-          "avgScore": 2.5700000000000003
-        }
-      ]
+      "avgScore": "0.8",
+      "ratings": ratings,
+      "categories": categories
   },
   {
       "id": "2",
@@ -45,31 +49,9 @@ const whiskeys = [
       "percentage": "43%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/5670501-1.jpg",
       "volume": "70cl",
-      "avgScore": "4",
-      "ratings": [
-        {
-          "title": "Execellent whiskey",
-          "score": "5",
-          "body": "Nice whiskey! Absolutely lovely",
-          "user": {"name": "Kaspar"}
-        },
-        {
-          "title": "Among the better ones i've tasted",
-          "score": "4",
-          "body": "Quite good! Would buy again",
-          "user": {"name":"Filip"}
-        }
-      ],
-      "categories": [
-        {
-          "name": "Time Travel Capability",
-          "avgScore": 2
-        },
-        {
-          "name": "Conversation Starter Level",
-          "avgScore": 2.5700000000000003
-        }
-      ]
+      "avgScore": "0.8",
+      "ratings": ratings,
+      "categories": categories
   },
   {
       "id": "3",
@@ -79,44 +61,22 @@ const whiskeys = [
       "percentage": "41%",
       "img": "https://bilder.vinmonopolet.no/cache/515x515-0/16207-1.jpg",
       "volume": "75cl",
-      "avgScore": "5",
-      "ratings": [
-        {
-          "title": "Execellent whiskey",
-          "score": "5",
-          "body": "Nice whiskey! Absolutely lovely",
-          "user": {"name": "Kaspar"}
-        },
-        {
-          "title": "Among the better ones i've tasted",
-          "score": "4",
-          "body": "Quite good! Would buy again",
-          "user": {"name":"Filip"}
-        }
-      ],
-      "categories": [
-        {
-          "name": "Time Travel Capability",
-          "avgScore": 2
-        },
-        {
-          "name": "Conversation Starter Level",
-          "avgScore": 2.5700000000000003
-        }
-      ]
+      "avgScore": "1",
+      "ratings": ratings,
+      "categories": categories
   }
-  ];
+];
 
 const attributes = [
   {
     "id": "1",
-    "name": "Time Travel Capabilitysdsdsd"
+    "name": "Time Travel Capability"
   },
   {
     "id": "2",
     "name": "Conversation Starter Level"
   },
-]
+];
 
 export const handlers = [
   http.post('*/login', ({ cookies }) => {
@@ -195,7 +155,6 @@ export const handlers = [
     })
   }),
   graphql.query("Ratings", ({variables}) => {
-    const { id } = variables;
     return HttpResponse.json({
       data: {
         getRatings: {
