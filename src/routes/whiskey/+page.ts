@@ -8,6 +8,7 @@ query Whiskeys($paging: Paging!) {
         img
         title
         avgScore
+        summary
     }
 }
 `

@@ -13,6 +13,7 @@
             img
             title
             avgScore
+            summary
         }
     }
     `;
