@@ -23,8 +23,6 @@
     }
 </script>
 
-<title>{data.whiskey.title} - Unrated</title>
-
 <div class="flex-column whiskey-site">
   <div class="main-box">
       <div class="whiskey-image">

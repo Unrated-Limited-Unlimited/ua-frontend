@@ -62,8 +62,6 @@
         };
     });
 </script>
-
-<body>
     
     {#if whiskeys}
     <div class="main-container">
@@ -102,7 +100,7 @@
         </div>
     </div>
     {/if}
-</body>
+
 
 <style>
     .grid-container {
