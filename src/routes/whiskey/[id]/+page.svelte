@@ -1,10 +1,10 @@
 <script lang="ts">
+    import { limitNumber } from "$lib/utils";
   import type { PageData } from "./$types";
-  import { onMount, onDestroy } from 'svelte';
 
   export let data: PageData;
   export let id = data.id;
-  let roundScore = Math.round(data.whiskey.avgScore*5);
+  let roundScore = Math.round(limitNumber(data.whiskey.avgScore)*5);
   let shortenedSummary: boolean = true;
   let moreButtonNeeded: boolean = (data.whiskey.summary).length > 100;
   let categories = data.whiskey.categories;
