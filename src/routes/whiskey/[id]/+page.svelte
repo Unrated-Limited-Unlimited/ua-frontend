@@ -11,22 +11,6 @@
 
   let reviews = data.whiskey.ratings;
 
-  let isMobile = false;
-
-  function checkWindowSize() {
-      // Example breakpoint at 640px
-      isMobile = window.innerWidth < 640;
-  }
-
-  onMount(() => {
-      checkWindowSize(); // Check size on mount
-      window.addEventListener('resize', checkWindowSize);
-  });
-
-  onDestroy(() => {
-      window.removeEventListener('resize', checkWindowSize);
-  });
-
   function summarySwap() {
     shortenedSummary = !shortenedSummary;
   }
@@ -43,56 +27,6 @@
 
 <div class="flex-column whiskey-site">
   <div class="main-box">
-    {#if isMobile}
-    <div class="small-window">
-      <div class="whiskey-image">
-        <img
-          class="whiskey-image"
-          alt={data.whiskey.name}
-          src={data.whiskey.img}
-        />
-      </div>
-      <div class="whiskey-details">
-      
-        <!--<p>{data.whiskey.producer}</p>-->
-        <h2>{data.whiskey.title}</h2>
-        <div class="centered flex-inline score-box">
-          <h1>{roundScore}</h1>
-          <div class="stars">
-            {#each Array(roundScore) as _}
-              <svg
-                class="rating-star"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"
-                />
-              </svg>
-            {/each}
-            {#each Array(5 - roundScore) as _}
-              <svg
-                class="unfill-rating-star2 rating-star"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M21.5,9.757l-5.278,4.354L17.871,21.5,12,17.278,6.129,21.5l1.649-7.389L2.5,9.757l6.333-.924L12,2.5l3.167,6.333Z"
-                />
-              </svg>
-            {/each}
-          </div>
-          <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
-        </div>
-      </div>
-    </div>
-      {#if shortenedSummary}
-        <p>{truncateString(data.whiskey.summary, 100, false)}  {#if moreButtonNeeded}<a href="" on:click={summarySwap}> [more]</a>{/if}</p>
-      {:else}
-        <p>{data.whiskey.summary}  <a href="" on:click={summarySwap}> [less]</a></p>
-      {/if}
-    {:else}
       <div class="whiskey-image">
         <img
           class="whiskey-image"
@@ -134,7 +68,6 @@
         </div>
         <p>{data.whiskey.summary}</p>
     </div>
-    {/if}
   </div>
   <div class="centered flex-column contrast-box taste-profile">
     <h3>Taste profile</h3>
@@ -218,6 +151,7 @@
   }
 
   .main-box {
+    text-align: center;
     background-color: var(--bg-color);
     display: flex;
     flex-wrap: wrap;

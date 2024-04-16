@@ -34,15 +34,8 @@
             </a>
         </li>
     </div>
-    {#if isMobile}
-        <li class="profile"><a href="/profile">Profile</a></li>
-        <li class="whiskey"><a href="/whiskey">{ capitalize($featureFlagStore?.wiskeySpelling) }</a></li>
-    {:else}
-        <div class="navbar-links">
-            <li><a class="profile" href="/profile">Profile</a></li>
-            <li><a class="whiskey" href="/whiskey">{ capitalize($featureFlagStore?.wiskeySpelling) }</a></li>
-        </div>
-    {/if}
+    <li><a class="profile" href="/profile">Profile</a></li>
+    <li><a class="whiskey" href="/whiskey">{ capitalize($featureFlagStore?.wiskeySpelling) }</a></li>
 </ul>
 
 <style>
@@ -63,10 +56,20 @@
         color: var(--contrast-text)
     }
 
+    .whiskey {
+            grid-area: whiskeys;
+        }
+        .profile {
+            grid-area: profile;
+        }
+        .logo {
+            grid-area: home;
+        }
+
     ul {
         margin: 0;
-        display:flex;
-        justify-content: space-between;
+        display:grid;
+        grid-template-areas: "home whiskeys profile";
         align-items: center;
         list-style: none;
         padding: .5rem;
@@ -86,15 +89,6 @@
             justify-items: center;
             border-top: 3px solid var(--bg-color);
         }
-        .whiskey {
-            grid-area: whiskeys;
-        }
-        .profile {
-            grid-area: profile;
-        }
-        .logo {
-            grid-area: home;
-        }
     }
     @media only screen and (min-width: 640px) {
         .navbar-logo {
@@ -102,8 +96,13 @@
         width: auto;
         font-family: 'Courier New', Courier, monospace;
         }
+        ul {
+            grid-template-columns: 70% 15% 15%;
+        }
     }
     @media only screen and (min-width: 1200px) {
-
+        ul {
+            grid-template-columns: 85% 7.5% 7.5%;
+        }
     }
 </style>
