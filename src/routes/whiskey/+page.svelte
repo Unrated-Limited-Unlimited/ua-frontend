@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { page } from "$app/stores";
     import { query } from "$lib/graphql";
     import { limitNumber } from "$lib/utils";
     import { capitalize, featureFlagStore } from "../../store/featureFlagStore";
@@ -24,17 +25,10 @@
     let isLoading: boolean = false;
     let pageSize = 10;
 
-    const variables = {
-        paging: {
-            page: currentPage,
-            size: pageSize
-        }
-    };
-
     async function fetchMoreWhiskeys() {
         isLoading = true;
 
-        const res = await query(fetch, WHISKEYS_QUERY, variables);
+        const res = await query(fetch, WHISKEYS_QUERY, {paging: {page: currentPage, size: pageSize}});
         if (res.status === 200) {
         const jsonData = await res.json();
         if (jsonData.data && jsonData.data.getWhiskeys.length > 0) {
