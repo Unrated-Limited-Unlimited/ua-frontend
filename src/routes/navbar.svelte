@@ -1,21 +1,5 @@
 <script lang="ts">
     import { featureFlagStore, capitalize } from "../store/featureFlagStore";
-    import { onMount, onDestroy } from 'svelte';
-    let isMobile = false;
-
-    function checkWindowSize() {
-        // Example breakpoint at 640px
-        isMobile = window.innerWidth < 640;
-    }
-
-    onMount(() => {
-        checkWindowSize(); // Check size on mount
-        window.addEventListener('resize', checkWindowSize);
-    });
-
-    onDestroy(() => {
-        window.removeEventListener('resize', checkWindowSize);
-    });
 </script>
 
 <ul>

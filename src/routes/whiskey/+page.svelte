@@ -7,14 +7,15 @@
 	export let data: PageData;
 
     const WHISKEYS_QUERY = `
-    query Whiskeys($page: Int!, $pageSize: Int!) {
-        getWhiskeys(page: $page, size: $pageSize) {
+    query Whiskeys($paging: Paging!) {
+        getWhiskeys(paging: $paging) {
             id
             img
             title
             avgScore
         }
-    }`;
+    }
+    `;
 
     let whiskeys: any[] = data.whiskey_list;
     let currentPage: number = 1;
@@ -22,8 +23,10 @@
     let pageSize = 10;
 
     const variables = {
-      page: currentPage,
-      pageSize: pageSize
+        paging: {
+            page: currentPage,
+            size: pageSize
+        }
     };
 
     async function fetchMoreWhiskeys() {
