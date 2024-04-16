@@ -2,8 +2,8 @@ import type { PageLoad } from "./$types"
 import { query } from "$lib/graphql"
 
 const whiskeys = `
-query Whiskeys {
-    getWhiskeys {
+query Whiskeys($page: Int!, $pageSize: Int!) {
+    getWhiskeys(page: $page, size: $pageSize) {
         id
         img
         title
@@ -11,6 +11,10 @@ query Whiskeys {
     }
 }
 `
+const variables = {
+    page: 0,
+    pageSize: 20,
+  };
 
 export const load: PageLoad = async ({ fetch }) => {
 	const res = await query(fetch, whiskeys)
