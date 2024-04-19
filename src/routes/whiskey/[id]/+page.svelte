@@ -74,8 +74,8 @@
         <div class="slider-box">
           <p>{category.name}</p>
           <div class="slider">
-            <div class="slider-fill" style="width:{category.avgScore*100}%">
-              <p>{category.avgScore*10}<p>
+            <div class="slider-fill" style="width:{limitNumber(category.avgScore)*100}%">
+              <p>{limitNumber(category.avgScore*10)}<p>
             </div>
           </div>
         </div>

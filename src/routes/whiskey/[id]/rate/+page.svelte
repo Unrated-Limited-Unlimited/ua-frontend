@@ -30,10 +30,13 @@
     });
   });
 
-  function normalizeNumber(number: number, min: number, max: number): number {
-    return (number - min) / (max - min);
-  }
+  function normalizeNumber(value: number, min: number, max: number): number {
+    if (max === min) {
+        throw new Error("Maximum and minimum values cannot be the same.");
+    }
 
+    return (value - min) / (max - min);
+  }
   // Function to set the rating
   function setRating(index: number): void {
     rating.set(index + 1); // set the rating based on star clicked
@@ -76,7 +79,7 @@
       whiskeyId: id,
       ratingInput: {
         body: comment,
-        score: normalizeNumber(get(rating), 0, 1),
+        score: normalizeNumber(get(rating), 0, 5),
         title: title,
       },
       attributeInputs: transformedAttributes,
