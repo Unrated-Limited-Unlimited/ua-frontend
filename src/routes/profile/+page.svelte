@@ -5,19 +5,24 @@
 	import type { PageData } from './$types';
 	
 	export let data: PageData;
+
 </script>
 
 {#if !!data.user} 
     <div class="main-window">
-        <div class="profileInf">
-            <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+        <div class="userHeader">
+            <div class="profileInf">
+                <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+                <div>
+                    <h1>{data.user.name}</h1>
+                </div>
+            </div>
             <div>
-                <h1>{data.user.name}</h1>
+                <button>
+                    <a href="/profile/settings">User Settings</a>
+                </button>
             </div>
         </div>
-        <button>
-            <a href="/profile/settings">Settings</a>
-        </button>
 
         <div class="myRatings">
             <h2>My Ratings</h2>
@@ -51,14 +56,36 @@
 {:else}
     <div class="empty">
         <h2>You are not logged in</h2>
-        <div>
-            <a href="/profile/login">Login</a>
-            <a href="/profile/register">Register</a>
+        <div class="a-buttons">
+            <a class="hover-shadow" href="/profile/login">Login</a>
+            <a class="hover-shadow" href="/profile/register">Register</a>
         </div>
     </div>
 {/if}
 
 <style lang="scss">
+    .main-window {
+            margin: 2rem;
+
+            .rating-box {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 1vh;
+                background-color: var(--navbar);
+                color: var(--contrast-text);
+                padding: 2rem;
+
+                p{
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    img {
+        border-radius: 100%;
+        border: .15rem solid var(--contrast-text);
+    }
     h4{
         a{
             text-decoration: none;
@@ -74,6 +101,14 @@
     .profileInf {
         display: flex;
         flex-wrap: wrap;
+    }
+    .userHeader {
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--navbar);
+        color: var(--contrast-text);
+        border-radius: 2rem;
+        border: 2rem solid var(--navbar);
     }
     .empty {
         text-align: center;
@@ -98,5 +133,55 @@
         justify-content: center;
         align-items: center;
         width: 100%
+    }
+    @media only screen and (max-width: 639px) {
+            .main-window {
+                margin: 1rem;
+            }
+            .userHeader {
+                display: flex;
+                flex-direction: column;
+            }
+            .profileInf {
+                justify-content: center;
+            }
+            .a-buttons {
+            text-align: center;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            a {
+                width: 80vw;
+                height: 1rem;
+                background-color: var(--accent);
+                text-decoration: none;
+                border-radius: 2rem;
+                border: 1rem solid var(--accent);
+            }
+            a:hover{
+                color: var(--contrast-text);
+            }
+        }
+    }
+    @media only screen and (min-width: 640px) {
+        .a-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            a {
+                width: 20vw;
+                height: 1rem;
+                background-color: var(--accent);
+                text-decoration: none;
+                border-radius: 2rem;
+                border: 1rem solid var(--accent);
+            }
+        }
+        a:hover{
+                color: var(--contrast-text);
+        }
     }
 </style>

@@ -26,7 +26,7 @@ export const load: PageLoad = async ({ fetch }) => {
         if (res.status === 200) {
 
             return { user: (await res.json()).data.getLoggedInUser,
-                     themes
+                     themes,
                  }
         }
     }

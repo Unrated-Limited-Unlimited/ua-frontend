@@ -8,6 +8,8 @@
   export let data: PageData;
   export let id = data.id;
 
+  let sliders: HTMLInputElement[];
+
   let rating = writable(0); // stores the rating
   let hoveredRating = writable(0); // stores the hover state rating
   let comment = "";
@@ -19,11 +21,22 @@
     id: string;
     name: string;
   }
+  onMount(() => {
+  sliders = Array.from(document.querySelectorAll('.slider'));
+  sliders.forEach((slider) => {
+      slider.addEventListener('input', () => {
+        slider.classList.remove('unset');
+      });
+    });
+  });
 
-  function normalizeNumber(number: number, min: number, max: number): number {
-    return (number - min) / (max - min);
+  function normalizeNumber(value: number, min: number, max: number): number {
+    if (max === min) {
+        throw new Error("Maximum and minimum values cannot be the same.");
+    }
+
+    return (value - min) / (max - min);
   }
-
   // Function to set the rating
   function setRating(index: number): void {
     rating.set(index + 1); // set the rating based on star clicked
@@ -66,7 +79,7 @@
       whiskeyId: id,
       ratingInput: {
         body: comment,
-        score: normalizeNumber(get(rating), 0, 1),
+        score: normalizeNumber(get(rating), 0, 5),
         title: title,
       },
       attributeInputs: transformedAttributes,
@@ -75,16 +88,16 @@
 </script>
 
 <div class="main-window">
-  <h1>Creating rating</h1>
-  <div class="whiskey-desc">
+  <div class="flex-column centered">
+    <h1>Creating rating</h1>
     <h2>{data.whiskey.title}</h2>
   </div>
-  <div class="rating-details">
-    <label for="comment-title">Title</label>
+  <div class="flex-column centered main-rating">
+    <p>Rating Title</p>
     <input bind:value={title} id="comment-title" />
-    <label for="comment">Comment</label>
+    <p>Comment</p>
     <textarea id="comment" bind:value={comment}></textarea>
-    <label for="score">Rating</label>
+    <p>Rating</p>
     <div class="star-buttons">
       {#each Array(5) as _, index}
         <button
@@ -118,11 +131,12 @@
         max="1"
         step="0.25"
         bind:value={sliderValues[parseInt(attribute.id)]}
-        class="slider"
+        class="slider unset"
       />
     {/each}
-
-    <button on:click={createRating}>Create Review</button>
+  </div>
+  <div class="flex-column centered">
+  <button on:click={createRating}>Create Review</button>
   </div>
 </div>
 
@@ -133,14 +147,10 @@
     height: 5vh;
   }
 
-  .whiskey-desc {
-    display: flex;
-    flex-direction: column;
+  .main-rating {
+    padding-bottom: 2rem;
   }
-  .rating-details {
-    display: flex;
-    flex-direction: column;
-  }
+
   .star-buttons {
     display: flex;
     justify-content: center;
@@ -157,24 +167,15 @@
     border: none;
     background-color: inherit;
   }
-  .rating-star {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-  }
-  .active-star {
-    color: var(--accent); /* Red or any color you define */
-  }
   .slider {
     -webkit-appearance: none;
-    width: 100%;
     height: 1rem;
     border-radius: 1rem;
     background: var(--navbar);
     outline: none;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
-  }
+  }  
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -192,5 +193,45 @@
     border: none;
     cursor: pointer;
     background-color: var(--accent);
+  }
+  .unset::-webkit-slider-thumb {
+    opacity: 0.5;
+  }
+
+  .unset::-moz-range-thumb {
+    opacity: 0.5;
+  }
+
+  @media only screen and (max-width: 639px) {
+    .main-window {
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+    }
+    .slider {
+      width: 80vw;
+    }
+    textarea {
+      width: 80%;
+      height: 10vh;
+    }
+    p {
+      margin: 1vh;
+    }
+  }
+  @media only screen and (min-width: 640px) {
+    .slider {
+      width: 60%;
+    }
+    .main-window {
+      padding-left: 2rem;
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+    .slider {
+      width: 60%;
+    }
   }
 </style>

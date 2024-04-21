@@ -41,7 +41,7 @@
         document.cookie = `siteTheme=${theme};Max-Age=2592000;path="/";SameSite=None;Secure;`;
     };
 </script>
-<div>
+<div class="main-window">
     <h2>User info</h2>
     <form on:submit|preventDefault={handleSubmit}>
         <div>
@@ -85,4 +85,10 @@
     <h2>Log out</h2>
     <button name="logout" on:click={logout}>Log out</button>
 </div>
+
+<style>
+    .main-window {
+        margin-left: 2rem;
+    }
+</style>
 
