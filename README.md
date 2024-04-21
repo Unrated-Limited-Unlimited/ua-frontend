@@ -42,8 +42,8 @@ To run it:
 ```Bach
 npm install
 npm run build:static
-npx capacitor-assets generate
 npx cap sync
+npx capacitor-assets generate
 npx open android
 ```
 The last line will open android studio.
