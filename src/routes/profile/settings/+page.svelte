@@ -21,14 +21,60 @@
 
     let themes = data.themes;
 
+    let eddeting = false;
+    function enableEdditing() {
+        eddeting = true;
+    }
+
+    let warning = ""
+
     let username = data.user.name;
     let email = data.user.email;
     let password = "";
+    let repeatPassword = "";
+
+    async function cancelSubmit() {
+        username = data.user.name;
+        email = data.user.email;
+        password = "";
+        repeatPassword = "";
+
+        warning = ""
+
+        eddeting = false;
+    }
 
     async function handleSubmit() {
-        changeUser({ email: email, password: password }).then((res) => {
-            email = res.email
-            username = res.name
+        let changes: any = {}
+        if (email != "") {
+            changes.email = email;
+        }
+        if (password != "") {
+            if (password !== repeatPassword) {
+                warning = "Repeat password is not the same";
+                return;
+            }
+            changes.password = password;
+        }
+        changeUser(changes).then((res) => {
+            if (res.errors && res.errors[0]) {
+                password = ""
+                repeatPassword = ""
+
+                warning = res.errors[0].message
+            } else if (res.data) {
+                email = res.data.editUser.email
+                username = res.data.editUser.name
+                password = ""
+                repeatPassword = ""
+
+                warning = ""
+
+                eddeting = false
+            } else {
+                
+            }
+
         })
     }
 
@@ -43,7 +89,7 @@
 </script>
 <div class="main-window">
     <h2>User info</h2>
-    <form on:submit|preventDefault={handleSubmit}>
+    <form on:submit|preventDefault>
         <div>
             <label for="username">Username</label>
             <input
@@ -58,20 +104,41 @@
             <input
                 name="email"
                 type="email"
+                disabled={!eddeting}
+                pattern="{`[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-z]{2,}$`}"
                 bind:value={email}
             />
         </div>
+        {#if eddeting}
         <div>
             <label for="password">Password</label>
             <input
                 name="password"
                 type="password"
+                pattern="{`.{8,}$`}"
                 bind:value={password}
             />
         </div>
-        
-        <button>Save changes</button>
+        <div class="input-field">
+            <label for="repete">Repeat password</label>
+            <input
+                class={(password === repeatPassword) ? '' : 'invalid'}
+                name="repeat"
+                type="password"
+                bind:value={repeatPassword}
+            />
+        </div>
+        {#if warning}
+            <p class="warning">{warning}</p>
+        {/if}
+        <button on:click={handleSubmit}>Save changes</button>
+        <button on:click={cancelSubmit}>Cancel changes</button>
+        {:else}
+        <button on:click|preventDefault={enableEdditing}>Change profile</button>
+        {/if}
     </form>
+    <h2>Log out</h2>
+    <button name="logout" on:click={logout}>Log out</button>
     <h2>Themes</h2>
         Select Theme:
         
@@ -81,9 +148,7 @@
               <option value={id}>{name}</option>
             {/each}
             {/if}
-        </select>          
-    <h2>Log out</h2>
-    <button name="logout" on:click={logout}>Log out</button>
+        </select>
 </div>
 
 <style>

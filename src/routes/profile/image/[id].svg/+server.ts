@@ -1,6 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = ({ params }) => {
+    const start = new Date().getTime()
 	const id = Number(params.id);
     const response = new Response(createSvg(id));
     response.headers.set("content-type", "image/svg+xml");

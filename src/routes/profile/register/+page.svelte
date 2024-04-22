@@ -5,9 +5,27 @@
     let username = "";
     let email = "";
     let password = "";
+    let repeatPassword = "";
+
+    let warning = ""
+
+    function resetPassword() {
+        password = ""
+        repeatPassword = ""
+    }
 
     async function handleSubmit() {
-        
+        if (!username || !email || !password) {
+            warning = "All fealds needs to be fild out";
+            resetPassword();
+            return;
+        }
+
+        if (password != repeatPassword) {
+            warning = "Repeat password is not the same";
+            resetPassword();
+            return;
+        }
 
         fetch(url("register"), {
             method: "POST",
@@ -19,7 +37,17 @@
                 email: email,
                 password: password
             })
-        }).then(() => goto("/profile"));
+        }).then((response) => {
+            if (response.ok) {
+                goto("/profile");
+                return;
+            };
+            response.text().then(text => {
+                warning = text;
+                resetPassword();
+            });
+        });
+        
     }
 </script>
 
@@ -30,28 +58,47 @@
             <div class="input-field">
                 <label for="username">Username</label>
                 <input
+                    required={!!warning}
                     name="username"
                     autocomplete="off"
-                    required
+                    pattern="{`.{3,}`}"
                     bind:value={username}
                 />
             </div>
             <div class="input-field">
                 <label for="email">Email</label>
                 <input
+                    required={!!warning}
                     name="email"
                     type="email"
+                    pattern="{`[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-z]{2,}$`}"
                     bind:value={email}
                 />
             </div>
             <div class="input-field">
                 <label for="password">Password</label>
                 <input
+                    required={!!warning}
                     name="password"
                     type="password"
+                    pattern="{`.{8,}`}"
                     bind:value={password}
                 />
             </div>
+            <div class="input-field">
+                <label for="repete">Repeat password</label>
+                <input
+                    required={!!warning}
+                    class={!((password.length === repeatPassword.length || !!warning) &&
+                        password !== repeatPassword) ? '' : 'invalid'}
+                    name="repeat"
+                    type="password"
+                    bind:value={repeatPassword}
+                />
+            </div>
+            {#if warning}
+                <p class="warning">{warning}</p>
+            {/if}
             <button>register</button>
         </div>
     </form>

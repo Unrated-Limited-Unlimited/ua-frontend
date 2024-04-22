@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { goto } from '$app/navigation';
-    import { url } from '$lib/utils';
-    import { loggedIn } from '../../store/userStore';
 	import type { PageData } from './$types';
+    import Icon from '$lib/icon.svelte';
 	
 	export let data: PageData;
 
@@ -12,7 +10,10 @@
     <div class="main-window">
         <div class="userHeader">
             <div class="profileInf">
-                <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+                <!--
+                    <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
+                -->
+                <Icon id={data.user.id}></Icon>
                 <div>
                     <h1>{data.user.name}</h1>
                 </div>

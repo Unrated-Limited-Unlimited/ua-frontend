@@ -11,4 +11,11 @@
         width: 200px;
         margin-bottom: 10px;
     }
+    :global(input:invalid),
+    :global(input.invalid) {
+        border-color: red;
+    }
+    :global(.warning) {
+        color: red;
+    }
 </style>
