@@ -1,8 +1,10 @@
 
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { url } from "$lib/utils";
+    import Icon from "$lib/icon.svelte";
+    import { imageUrl, url } from "$lib/utils";
     import type { PageData } from "../$types";
+    import { newImageCache } from "../../../store/imageCache";
     import { loggedIn } from "../../../store/userStore";
     import { changeUser } from "./change";
 
@@ -13,7 +15,7 @@
     }
 
     export let data: PageData
-    let data__theme = document.documentElement.getAttribute("data-theme");
+    let data__theme = document.documentElement.getAttribute("data-theme"); // TODO: Remove
     let selectedTheme = "standard";
     if(data__theme) {
         selectedTheme = data__theme;
@@ -24,6 +26,31 @@
     let eddeting = false;
     function enableEdditing() {
         eddeting = true;
+        iconEddit = false;
+    }
+
+    let iconEddit = false;
+    function enableIconEdit() {
+        iconEddit = true;
+        eddeting = false;
+    }
+
+    let files: any;
+    let tempImageUrl = "";
+
+    function createImageUrl() {
+        if (files && files[0]) {
+            tempImageUrl = URL.createObjectURL(files[0]);
+        } else {
+            tempImageUrl = "";
+        }
+    }
+
+    async function cancelImage() {
+        image = data.user.img;
+        iconEddit = false;
+        files = [];
+        tempImageUrl = "";
     }
 
     let warning = ""
@@ -32,6 +59,8 @@
     let email = data.user.email;
     let password = "";
     let repeatPassword = "";
+
+    let image = data.user.img;
 
     async function cancelSubmit() {
         username = data.user.name;
@@ -64,7 +93,11 @@
                 warning = res.errors[0].message
             } else if (res.data) {
                 email = res.data.editUser.email
+                data.user.email = email
+
                 username = res.data.editUser.name
+                data.user.name = username
+
                 password = ""
                 repeatPassword = ""
 
@@ -86,8 +119,43 @@
         document.documentElement.dataset.theme = theme;
         document.cookie = `siteTheme=${theme};Max-Age=2592000;path="/";SameSite=None;Secure;`;
     };
+
+
+    function uploadImage() {
+        if (files && files[0]) {
+            const formData = new FormData()
+            formData.append("file", files[0])
+
+            fetch(url("img", "profile"), {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            }).then((res) => {
+                if (res.ok) {
+                    image = `p${data.user.id}`;
+                    data.user.img = image;
+                    iconEddit = false;
+                    newImageCache();
+                }
+                tempImageUrl = "";
+            })
+        }
+    }
 </script>
 <div class="main-window">
+    <Icon id={data.user.id} image={tempImageUrl || imageUrl(image)}></Icon>
+    {#if iconEddit}
+    <form on:submit|preventDefault={uploadImage}>
+        <div>
+            <label for="img">Select image:</label>
+            <input bind:files on:change={createImageUrl} type="file" id="img" name="img" accept="image/*"> 
+        </div>
+        <button disabled={!files}>Save changes</button>
+        <button>Cancel changes</button>
+      </form>
+    {:else}
+    <button on:click|preventDefault={enableIconEdit}>Change icon</button>
+    {/if}
     <h2>User info</h2>
     <form on:submit|preventDefault>
         <div>

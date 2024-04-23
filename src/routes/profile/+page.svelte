@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
     import Icon from '$lib/icon.svelte';
+    import { imageUrl } from '$lib/utils';
 	
 	export let data: PageData;
 
@@ -10,10 +11,7 @@
     <div class="main-window">
         <div class="userHeader">
             <div class="profileInf">
-                <!--
-                    <img src="{data.user.img || `/profile/image/${data.user.id}.svg`}" alt="user icone" width=100px height=100px style="margin: 10px; border-radius: 50%;"/>
-                -->
-                <Icon id={data.user.id}></Icon>
+                <Icon id={data.user.id} image={imageUrl(data.user.img)}></Icon>
                 <div>
                     <h1>{data.user.name}</h1>
                 </div>
@@ -83,10 +81,6 @@
                 }
             }
         }
-    img {
-        border-radius: 100%;
-        border: .15rem solid var(--contrast-text);
-    }
     h4{
         a{
             text-decoration: none;
