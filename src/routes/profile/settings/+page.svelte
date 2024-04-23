@@ -1,5 +1,6 @@
 
 <script lang="ts">
+    import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
     import Icon from "$lib/icon.svelte";
     import { imageUrl, url } from "$lib/utils";
@@ -145,13 +146,13 @@
 <div class="main-window">
     <Icon id={data.user.id} image={tempImageUrl || imageUrl(image)}></Icon>
     {#if iconEddit}
-    <form on:submit|preventDefault={uploadImage}>
+    <form on:submit|preventDefault>
         <div>
             <label for="img">Select image:</label>
             <input bind:files on:change={createImageUrl} type="file" id="img" name="img" accept="image/*"> 
         </div>
-        <button disabled={!files}>Save changes</button>
-        <button>Cancel changes</button>
+        <button disabled={!files} on:click={uploadImage}>Save changes</button>
+        <button on:click={cancelImage}>Cancel changes</button>
       </form>
     {:else}
     <button on:click|preventDefault={enableIconEdit}>Change icon</button>
