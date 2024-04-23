@@ -7,7 +7,10 @@ export function url(...args: string[]) {
 }
 
 export function imageUrl(...args: string[]) {
-    return IMAGE_BASE_URL + "/" + args.join("/") + "?t=" + getImageSufix();
+    if (args && args[0]) {
+        return IMAGE_BASE_URL + "/" + args.join("/") + "?t=" + getImageSufix();
+    }
+    return ""
 }
 
 export const graphql_url = BACKEND_BASE_URL + "/graphql"
