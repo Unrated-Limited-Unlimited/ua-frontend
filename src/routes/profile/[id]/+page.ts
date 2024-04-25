@@ -2,8 +2,8 @@ import { query } from '$lib/graphql';
 import type { PageLoad } from './$types';
 
 const getLoggedInUser = `
-query GetUser {
-    getUser {
+query GetUser($id: ID!) {
+    getUser(id: $id) {
         id
         name
         img
@@ -19,8 +19,8 @@ query GetUser {
     }
 }`
 
-export const load: PageLoad = async ({ fetch }) => {
-    const res = await query(fetch, getLoggedInUser)
+export const load: PageLoad = async ({ fetch, params }) => {
+    const res = await query(fetch, getLoggedInUser, { id: params.id })
     if (res.status === 200) {
         return { user: (await res.json()).data.getUser }
     }

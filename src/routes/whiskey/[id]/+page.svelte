@@ -90,7 +90,7 @@
         <div class="review-title">
           <h2>{review.title}</h2>
           <div>
-            {#each Array(parseFloat(review.score) * 5) as _}
+            {#each Array(Math.round(parseFloat(review.score) * 5)) as _}
               <svg
                 class="rating-star"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@
                 />
               </svg>
             {/each}
-            {#each Array(5 - parseFloat(review.score) * 5) as _}
+            {#each Array(5 - Math.round(parseFloat(review.score) * 5)) as _}
               <svg
                 class="unfill-rating-star rating-star"
                 xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +117,7 @@
           </div>
         </div>
         <p>{review.body}</p>
-        <h4>written by {review.user.name}</h4>
+        <h4>written by <a href="/profile/{review.user.id}">{review.user.name}</a></h4>
         <div class="review-buttons">
           <button class="hover-shadow">
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -254,6 +254,12 @@
         height: 100%;
         color: var(--bg-color);
       }
+    }
+  }
+
+  h4 {
+    a {
+        color: var(--contrast-text);
     }
   }
 
