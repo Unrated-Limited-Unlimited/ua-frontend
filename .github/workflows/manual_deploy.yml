@@ -1,0 +1,27 @@
+name: ManualDeploy
+
+on: 
+  workflow_dispatch:
+    inputs:
+      parameter_name:
+        description: 'Manual deploy.'
+        required: true
+        default: 'Default value'
+
+jobs:
+  deploy:
+    name: ManualDeploy
+    runs-on: ubuntu-latest
+    environment:
+      name: ULU
+    
+    steps:
+    - name: install ssh keys
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+    - name: deploy
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/ulu/ULU/ua-frontend && git checkout master && git pull && docker build -t ua-frontend:latest . && docker stop ua-frontend && docker remove ua-frontend && docker run --name ua-frontend -d -p 3000:3000 -e PUBLIC_BACKEND_BASE_URL=${{ secrets.PUBLIC_BACKEND_BASE_URL }} -e PUBLIC_FLAGSMITH=${{ secrets.PUBLIC_FLAGSMITH }} -e ORIGIN=${{ secrets.ORIGIN }} ua-frontend:latest && exit"
+    - name: cleanup
+      run: rm -rf ~/.ssh
