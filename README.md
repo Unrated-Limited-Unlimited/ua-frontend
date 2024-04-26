@@ -11,6 +11,7 @@ The frontend is created using SvelteKit, and has partial test coverage using Cyp
 Environment variables can be set in a `.env` file. See `.env-example` for an example on the of the file. These are the different variables that can be set:
 ```
 PUBLIC_BACKEND_BASE_URL: The URL that the backend is running on
+PUBLIC_IMAGE_BASE_URL: The URL where images are hosted
 PUBLIC_FLAGSMITH: The SDK enviroment varible to flagsmith
 ORIGIN: The URL that this application can be accessed by
 VITE_ADAPTER: Tells what adapter to use. Possible "node" and "static". Defaults to "node".
