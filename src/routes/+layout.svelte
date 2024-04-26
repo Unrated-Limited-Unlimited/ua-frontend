@@ -1,6 +1,15 @@
 <script>
     import Navbar from "./navbar.svelte";
     import '../app.scss';
+    import { siteTheme } from "../store/themeStore";
+    import { onMount } from "svelte";
+
+    onMount(() => {
+        siteTheme.subscribe(theme => {
+            document.documentElement.dataset.theme = theme;
+        })
+    })
+    
 </script>
 
 <svelte:head>

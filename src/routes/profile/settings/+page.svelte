@@ -8,6 +8,7 @@
     import { newImageCache } from "../../../store/imageCache";
     import { loggedIn } from "../../../store/userStore";
     import { changeUser } from "./change";
+    import { siteTheme } from "../../../store/themeStore";
 
     async function logout() {
         fetch(url("logout"), {method: "POST"}).then(() => loggedIn.set(false));
@@ -16,11 +17,11 @@
     }
 
     export let data: PageData
-    let data__theme = document.documentElement.getAttribute("data-theme"); // TODO: Remove
-    let selectedTheme = "standard";
-    if(data__theme) {
-        selectedTheme = data__theme;
-    }
+
+    let selectedTheme = {id: "standard", name: "standard"};
+    siteTheme.subscribe(theme => {
+        selectedTheme = {id: theme, name: theme}
+    })
 
     let themes = data.themes;
 
@@ -117,7 +118,7 @@
     }
 
     const setTheme = (theme: string) => {
-        document.documentElement.dataset.theme = theme;
+        siteTheme.set(theme);
         document.cookie = `siteTheme=${theme};Max-Age=2592000;path="/";SameSite=None;Secure;`;
     };
 
