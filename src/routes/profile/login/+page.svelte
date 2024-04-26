@@ -25,14 +25,14 @@
 </script>
 <div class="main-window">
     <div>
-    <h2>Create a user</h2>
+    <h2>Loggin</h2>
 
     <form on:submit|preventDefault={handleSubmit}>
         <div class="input-field">
             <label for="username">Username</label>
             <input
                 name="username"
-                type="username" 
+                type="username"
                 bind:value={username}
             />
         </div>

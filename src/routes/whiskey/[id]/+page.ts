@@ -15,6 +15,7 @@ query Whiskey($id: ID!) {
             body
             user {
                 name
+                id
             }
         }
         categories {

@@ -15,5 +15,5 @@ mutation EditUser($user: EditUserInput!) {
 }`
 
 export async function changeUser(user: EditUser) {
-    return(await (await mutate(editUser, {user: user})).json()).data.editUser
+    return (await mutate(editUser, {user: user})).json()
 }

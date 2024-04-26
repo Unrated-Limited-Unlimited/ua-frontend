@@ -127,6 +127,28 @@ export const handlers = [
         }
     })
   }),
+  graphql.query("GetUser", () => {
+    return HttpResponse.json({
+        data: {
+            getUser: {
+                id: 18021700,
+                name: 'Anne Beate',
+                img: null,
+                ratings: [
+                    {
+                        title: "Helt Ok",
+                        body: "Den største skuffelsen er den du skaper selv #inspo #deep #thefeelingofdrowninginwhiskeyisbetterthendrowninginlava #youacualyfloatontopoflavabecausestoneisheavy",
+                        score: 0.2,
+                        whiskey: {
+                          id:"1",
+                          title: "Jura"
+                        }
+                    }
+                ]
+            }
+        }
+    })
+  }),
   graphql.query("LoggedInUserInfo", () => {
     return HttpResponse.json({
         data: {
