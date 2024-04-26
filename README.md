@@ -31,3 +31,19 @@ npm run build
 node -r dotenv/config build
 ```
 The last line will ensure that the environment variables in `.env` get added.
+
+## Creating a mobile application
+To create a mobile application, you can use cypress. It currently only tested for android. Before building anything, the build types needs to be added. This only needs to be done once.
+```Bach
+npx cap add android
+```
+
+To run it:
+```Bach
+npm install
+npm run build:static
+npx cap sync
+npx capacitor-assets generate
+npx open android
+```
+The last line will open android studio.
