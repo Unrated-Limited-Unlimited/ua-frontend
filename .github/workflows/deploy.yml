@@ -5,13 +5,6 @@ on:
     workflows: ["Cypress Tests"]
     types:
       - completed
-      
-  workflow_dispatch:
-    inputs:
-      parameter_name:
-        description: 'Manual deploy.'
-        required: true
-        default: 'Default value'
 
 jobs:
   deploy:
