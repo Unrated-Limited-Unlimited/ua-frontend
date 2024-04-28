@@ -22,6 +22,6 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: deploy
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/ulu/ULU/ua-frontend && git checkout master && git pull && docker build -t ua-frontend:latest . && docker stop ua-frontend && docker remove ua-frontend && docker run --name ua-frontend -d -p 3000:3000 -e PUBLIC_BACKEND_BASE_URL=${{ secrets.PUBLIC_BACKEND_BASE_URL }} -e PUBLIC_FLAGSMITH=${{ secrets.PUBLIC_FLAGSMITH }} -e ORIGIN=${{ secrets.ORIGIN }} ua-frontend:latest && exit"
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/ulu/ULU/ua-frontend && git checkout master && git pull && docker build -t ua-frontend:latest . && docker stop ua-frontend && docker remove ua-frontend && docker run --restart=always --name ua-frontend -d -p 3000:3000 -e PUBLIC_BACKEND_BASE_URL=${{ secrets.PUBLIC_BACKEND_BASE_URL }} -e PUBLIC_FLAGSMITH=${{ secrets.PUBLIC_FLAGSMITH }} -e ORIGIN=${{ secrets.ORIGIN }} ua-frontend:latest && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
