@@ -8,8 +8,18 @@
   let shortenedSummary: boolean = true;
   let moreButtonNeeded: boolean = (data.whiskey.summary).length > 100;
   let categories = data.whiskey.categories;
+  let myreview = data.whiskey.review;
 
   let reviews = data.whiskey.ratings;
+  if(myreview){
+    reviews = reviews.filter(review => review.id !== myreview.id);
+    reviews = [myreview, ...reviews];
+  }
+
+  function roundToNDecimalPlaces(num: number, decimals: number): number {
+  const factor = Math.pow(10, decimals);
+  return Math.round(num * factor) / factor;
+  }
 
   function summarySwap() {
     shortenedSummary = !shortenedSummary;
@@ -62,7 +72,11 @@
               </svg>
             {/each}
           </div>
-          <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
+          {#if myreview}
+            <a href="/whiskey/{id}/edit/{myreview.id}">Edit your review!</a>
+            {:else}
+            <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
+          {/if}
         </div>
         <p>{data.whiskey.summary}</p>
     </div>
@@ -75,7 +89,7 @@
           <p>{category.name}</p>
           <div class="slider">
             <div class="slider-fill" style="width:{limitNumber(category.avgScore)*100}%">
-              <p>{limitNumber(category.avgScore*10)}<p>
+              <p>{limitNumber(roundToNDecimalPlaces(category.avgScore, 1))*5}<p>
             </div>
           </div>
         </div>

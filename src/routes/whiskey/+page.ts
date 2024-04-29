@@ -19,12 +19,23 @@ const variables = {
     }
   };
 
+  const attributes = `
+  query Attributes {
+      getAttributeCategories {
+          id
+          name
+      }
+  }
+  `;
+
 export const load: PageLoad = async ({ fetch }) => {
-	const res = await query(fetch, whiskeys, variables)
+	const res = await query(fetch, whiskeys, variables);
+    const rating = await query(fetch, attributes);
 	if (res.status !== 200 && (await res.json()).error) {
         return {whiskey_list: []}
     }
     return {
-        whiskey_list: (await res.json()).data.getWhiskeys
+        whiskey_list: (await res.json()).data.getWhiskeys,
+        attributes: (await rating.json()).data.getAttributeCategories,
     }
 }
