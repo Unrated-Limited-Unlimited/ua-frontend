@@ -5,12 +5,13 @@
     import { capitalize, featureFlagStore } from "../../store/featureFlagStore";
     import type { PageData } from "./$types";
     import { onMount } from "svelte";
+    import { get, writable, type Writable } from 'svelte/store';
 
 	export let data: PageData;
 
     const WHISKEYS_QUERY = `
-    query Whiskeys($paging: Paging!, $filters: [Filter]) {
-        getWhiskeys(paging: $paging, filters: $filters) {
+    query Whiskeys($paging: Paging!, $filters: [Filter], $sort: Sort) {
+        getWhiskeys(paging: $paging, filters: $filters, sort: $sort) {
             id
             img
             title
@@ -19,13 +20,33 @@
         }
     }
     `;
+
+    interface Attribute {
+        id: string;
+        name: string;
+    }
+
+    interface AttributeValue {
+        field: {
+            attribute: {
+                avgScore: string;
+                id: string;
+            }
+        }
+        comp: string;
+    }
+
+    interface SliderValues {
+        [key: string]: AttributeValue;
+    }
     
     let whiskeys: any[] = data.whiskey_list;
     let currentPage: number = 1;
     let isLoading: boolean = false;
     let pageSize = 20;
     let searchbar_value = "";
-    let search_value = ""
+    let search_value = "";
+    let currentSortType : string = "DEFAULT";
 
     async function searchWhiskey(event: Event){
         whiskeys = [];
@@ -48,7 +69,7 @@
     async function fetchMoreWhiskeys() {
         isLoading = true;
 
-        const res = await query(fetch, WHISKEYS_QUERY, {paging: {page: currentPage, size: pageSize}, filters: {field: {title: search_value}}});
+        const res = await query(fetch, WHISKEYS_QUERY, {paging: {page: currentPage, size: pageSize}, sort: {sortType: currentSortType}, filters: {field: {title: search_value}}});
         if (res.status === 200) {
         const jsonData = await res.json();
         if (jsonData.data && jsonData.data.getWhiskeys.length > 0) {
@@ -82,6 +103,12 @@
         }
     });
 
+    function handleSelect(event: Event) {
+        const target = event.target as HTMLSelectElement;
+        currentSortType = target.value;
+        searchWhiskey(event);
+    }
+
     onMount(() => {
         window.addEventListener('scroll', checkScroll);
         return () => {
@@ -99,32 +126,18 @@
                     <input class="searchbar" id="searchbar" bind:value={searchbar_value} type="text" placeholder="Search...">
                     <button class="searchButton" id="searchButton" on:click={searchWhiskey}>search</button>
                 </div>
-                <button>Filters +</button>
             </div>
-        </div>
-        <div class="filters">
-            <h4>Filters</h4>
-            <div class = aligned>
-            AvgScore
-            <input
-                type="range"
-                min="0"
-                max="1.25"
-                step="0.25"
-            />
+            <div>
+            <p>sort by:</p>
+            <select bind:value={currentSortType} on:change={handleSelect}>
+                <option value="DEFAULT">Standard</option>
+                <option value="BEST">Best Rating</option>
+                <option value="PRICE">Price</option>
+                <option value="POPULAR">Popular</option>
+                <option value="RANDOM">Random</option>
+                <option value="RECOMMENDED">Recommended</option>
+            </select>
             </div>
-            {#each data.attributes as attribute}
-            <div class="aligned">
-                {attribute.name}
-                <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.25"
-                />
-            </div>
-            {/each}
-            <button>Apply</button>
         </div>
         <div class="grid-container">
             {#each whiskeys as whiskey}
