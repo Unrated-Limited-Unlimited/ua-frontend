@@ -9,7 +9,10 @@
     import { changeUser } from "./change";
 
     async function logout() {
-        fetch(url("logout"), {method: "POST"}).then(() => loggedIn.set(false));
+        fetch(url("logout"), {
+            method: "POST",
+            credentials: "include"
+        }).then(() => loggedIn.set(false));
 
         goto("/");
     }
