@@ -11,7 +11,10 @@
     import { siteTheme } from "../../../store/themeStore";
 
     async function logout() {
-        fetch(url("logout"), {method: "POST"}).then(() => loggedIn.set(false));
+        fetch(url("logout"), {
+            method: "POST",
+            credentials: "include"
+        }).then(() => loggedIn.set(false));
 
         goto("/");
     }
