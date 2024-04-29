@@ -1,4 +1,4 @@
-import { http, graphql, HttpResponse } from 'msw';
+import { http, graphql, HttpResponse, GraphQLHandler } from 'msw';
 
 const ratings = [
     {
@@ -81,7 +81,7 @@ const attributes = [
 export const handlers = [
   http.post('*/login', ({ cookies }) => {
     return new HttpResponse(null, {
-        headers: {'Set-Cookie': 'authToken=abc-123; httpOnly=true;',}
+        headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
   http.post('*/logout', ({ cookies }) => {
@@ -90,11 +90,15 @@ export const handlers = [
     })
   }),
   http.post('*/register', ({ cookies }) => {
-    return new HttpResponse(null, {
-        headers: {'Set-Cookie': 'authToken=abc-123',}
-    })
+    return new HttpResponse();
   }),
-  graphql.mutation("EditUser", () => {
+  graphql.mutation("EditUser", ({ cookies }) => {
+    if (!cookies.authToken || cookies.authToken === "expired") {
+        return HttpResponse.json({
+            errors: []
+        })
+    }
+
     return HttpResponse.json({
         data: {
             editUser: {
@@ -105,7 +109,14 @@ export const handlers = [
         }
     })
   }),
-  graphql.query("LoggedInUser", () => {
+  graphql.query("LoggedInUser", ({cookies}) => {
+    console.log(cookies)
+    if (!cookies.authToken || cookies.authToken === "expired") {
+        return HttpResponse.json({
+            errors: []
+        })
+    }
+
     return HttpResponse.json({
         data: {
             getLoggedInUser: {
@@ -149,7 +160,13 @@ export const handlers = [
         }
     })
   }),
-  graphql.query("LoggedInUserInfo", () => {
+  graphql.query("LoggedInUserInfo", ({cookies}) => {
+    if (!cookies.authToken || cookies.authToken === "expired") {
+        return HttpResponse.json({
+            errors: []
+        })
+    }
+
     return HttpResponse.json({
         data: {
             getLoggedInUser: {

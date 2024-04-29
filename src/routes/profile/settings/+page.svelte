@@ -1,6 +1,5 @@
 
 <script lang="ts">
-    import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
     import Icon from "$lib/icon.svelte";
     import { imageUrl, url } from "$lib/utils";
@@ -8,22 +7,17 @@
     import { newImageCache } from "../../../store/imageCache";
     import { loggedIn } from "../../../store/userStore";
     import { changeUser } from "./change";
-    import { siteTheme } from "../../../store/themeStore";
 
     async function logout() {
-        fetch(url("logout"), {method: "POST"}).then(() => loggedIn.set(false));
+        fetch(url("logout"), {
+            method: "POST",
+            credentials: "include"
+        }).then(() => loggedIn.set(false));
 
         goto("/");
     }
 
     export let data: PageData
-
-    let selectedTheme = {id: "standard", name: "standard"};
-    siteTheme.subscribe(theme => {
-        selectedTheme = {id: theme, name: theme}
-    })
-
-    let themes = data.themes;
 
     let eddeting = false;
     function enableEdditing() {
@@ -113,16 +107,6 @@
         })
     }
 
-    function handleThemeChange() {
-        setTheme(selectedTheme);
-    }
-
-    const setTheme = (theme: string) => {
-        siteTheme.set(theme);
-        document.cookie = `siteTheme=${theme};Max-Age=2592000;path="/";SameSite=None;Secure;`;
-    };
-
-
     function uploadImage() {
         if (files && files[0]) {
             const formData = new FormData()
@@ -209,16 +193,6 @@
     </form>
     <h2>Log out</h2>
     <button name="logout" on:click={logout}>Log out</button>
-    <h2>Themes</h2>
-        Select Theme:
-        
-        <select id="theme-selector" bind:value={selectedTheme} on:change={handleThemeChange}>
-            {#if themes}
-            {#each themes as {id, name}}
-              <option value={id}>{name}</option>
-            {/each}
-            {/if}
-        </select>
 </div>
 
 <style>
