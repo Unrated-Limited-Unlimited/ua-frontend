@@ -96,13 +96,6 @@
     return str;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const button = document.getElementById('searchButton') as HTMLButtonElement;
-        if (button) {
-            button.addEventListener('click', searchWhiskey);
-        }
-    });
-
     function handleSelect(event: Event) {
         const target = event.target as HTMLSelectElement;
         currentSortType = target.value;
