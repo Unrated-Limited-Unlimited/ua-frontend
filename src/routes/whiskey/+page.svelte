@@ -301,7 +301,6 @@
 
     .sort-thing {
         display: inline-flex;
-        height: 1rem;
         p{
             padding: 0;
         }
