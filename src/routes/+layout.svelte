@@ -5,10 +5,11 @@
     import { onMount } from "svelte";
     import { loggedIn } from "../store/userStore";
     import { get } from "svelte/store";
+    import { url } from "$lib/utils";
 
     function refreshToken() {
         if (get(loggedIn)) {
-            fetch(url('oauth','access_token'), {
+            fetch(url('oauth', 'access_token'), {
                 method: 'POST',
                 credentials: 'include'
             })
