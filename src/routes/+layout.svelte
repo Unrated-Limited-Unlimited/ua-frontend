@@ -3,8 +3,23 @@
     import '../app.scss';
     import { siteTheme } from "../store/themeStore";
     import { onMount } from "svelte";
+    import { loggedIn } from "../store/userStore";
+    import { get } from "svelte/store";
+
+    function refreshToken() {
+        if (get(loggedIn)) {
+            fetch(url('oauth','access_token'), {
+                method: 'POST',
+                credentials: 'include'
+            })
+        }
+    }
 
     onMount(() => {
+        refreshToken();
+
+        setInterval(refreshToken, 30 * 60 * 1000)
+
         siteTheme.subscribe(theme => {
             document.documentElement.dataset.theme = theme;
         })
