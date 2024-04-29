@@ -1,7 +1,7 @@
 <script>
     import Navbar from "./navbar.svelte";
     import '../app.scss';
-    import { siteTheme } from "../store/themeStore";
+
     import { onMount } from "svelte";
     import { loggedIn } from "../store/userStore";
     import { get } from "svelte/store";
@@ -12,6 +12,10 @@
             fetch(url('oauth', 'access_token'), {
                 method: 'POST',
                 credentials: 'include'
+            }).then((response) => {
+                if (!response.ok) {
+                    loggedIn.set(false);
+                }
             })
         }
     }
@@ -20,12 +24,7 @@
         refreshToken();
 
         setInterval(refreshToken, 30 * 60 * 1000)
-
-        siteTheme.subscribe(theme => {
-            document.documentElement.dataset.theme = theme;
-        })
     })
-    
 </script>
 
 <svelte:head>

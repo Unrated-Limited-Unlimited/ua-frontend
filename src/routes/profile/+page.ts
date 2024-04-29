@@ -24,9 +24,13 @@ query LoggedInUser {
 export const load: PageLoad = async ({ fetch }) => {
     if (get(loggedIn)) {
         const res = await query(fetch, getLoggedInUser)
-        if (res.status === 200) {
-            return { user: (await res.json()).data.getLoggedInUser }
+        if (res.ok) {
+            const json = await res.json()
+            if (json.data) {
+                return { user: json.data.getLoggedInUser }
+            }
         }
     }
+    loggedIn.set(false)
     return {}
 }
