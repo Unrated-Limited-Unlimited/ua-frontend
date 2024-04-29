@@ -127,16 +127,16 @@
                     <button class="searchButton" id="searchButton" on:click={searchWhiskey}>search</button>
                 </div>
             </div>
-            <div>
-            <p>sort by:</p>
-            <select bind:value={currentSortType} on:change={handleSelect}>
-                <option value="DEFAULT">Standard</option>
-                <option value="BEST">Best Rating</option>
-                <option value="PRICE">Price</option>
-                <option value="POPULAR">Popular</option>
-                <option value="RANDOM">Random</option>
-                <option value="RECOMMENDED">Recommended</option>
-            </select>
+            <div class="sort-thing">
+                <p>sort by:</p>
+                <select bind:value={currentSortType} on:change={handleSelect}>
+                    <option value="DEFAULT">Standard</option>
+                    <option value="BEST">Best Rating</option>
+                    <option value="PRICE">Price</option>
+                    <option value="POPULAR">Popular</option>
+                    <option value="RANDOM">Random</option>
+                    <option value="RECOMMENDED">Recommended</option>
+                </select>
             </div>
         </div>
         <div class="grid-container">
@@ -273,6 +273,7 @@
         align-items: center;
         width: 100%;
         gap: 2rem;
+        margin-bottom: 2rem;
 
         input{
             height: 2rem;
@@ -303,6 +304,14 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+    }
+
+    .sort-thing {
+        display: inline-flex;
+        height: 1rem;
+        p{
+            padding: 0;
+        }
     }
 
     body {margin: 0}
