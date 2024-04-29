@@ -81,7 +81,7 @@ const attributes = [
 export const handlers = [
   http.post('*/login', ({ cookies }) => {
     return new HttpResponse(null, {
-        headers: {'Set-Cookie': 'authToken=abc-123; httpOnly=true;',}
+        headers: {'Set-Cookie': 'authToken=abc-123',}
     })
   }),
   http.post('*/logout', ({ cookies }) => {
@@ -110,6 +110,7 @@ export const handlers = [
     })
   }),
   graphql.query("LoggedInUser", ({cookies}) => {
+    console.log(cookies)
     if (!cookies.authToken || cookies.authToken === "expired") {
         return HttpResponse.json({
             errors: []

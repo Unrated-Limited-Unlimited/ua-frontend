@@ -12,6 +12,10 @@
             fetch(url('oauth', 'access_token'), {
                 method: 'POST',
                 credentials: 'include'
+            }).then((response) => {
+                if (!response.ok) {
+                    loggedIn.set(false);
+                }
             })
         }
     }
