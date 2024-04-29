@@ -94,10 +94,37 @@
     <div class="main-container">
         <div class="search">
             <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
-            <div class="flex-inline centered">
-                <input class="searchbar" id="searchbar" bind:value={searchbar_value} type="text" placeholder="Search...">
-                <button class="searchButton" id="searchButton" on:click={searchWhiskey}>search</button>
+            <div>
+                <div class="flex-inline centered">
+                    <input class="searchbar" id="searchbar" bind:value={searchbar_value} type="text" placeholder="Search...">
+                    <button class="searchButton" id="searchButton" on:click={searchWhiskey}>search</button>
+                </div>
+                <button>Filters +</button>
             </div>
+        </div>
+        <div class="filters">
+            <h4>Filters</h4>
+            <div class = aligned>
+            AvgScore
+            <input
+                type="range"
+                min="0"
+                max="1.25"
+                step="0.25"
+            />
+            </div>
+            {#each data.attributes as attribute}
+            <div class="aligned">
+                {attribute.name}
+                <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.25"
+                />
+            </div>
+            {/each}
+            <button>Apply</button>
         </div>
         <div class="grid-container">
             {#each whiskeys as whiskey}
@@ -164,8 +191,6 @@
         .main-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             gap: 0;
         }
         .grid-container{
@@ -254,6 +279,17 @@
             margin: 0;
             border: 4px solid var(--accent);
         }
+    }
+
+    .aligned {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 10fr;
+        text-align: left;
+    }
+    .filters {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
 
     body {margin: 0}

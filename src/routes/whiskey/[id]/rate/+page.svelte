@@ -129,7 +129,7 @@
         type="range"
         min="0"
         max="1"
-        step="0.25"
+        step="0.20"
         bind:value={sliderValues[parseInt(attribute.id)]}
         class="slider unset"
       />

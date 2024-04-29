@@ -90,7 +90,7 @@
           <p>{category.name}</p>
           <div class="slider">
             <div class="slider-fill" style="width:{limitNumber(category.avgScore)*100}%">
-              <p>{limitNumber(roundToNDecimalPlaces(category.avgScore, 1))*10}<p>
+              <p>{limitNumber(roundToNDecimalPlaces(category.avgScore, 1))*5}<p>
             </div>
           </div>
         </div>

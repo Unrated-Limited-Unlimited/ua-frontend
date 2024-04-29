@@ -87,8 +87,7 @@
 <div class="main-window">
   <div class="flex-column centered">
     <h1>Edit rating</h1>
-    {$rating} {$hoveredRating} {comment} {id}
-    <h2>Test</h2>
+    <h2>{data.rating.whiskey.title}</h2>
   </div>
   <div class="flex-column centered main-rating">
     <p>Rating Title</p>
@@ -122,7 +121,7 @@
     </div>
     <h3>Other rating areas</h3>
     {#each data.attributes as attribute}
-      {attribute.name} {attribute.id}
+      {attribute.name}
       <input
         type="range"
         min="0"
