@@ -5,12 +5,13 @@
     import { capitalize, featureFlagStore } from "../../store/featureFlagStore";
     import type { PageData } from "./$types";
     import { onMount } from "svelte";
+    import { get, writable, type Writable } from 'svelte/store';
 
 	export let data: PageData;
 
     const WHISKEYS_QUERY = `
-    query Whiskeys($paging: Paging!) {
-        getWhiskeys(paging: $paging) {
+    query Whiskeys($paging: Paging!, $filters: [Filter], $sort: Sort) {
+        getWhiskeys(paging: $paging, filters: $filters, sort: $sort) {
             id
             img
             title
@@ -20,15 +21,55 @@
     }
     `;
 
+    interface Attribute {
+        id: string;
+        name: string;
+    }
+
+    interface AttributeValue {
+        field: {
+            attribute: {
+                avgScore: string;
+                id: string;
+            }
+        }
+        comp: string;
+    }
+
+    interface SliderValues {
+        [key: string]: AttributeValue;
+    }
+    
     let whiskeys: any[] = data.whiskey_list;
     let currentPage: number = 1;
     let isLoading: boolean = false;
     let pageSize = 20;
+    let searchbar_value = "";
+    let search_value = "";
+    let currentSortType : string = "DEFAULT";
 
+    async function searchWhiskey(event: Event){
+        whiskeys = [];
+        search_value = searchbar_value;
+        currentPage = 0;
+
+        const button = event.target as HTMLButtonElement;
+        button.disabled = true; // Disable the button to prevent multiple clicks
+
+        try {
+            const result = await fetchMoreWhiskeys();
+            console.log(result); // Process the result
+        } catch (error) {
+            console.error(error); // Handle any errors
+        } finally {
+            button.disabled = false; // Re-enable the button regardless of the fetch result
+        }
+    }
+    
     async function fetchMoreWhiskeys() {
         isLoading = true;
 
-        const res = await query(fetch, WHISKEYS_QUERY, {paging: {page: currentPage, size: pageSize}});
+        const res = await query(fetch, WHISKEYS_QUERY, {paging: {page: currentPage, size: pageSize}, sort: {sortType: currentSortType}, filters: {field: {title: search_value}}});
         if (res.status === 200) {
         const jsonData = await res.json();
         if (jsonData.data && jsonData.data.getWhiskeys.length > 0) {
@@ -55,6 +96,12 @@
     return str;
     }
 
+    function handleSelect(event: Event) {
+        const target = event.target as HTMLSelectElement;
+        currentSortType = target.value;
+        searchWhiskey(event);
+    }
+
     onMount(() => {
         window.addEventListener('scroll', checkScroll);
         return () => {
@@ -65,7 +112,26 @@
     
     {#if whiskeys}
     <div class="main-container">
-        <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
+        <div class="search">
+            <h1>{ capitalize($featureFlagStore?.wiskeySpelling) }</h1>
+            <div>
+                <div class="flex-inline centered">
+                    <input class="searchbar" id="searchbar" bind:value={searchbar_value} type="text" placeholder="Search...">
+                    <button class="searchButton" id="searchButton" on:click={searchWhiskey}>search</button>
+                </div>
+            </div>
+            <div class="sort-thing">
+                <p>sort by:</p>
+                <select bind:value={currentSortType} on:change={handleSelect}>
+                    <option value="DEFAULT">Standard</option>
+                    <option value="BEST">Best Rating</option>
+                    <option value="PRICE">Price</option>
+                    <option value="POPULAR">Popular</option>
+                    <option value="RANDOM">Random</option>
+                    <option value="RECOMMENDED">Recommended</option>
+                </select>
+            </div>
+        </div>
         <div class="grid-container">
             {#each whiskeys as whiskey}
             <a id="whiskey-link" href="/whiskey/{whiskey.id}">
@@ -102,13 +168,14 @@
     {/if}
 
 
-<style>
+<style lang="scss">
     .grid-container {
         display: grid;
         grid-template-columns: 96vw;
         gap: 2vw;
         margin: 2vw;
     }
+
     @media only screen and (max-width: 639px) {
         .main-container {
             display: flex;
@@ -130,8 +197,6 @@
         .main-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             gap: 0;
         }
         .grid-container{
@@ -193,6 +258,52 @@
     }
     .unfill-rating-star {
         fill: var(--bg-color)
+    }
+
+    .search {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 2rem;
+        margin-bottom: 2rem;
+
+        input{
+            height: 2rem;
+            width: 20vw;
+        }
+        .searchbar{
+            border-radius: 2rem 0 0 2rem; // topleft, Top right, bottom right, bottom left
+            padding-left: .8rem;
+            border: 2px solid gainsboro;
+            margin: 0;
+            height: 2rem;
+        }
+        .searchButton {
+            border-radius: 0 2rem 2rem 0; // topleft, Top right, bottom right, bottom left
+            padding-right: .5rem;
+            height: 2.38rem;
+            margin: 0;
+            border: 4px solid var(--accent);
+        }
+    }
+
+    .aligned {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 10fr;
+        text-align: left;
+    }
+    .filters {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .sort-thing {
+        display: inline-flex;
+        p{
+            padding: 0;
+        }
     }
 
     body {margin: 0}
