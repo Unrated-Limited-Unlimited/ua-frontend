@@ -6,6 +6,8 @@
     let username = "";
     let password = "";
 
+    let warning = "";
+
     async function handleSubmit() {
         fetch(url("login"), {
             method: "POST",
@@ -18,8 +20,12 @@
             }),
             credentials: "include"
         }).then((res) => {
-            loggedIn.set(true)
-            goto("/")
+            if (res.ok) {
+                loggedIn.set(true)
+                goto("/profile")
+            } else {
+                warning = "Could not log in."
+            }
         })
     }
 </script>
@@ -46,6 +52,10 @@
                 bind:value={password}
             />
         </div>
+
+        {#if warning}
+        <p class="warning">{warning}</p>
+        {/if}
         
         <button name="login">Log in</button>
     </form>

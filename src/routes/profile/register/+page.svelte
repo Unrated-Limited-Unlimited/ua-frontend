@@ -39,7 +39,7 @@
             })
         }).then((response) => {
             if (response.ok) {
-                goto("/profile");
+                goto("/profile/login");
                 return;
             };
             response.text().then(text => {
