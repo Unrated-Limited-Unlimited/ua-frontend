@@ -1,6 +1,11 @@
 <script lang="ts">
     import { limitNumber } from "$lib/utils";
+    import { query } from "$lib/graphql";
   import type { PageData } from "./$types";
+  import { error } from "@sveltejs/kit";
+  import Rating from "../../profile/rating.svelte";
+  import { graphql } from "msw";
+
 
   export let data: PageData;
   export let id = data.id;
@@ -15,12 +20,96 @@
     shortenedSummary = !shortenedSummary;
   }
 
+ 
   function truncateString(str: string, maxLength: number, useEllipsis: boolean = true): string {
     if (str.length > maxLength) {
         return str.substring(0, maxLength) + (useEllipsis ? '...' : '');
     }
     return str;
     }
+
+    const createThumbQL = `
+    mutation CreateThumb(
+      $ratingId: ID!,
+      $isGood: Boolean!
+        ) {
+    createThumb(
+      ratingId: $ratingId,
+      isGood: $isGood
+    ) {
+        id
+        isGood
+      }
+    }`;//will adding isGood here help any? could we use this to see what button has been pressed and therefore conduct an does-user-want-to-edit-check?
+
+     //post a thumb to the backend
+   async function createThumb(reviewid: number, isGood: boolean) {
+    //is there a check in the backend for existing thumbs?
+    //there seems to be. so no checks from here then?
+    //we can use the check in the backend to check if we need to edit the thumb??
+      query(fetch, createThumbQL, {
+        ratingId: reviewid,
+        isGood: isGood
+      }).catch((error)=>{if( !=isGood){editThumb(reviewid, isGood)}})
+
+
+     const editThumbQL = `
+    mutation EditThumb(
+      $id: ID!,
+      $isGood: Boolean!
+        ) {
+    editThumb(
+      id: $id,
+      isGood: $isGood
+    ) {
+        id
+      }
+    }`;
+
+      //TODO
+      //invoke this on "edit"-button press? or just on the other button press right away?
+      //what separates an "edit" from a "create"-invocation in the frontend
+      //this will require the view to change (ie show a text input box again)
+      //how will we do this?
+      async function editThumb(reviewid: number, isGood: boolean) {
+        //this should lead to an overwrite in the backend
+        //we will need: reviewid and the new value (only if it is not the same)
+        //there should be a check that the new press has actually been on the other button, not the same
+        //this should simply do the query:
+        query(fetch, editThumbQL, {
+        id: reviewid,
+        isGood: isGood
+      })
+
+        //but when do we approve of the change?
+        //simply when the user has pressed the other button?
+        //trust in the backend
+
+      }
+
+
+      const deleteThumbQL = `
+    mutation DeleteThumb(
+      $id: ID!,
+      $isGood: Boolean!
+        ) {
+    deleteThumb(
+      id: $id,
+      isGood: $isGood
+    ) {
+        id
+      }
+    }`;
+
+      //invoke this on "delete"-button press
+      async function deleteThumb(reviewid: number) {
+        query(fetch, deleteThumbQL, {
+        id: reviewid
+      })
+      }
+
+
+  }
 </script>
 
 <div class="flex-column whiskey-site">
@@ -118,14 +207,14 @@
         </div>
         <p>{review.body}</p>
         <h4>written by <a href="/profile/{review.user.id}">{review.user.name}</a></h4>
-        <div class="review-buttons">
-          <button class="hover-shadow">
+        <div class="review-buttons"> <!--legge editThumb til i knappene? hvordan?-->
+          <button on:click={()=>{createThumb(review.id, true)}} class="hover-shadow">
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
           </button>          
           
-          <button class="hover-shadow">
+          <button on:click={()=>{createThumb(review.id, false)}} class="hover-shadow">
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <path  transform="scale(-1, -1) translate(-20, -20)" d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
