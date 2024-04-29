@@ -8,8 +8,13 @@
   let shortenedSummary: boolean = true;
   let moreButtonNeeded: boolean = (data.whiskey.summary).length > 100;
   let categories = data.whiskey.categories;
+  let myreview = data.whiskey.review;
 
   let reviews = data.whiskey.ratings;
+  if(myreview){
+    reviews = reviews.filter(review => review.id !== myreview.id);
+    reviews = [myreview, ...reviews];
+  }
 
   function summarySwap() {
     shortenedSummary = !shortenedSummary;
@@ -62,7 +67,12 @@
               </svg>
             {/each}
           </div>
-          <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
+          {#if myreview}
+            <a href="/whiskey/{id}/rate">Edit your review!</a>
+            {:else}
+            {myreview}
+            <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
+          {/if}
         </div>
         <p>{data.whiskey.summary}</p>
     </div>

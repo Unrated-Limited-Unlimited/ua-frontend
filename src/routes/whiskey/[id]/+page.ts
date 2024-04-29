@@ -9,7 +9,18 @@ query Whiskey($id: ID!) {
         avgScore
         img
         summary
+        review {
+            id
+            title
+            score
+            body
+            user {
+                name
+                id
+            }
+        }
         ratings {
+            id
             title
             score
             body
