@@ -10,11 +10,15 @@
   let categories = data.whiskey.categories;
   let myreview = data.whiskey.review;
 
+  let isSelected = true;
+
   let reviews = data.whiskey.ratings;
   if(myreview){
     reviews = reviews.filter(review => review.id !== myreview.id);
     reviews = [myreview, ...reviews];
   }
+
+  const thumb_active : boolean = true;
 
   function roundToNDecimalPlaces(num: number, decimals: number): number {
   const factor = Math.pow(10, decimals);
@@ -43,7 +47,6 @@
         />
       </div>
       <div>
-        <!--<p>{data.whiskey.producer}</p>-->
         <h2>{data.whiskey.title}</h2>
         <div class="centered flex-inline">
           <h1>{roundScore}</h1>
@@ -79,6 +82,10 @@
           {/if}
         </div>
         <p>{data.whiskey.summary}</p>
+        <div class="sub-data column">
+          <p>{data.whiskey.price} NOK</p>
+          <p>{data.whiskey.volume}cl {data.whiskey.percentage}%</p>
+        </div>
     </div>
   </div>
   <div class="centered flex-column contrast-box taste-profile">
@@ -133,13 +140,14 @@
         <p>{review.body}</p>
         <h4>written by <a href="/profile/{review.user.id}">{review.user.name}</a></h4>
         <div class="review-buttons">
-          <button class="hover-shadow">
+          <!-- REMOVE isSelected with the boolean for THUMBACTIVE or something  -->
+          <button class="hover-shadow" class:active_thumb={isSelected}>
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
           </button>          
-          
-          <button class="hover-shadow">
+          <!-- REMOVE isSelected with the boolean for THUMBACTIVE or something  -->
+          <button class="review-buttons" class:active_thumb={!isSelected}>
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <path  transform="scale(-1, -1) translate(-20, -20)" d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
@@ -160,6 +168,10 @@
   }
   .taste-profile {
     padding-bottom: 2rem;
+  }
+
+  .active_thumb {
+    border: 3px solid var(--bg-color);
   }
 
   .main-box {
@@ -247,6 +259,13 @@
     width: 80vw;
     border: 2rem solid var(--navbar);
     border-radius: 2rem;
+  }
+
+  .sub-data {
+    p {
+      font-size: medium;
+      opacity: 0.7;
+    }
   }
 
   .review-buttons {

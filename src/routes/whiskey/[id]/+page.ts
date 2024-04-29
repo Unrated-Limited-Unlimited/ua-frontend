@@ -9,6 +9,9 @@ query Whiskey($id: ID!) {
         avgScore
         img
         summary
+        volume
+        percentage
+        price
         review {
             id
             title
