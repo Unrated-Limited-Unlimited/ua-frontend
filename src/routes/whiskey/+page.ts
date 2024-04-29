@@ -9,6 +9,7 @@ query Whiskeys($paging: Paging!) {
         title
         avgScore
         summary
+        price
     }
 }
 `
