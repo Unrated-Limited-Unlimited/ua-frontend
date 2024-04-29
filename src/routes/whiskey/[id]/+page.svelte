@@ -73,7 +73,7 @@
             {/each}
           </div>
           {#if myreview}
-            <a href="/whiskey/{id}/rate">Edit your review!</a>
+            <a href="/whiskey/{id}/edit/{myreview.id}">Edit your review!</a>
             {:else}
             {myreview}
             <a href="/whiskey/{id}/rate">Rate this whiskey!</a>
