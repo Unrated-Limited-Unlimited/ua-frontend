@@ -16,6 +16,11 @@
     reviews = [myreview, ...reviews];
   }
 
+  function roundToNDecimalPlaces(num: number, decimals: number): number {
+  const factor = Math.pow(10, decimals);
+  return Math.round(num * factor) / factor;
+  }
+
   function summarySwap() {
     shortenedSummary = !shortenedSummary;
   }
@@ -85,7 +90,7 @@
           <p>{category.name}</p>
           <div class="slider">
             <div class="slider-fill" style="width:{limitNumber(category.avgScore)*100}%">
-              <p>{limitNumber(category.avgScore*10)}<p>
+              <p>{limitNumber(roundToNDecimalPlaces(category.avgScore, 1))*10}<p>
             </div>
           </div>
         </div>
