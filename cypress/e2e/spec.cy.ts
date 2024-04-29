@@ -18,6 +18,7 @@ describe('Login Logout Test', () => {
     cy.visit('/')
     cy.contains('Profile')
     cy.get('a[href*="/profile"]').should('be.visible').click()
+    cy.wait(10000)
     cy.contains('You are not logged in')
     cy.get('a[href*="/login"]').should('be.visible').click()
     cy.get('input[name="username"]').type('fake@email.com')
