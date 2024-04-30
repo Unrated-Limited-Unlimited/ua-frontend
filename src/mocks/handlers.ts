@@ -31,7 +31,7 @@ const categories = [
 const whiskeys = [
   {
       "id": "1",
-      "title": "Jura",
+      "title": "Gordon & Macphail Mortlach 1949",
       "price": "500",
       "summary": "Jura is a distinguished single malt Scotch whisky, named after the Isle of Jura in the Inner Hebrides of Scotland, where it has been distilled since 1810. The distillery itself, located in the small, remote community of Craighouse, is one of the oldest in Scotland, embodying centuries of tradition and whisky-making expertise. Jura whisky is renowned for its unique character, which is as mysterious and wild as the island itself.",
       "percentage": "40%",
