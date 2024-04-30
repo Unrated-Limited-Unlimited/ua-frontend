@@ -2,6 +2,7 @@ import { query } from '$lib/graphql';
 import { loggedIn } from '../../../store/userStore';
 import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
 
 const getLoggedInUser = `
 query LoggedInUserInfo {
@@ -14,21 +15,13 @@ query LoggedInUserInfo {
 }`
 
 export const load: PageLoad = async ({ fetch }) => {
-    //List of themes
-    const themes = [
-        { id: 'standard', name: 'Standard' },
-        { id: 'dracula', name: 'Dracula' },
-        { id: 'val', name: 'Val' },
-    ];
-
+    console.log(get(loggedIn))
     if (get(loggedIn)) {
         const res = await query(fetch, getLoggedInUser)
         if (res.status === 200) {
 
-            return { user: (await res.json()).data.getLoggedInUser,
-                     themes,
-                 }
+            return { user: (await res.json()).data.getLoggedInUser }
         }
     }
-    return {}
+    redirect(302, "/profile/login")
 }

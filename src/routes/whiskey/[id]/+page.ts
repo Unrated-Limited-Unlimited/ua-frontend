@@ -9,6 +9,19 @@ query Whiskey($id: ID!) {
         avgScore
         img
         summary
+        volume
+        percentage
+        price
+        review {
+            id
+            title
+            score
+            body
+            user {
+                name
+                id
+            }
+        }
         ratings {
             id
             title
@@ -32,12 +45,12 @@ query Whiskey($id: ID!) {
 }`;
 
 export const load: PageLoad = async ({ fetch, params }) => {
-  const res = await query(fetch, whiskey, { id: params.id });
-  if (res.status !== 200) {
-    return { props: {} };
-  }
-  return {
-    whiskey: (await res.json()).data.getWhiskey,
-    id: params.id,
-  };
-};
+    const res = await query(fetch, whiskey, {id: params.id });
+	if (res.status !== 200) {
+        return { props: {}}
+    }
+    return {
+        whiskey: (await res.json()).data.getWhiskey,
+        id: params.id
+    }
+}

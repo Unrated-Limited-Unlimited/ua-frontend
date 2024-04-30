@@ -1,33 +1,29 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+  import type { PageData } from "../$types";
   import { get, writable } from "svelte/store";
   import { goto } from "$app/navigation";
   import { query } from "$lib/graphql";
-  import { onMount } from "svelte";
 
   export let data: PageData;
-  export let id = data.id;
+  export let id = data.rating.id;
 
   let sliders: HTMLInputElement[];
 
-  let rating = writable(0); // stores the rating
-  let hoveredRating = writable(0); // stores the hover state rating
-  let comment = "";
-  let title = "";
+  let rating = writable(data.rating.score*5); // stores the rating
+  let hoveredRating = writable(data.rating.score*5); // stores the hover state rating
+  let comment = data.rating.body;
+  let title = data.rating.title;
 
-  let sliderValues: Record<number, number> = {};
+  let sliderValues = writable<Record<number, number>>({});
 
-  interface Attribute {
-    id: string;
-    name: string;
+  function updateScore(id, newValue) {
+  sliderValues.update(values => ({ ...values, [id]: parseFloat(newValue) }));
   }
-  onMount(() => {
-  sliders = Array.from(document.querySelectorAll('.slider'));
-  sliders.forEach((slider) => {
-      slider.addEventListener('input', () => {
-        slider.classList.remove('unset');
-      });
-    });
+
+
+  // Populate sliderValues using forEach
+  data.rating.attributes.forEach(attribute => {
+    sliderValues.update(values => ({ ...values, [attribute.category.id]: attribute.score }));
   });
 
   function normalizeNumber(value: number, min: number, max: number): number {
@@ -53,13 +49,13 @@
   }
 
   const createRatingQL = `
-    mutation CreateRating(
-        $whiskeyId: ID!,
+    mutation editRating(
+        $id: ID!,
         $ratingInput : RatingInput!, 
         $attributeInputs: [AttributeInput]
     ) {
-    createRating(
-        whiskeyId: $whiskeyId, 
+      editRating(
+        id: $id, 
         ratingInput: $ratingInput,
         attributeInputs: $attributeInputs
     ) {
@@ -68,29 +64,30 @@
     }`;
 
   // Posts the rating to the backend.
-  async function createRating() {
-    const transformedAttributes = Object.entries(sliderValues).map(
+  async function editRating() {
+    const transformedAttributes = Object.entries(get(sliderValues)).map(
       ([id, score]) => {
+        // Assuming you want scores as floats for the backend; adjust as necessary
         return { id: id.toString(), score: score.toString() };
       },
     );
     console.log(transformedAttributes);
     query(fetch, createRatingQL, {
-      whiskeyId: id,
+      id: id,
       ratingInput: {
         body: comment,
         score: normalizeNumber(get(rating), 0, 5),
         title: title,
       },
       attributeInputs: transformedAttributes,
-    }).then(() => goto("/whiskey/" + id));
+    }).then(() => goto("/whiskey/" + data.rating.whiskey.id));
   }
 </script>
 
 <div class="main-window">
   <div class="flex-column centered">
-    <h1>Creating rating</h1>
-    <h2>{data.whiskey.title}</h2>
+    <h1>Edit rating</h1>
+    <h2>{data.rating.whiskey.title}</h2>
   </div>
   <div class="flex-column centered main-rating">
     <p>Rating Title</p>
@@ -129,14 +126,15 @@
         type="range"
         min="0"
         max="1"
-        step="0.20"
-        bind:value={sliderValues[parseInt(attribute.id)]}
-        class="slider unset"
+        step="0.25"
+        bind:value={$sliderValues[attribute.id]}
+        on:input={(e) => updateScore(attribute.id, parseFloat(e.target.value))}
+        class="slider"
       />
     {/each}
   </div>
   <div class="flex-column centered">
-  <button on:click={createRating}>Create Review</button>
+  <button on:click={editRating}>Update Review</button>
   </div>
 </div>
 
@@ -193,13 +191,6 @@
     border: none;
     cursor: pointer;
     background-color: var(--accent);
-  }
-  .unset::-webkit-slider-thumb {
-    opacity: 0.5;
-  }
-
-  .unset::-moz-range-thumb {
-    opacity: 0.5;
   }
 
   @media only screen and (max-width: 639px) {

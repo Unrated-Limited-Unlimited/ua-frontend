@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
 
     export let id: number;
 
@@ -9,11 +8,7 @@
 
     const colours = ["#562e2b", "#af7540", "#d2a150", "#333333", "#4e515a", "#f5f5f5"]
 
-    onMount(() =>{    
-        if (!image) {   
-            randomList(id, colours.length)
-        }
-    })
+    randomList(id, colours.length)
 
     function randomList(id: number, nr: number) {
         if (id < 0 || id >= Math.pow(nr, 12)) {
