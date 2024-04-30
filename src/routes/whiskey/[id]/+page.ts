@@ -1,5 +1,5 @@
 import { query } from "$lib/graphql";
-import type { PageLoad } from "../../profile/$types"
+import type { PageLoad } from "../../profile/$types";
 
 const whiskey = `
 query Whiskey($id: ID!) {
@@ -21,6 +21,10 @@ query Whiskey($id: ID!) {
                 name
                 id
             }
+            votedThumb{
+                id
+                isGood
+            }
         }
         ratings {
             id
@@ -30,6 +34,10 @@ query Whiskey($id: ID!) {
             user {
                 name
                 id
+            }
+            votedThumb{
+                id
+                isGood
             }
         }
         categories {
