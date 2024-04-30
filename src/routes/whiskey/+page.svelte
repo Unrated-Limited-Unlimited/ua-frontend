@@ -17,6 +17,7 @@
             title
             avgScore
             summary
+            price
         }
     }
     `;
@@ -47,6 +48,7 @@
     let searchbar_value = "";
     let search_value = "";
     let currentSortType : string = "DEFAULT";
+    let reverse_boolean : boolean = false;
 
     async function searchWhiskey(event: Event){
         whiskeys = [];
@@ -69,7 +71,13 @@
     async function fetchMoreWhiskeys() {
         isLoading = true;
 
-        const res = await query(fetch, WHISKEYS_QUERY, {paging: {page: currentPage, size: pageSize}, sort: {sortType: currentSortType}, filters: {field: {title: search_value}}});
+        const res = await query(fetch, WHISKEYS_QUERY, 
+            {
+                paging: {page: currentPage, size: pageSize},   
+                sort: {sortType: currentSortType, reverse: reverse_boolean}, 
+                filters: {field: {title: search_value}}
+            });
+
         if (res.status === 200) {
         const jsonData = await res.json();
         if (jsonData.data && jsonData.data.getWhiskeys.length > 0) {
@@ -80,6 +88,16 @@
         console.error("Failed to fetch data:", await res.json());
         }
         isLoading = false;
+    }
+
+    function swapReverse(event: Event){
+        if(reverse_boolean) {
+            reverse_boolean = false;
+        }
+        else {
+            reverse_boolean = true;
+        }
+        searchWhiskey(event)
     }
 
     function checkScroll() {
@@ -128,8 +146,13 @@
                     <option value="PRICE">Price</option>
                     <option value="POPULAR">Popular</option>
                     <option value="RANDOM">Random</option>
+                    {#if $featureFlagStore?.recommendation}
                     <option value="RECOMMENDED">Recommended</option>
+                    {/if}
                 </select>
+                <button on:click={swapReverse}>
+                    reverse
+                </button>
             </div>
         </div>
         <div class="grid-container">
@@ -141,9 +164,10 @@
                     </div>
                     <div class="flex-column centered">
                         <h2>
-                            {whiskey.title}
+                            {truncateString(whiskey.title, 20, true)}
                         </h2>
                         <p>{truncateString(whiskey.summary, 30)}</p>
+                        <p>{whiskey.price} NOK</p>
                         <div class="stars">
                             {#each Array(Math.round(limitNumber(whiskey.avgScore)*5)) as _, index}
                             <svg class="rating-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -222,7 +246,8 @@
         padding-left: 11.25px;
         height: 15rem;
         width: auto;
-        color: var(--contrast-text)
+        color: var(--contrast-text);
+        overflow-wrap: break-word;
     }
     .whiskey-view-image-container{
         background-color: white;
@@ -300,9 +325,14 @@
     }
 
     .sort-thing {
+        gap: 1rem;
         display: inline-flex;
+        align-items: center;
         p{
             padding: 0;
+        }
+        button {
+            height: 2rem;
         }
     }
 
