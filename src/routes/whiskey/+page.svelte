@@ -200,6 +200,7 @@
         grid-template-columns: 96vw;
         gap: 2vw;
         margin: 2vw;
+        text-align: center;
     }
 
     @media only screen and (max-width: 639px) {
@@ -339,4 +340,8 @@
     }
 
     body {margin: 0}
+    h2 {
+        padding: 0;
+        margin: 0;
+    }
 </style>
