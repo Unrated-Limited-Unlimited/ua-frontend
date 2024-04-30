@@ -6,7 +6,8 @@ import { FLAGSMITH } from '$lib/env';
 
 type FeatureFlags = {
     fancyLogo: boolean,
-    wiskeySpelling: string
+    wiskeySpelling: string,
+    recommendation: boolean
 }
 
 export const featureFlagStore: Writable<FeatureFlags | null> = writable(null);
@@ -14,7 +15,8 @@ export const featureFlagStore: Writable<FeatureFlags | null> = writable(null);
 function setFeatures(flagsmith: IFlagsmith) {
     featureFlagStore.set({ 
         fancyLogo: flagsmith.hasFeature("logo_change"),
-        wiskeySpelling: flagsmith.getValue("whiskey_spelling")
+        wiskeySpelling: flagsmith.getValue("whiskey_spelling"),
+        recommendation: flagsmith.hasFeature("recommendation")
     })
 }
 
@@ -23,7 +25,8 @@ async function initFlagsmith(flagsmith: IFlagsmith) {
         environmentID: FLAGSMITH,
         defaultFlags: {
             logo_change: { enabled: false },
-            whiskey_spelling: { enabled: true, value: "whiskey" }
+            whiskey_spelling: { enabled: true, value: "whiskey" },
+            recommendation: { enabled: true }
         },
         onChange() {
             setFeatures(flagsmith)

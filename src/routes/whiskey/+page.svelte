@@ -146,7 +146,9 @@
                     <option value="PRICE">Price</option>
                     <option value="POPULAR">Popular</option>
                     <option value="RANDOM">Random</option>
+                    {#if $featureFlagStore?.recommendation}
                     <option value="RECOMMENDED">Recommended</option>
+                    {/if}
                 </select>
                 <button on:click={swapReverse}>
                     reverse

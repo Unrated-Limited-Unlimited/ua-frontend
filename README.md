@@ -45,6 +45,6 @@ npm install
 npm run build:static
 npx cap sync
 npx capacitor-assets generate
-npx open android
+npx cap open android
 ```
 The last line will open android studio.
