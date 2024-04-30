@@ -43,14 +43,24 @@
     }`;//will adding isGood here help any? could we use this to see what button has been pressed and therefore conduct an does-user-want-to-edit-check?
 
      //post a thumb to the backend
-   async function createThumb(reviewid: number, isGood: boolean) {
+   async function createThumb(review: any, isGood: boolean) {
     //is there a check in the backend for existing thumbs?
     //there seems to be. so no checks from here then?
     //we can use the check in the backend to check if we need to edit the thumb??
-      query(fetch, createThumbQL, {
-        ratingId: reviewid,
+    let thumbResult
+    if(review.votedThumb){
+     thumbResult = editThumb(review, isGood)
+    }
+    else{
+      thumbResult = query(fetch, createThumbQL, {
+        ratingId: review.id,
         isGood: isGood
-      }).catch((error)=>{if( !=isGood){editThumb(reviewid, isGood)}})
+      });
+
+      (await thumbResult).json().then((r) => {review.votedThumb = r.data.createThumb})
+    }
+
+  }
 
 
      const editThumbQL = `
@@ -63,6 +73,7 @@
       isGood: $isGood
     ) {
         id
+        isGood
       }
     }`;
 
@@ -71,15 +82,25 @@
       //what separates an "edit" from a "create"-invocation in the frontend
       //this will require the view to change (ie show a text input box again)
       //how will we do this?
-      async function editThumb(reviewid: number, isGood: boolean) {
+      async function editThumb(review: any, isGood: boolean) {
         //this should lead to an overwrite in the backend
         //we will need: reviewid and the new value (only if it is not the same)
         //there should be a check that the new press has actually been on the other button, not the same
         //this should simply do the query:
-        query(fetch, editThumbQL, {
-        id: reviewid,
+
+       const thumbResult = query(fetch, editThumbQL, {
+        id: review.votedThumb.id,
         isGood: isGood
-      })
+      });
+
+      
+       (await thumbResult).json().then((r) => review.votedThumb = r.data.editThumb)
+
+
+
+
+
+
 
         //but when do we approve of the change?
         //simply when the user has pressed the other button?
@@ -91,11 +112,9 @@
       const deleteThumbQL = `
     mutation DeleteThumb(
       $id: ID!,
-      $isGood: Boolean!
         ) {
     deleteThumb(
       id: $id,
-      isGood: $isGood
     ) {
         id
       }
@@ -109,7 +128,7 @@
       }
 
 
-  }
+  
 </script>
 
 <div class="flex-column whiskey-site">
@@ -208,17 +227,20 @@
         <p>{review.body}</p>
         <h4>written by <a href="/profile/{review.user.id}">{review.user.name}</a></h4>
         <div class="review-buttons"> <!--legge editThumb til i knappene? hvordan?-->
-          <button on:click={()=>{createThumb(review.id, true)}} class="hover-shadow">
+          <button on:click={()=>{createThumb(review, true)}} class="hover-shadow">
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <path d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
           </button>          
           
-          <button on:click={()=>{createThumb(review.id, false)}} class="hover-shadow">
+          <button on:click={()=>{createThumb(review, false)}} class="hover-shadow">
             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <path  transform="scale(-1, -1) translate(-20, -20)" d="M12.72 2c.15-.02.26.02.41.07.56.19.83.79.66 1.35-.17.55-1 3.04-1 3.58 0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27.21-.41.6-.68 1-.73zM2 8h2v9H2V8z"/>
             </svg>
-          </button>  
+          </button>
+          {#if review.votedThumb}
+          <p>{review.votedThumb.isGood}</p>
+          {/if}
         </div>
       </div>
     {/each}

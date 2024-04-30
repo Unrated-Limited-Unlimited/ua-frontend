@@ -18,6 +18,10 @@ query Whiskey($id: ID!) {
                 name
                 id
             }
+            votedThumb{
+                id
+                isGood
+            }
         }
         categories {
             id
