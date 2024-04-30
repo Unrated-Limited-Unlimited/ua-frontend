@@ -7,7 +7,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 describe('Login Logout Test', () => {
   it('Check whiskey pages', () => {
     cy.visit('/')
-    // cy.get('a[href*="/whiskey"]').should('be.visible').click()
     cy.contains('Tullamore Dew').click()
     cy.contains('written by Kaspar')
     cy.contains('User Reviews')

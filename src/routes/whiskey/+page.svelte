@@ -142,13 +142,15 @@
                 <p>sort by:</p>
                 <select bind:value={currentSortType} on:change={handleSelect}>
                     <option value="DEFAULT">Standard</option>
-                    <option value="BEST">Best Rating</option>
-                    <option value="PRICE">Price</option>
-                    <option value="POPULAR">Popular</option>
-                    <option value="RANDOM">Random</option>
                     {#if $featureFlagStore?.recommendation}
                     <option value="RECOMMENDED">Recommended</option>
                     {/if}
+                    <option value="BEST">Best Rating</option>
+                    <option value="POPULAR">Popular</option>
+                    <option value="HIGHEST">Ratring</option>
+                    <option value="PRICE">Price</option>
+                    <option value="VALUE">Price per volume</option>
+                    <option value="RANDOM">Random</option>
                 </select>
                 <button on:click={swapReverse}>
                     reverse

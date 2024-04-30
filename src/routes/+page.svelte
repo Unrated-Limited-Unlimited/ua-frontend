@@ -1,6 +1,5 @@
 <script lang="ts">
     import { featureFlagStore } from "../store/featureFlagStore";
-    export let data: PageData;
 </script>
 
 <body>
